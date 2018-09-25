@@ -9,6 +9,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(process.env.TG_BOT, {polling: true});
 
 let iObj = {};
+let tgLastUserInfo = {};
 
 const SERIAL_PORT = process.env.SERIAL_PORT;
 
@@ -48,7 +49,7 @@ port.on('data', function (dataBuffer) {
 bot.onText(/disabled/, (msg, match) => {
   port.write('00 24.5');
   const chatId = msg.chat.id;
-
+  tgLastUserInfo = msg;
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, 'DISABLED');
   setTimeout(() => {
@@ -59,6 +60,7 @@ bot.onText(/disabled/, (msg, match) => {
 bot.onText(/enabled/, (msg, match) => {
   port.write('11 24.5');
   const chatId = msg.chat.id;
+  tgLastUserInfo = msg;
 
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, 'ENABLED');
@@ -69,6 +71,7 @@ bot.onText(/enabled/, (msg, match) => {
 
 bot.onText(/status/, (msg, match) => {
   const chatId = msg.chat.id;
+  tgLastUserInfo = msg;
 
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, JSON.stringify(iObj, null, 2));
@@ -78,6 +81,7 @@ bot.onText(/iamadmin (.+)/, (msg, match) => {
   // 'msg' is the received Message from Telegram
   // 'match' is the result of executing the regexp above on the text content
   // of the message
+  tgLastUserInfo = msg;
 
   const chatId = msg.chat.id;
   const resp = match[1];
@@ -92,4 +96,10 @@ bot.onText(/iamadmin (.+)/, (msg, match) => {
 
 bot.on('polling_error', (error) => {
   console.log(error);  // => 'EFATAL'
+});
+
+bot.onText(/log/, (msg, match) => {
+  const chatId = msg.chat.id;
+
+  bot.sendMessage(chatId, JSON.stringify(tgLastUserInfo, null, 2));
 });
