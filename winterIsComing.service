@@ -1,0 +1,13 @@
+[Service]
+WorkingDirectory=/root/WinterIsComingV2
+ExecStart=/usr/bin/node index.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=winterIsComingV2
+User=root
+Group=root
+Environment='NODE_ENV=production'
+
+[Install]
+WantedBy=multi-user.target
