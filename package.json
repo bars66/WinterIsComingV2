@@ -8,6 +8,7 @@
   "dependencies": {
     "dotenv": "^6.0.0",
     "logzio-nodejs": "^0.4.15",
+    "node-telegram-bot-api": "^0.30.0",
     "serialport": "^7.0.2"
   }
 }
