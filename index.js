@@ -11,6 +11,7 @@ module.exports = {
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(process.env.TG_BOT, {polling: true});
 const co2Sensor = require('./co2Sensor');
+new co2Sensor();
 
 let iObj = {};
 let tgLastUserInfo = {};

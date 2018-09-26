@@ -20,7 +20,7 @@ class Co2Sensor {
     this.cmd = new Buffer([0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79]);
     if (!DEBUG) {
       this.port = new SerialPort(PORT, {
-        baudrate: 9600,
+        baudRate: 9600,
         dataBits: 8,
         parity: 'none'
       });
