@@ -5,8 +5,12 @@ const logger = require('logzio-nodejs').createLogger({
   host: 'listener.logz.io',
   type: 'winterIsComing2'
 });
+module.exports = {
+  logger,
+}
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(process.env.TG_BOT, {polling: true});
+const co2Sensor = require('./co2Sensor');
 
 let iObj = {};
 let tgLastUserInfo = {};
@@ -14,7 +18,7 @@ let tgLastUserInfo = {};
 const SERIAL_PORT = process.env.SERIAL_PORT;
 
 const port = new SerialPort(SERIAL_PORT, {
-  baudRate: 9600
+  baudRate: 38400
 });
 
 port.on('data', function (dataBuffer) {
