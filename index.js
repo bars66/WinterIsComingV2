@@ -28,8 +28,9 @@ port.on('data', function (dataBuffer) {
   const [type, data] = dataString.split('=');
 
   if (type === 'I') {
-    const [canaltTmp, insideTmp, timeDelta, heaterPower, ventEnabled, heaterEnabled, temp] = data.split(';');
+    const [canaltTmp, insideTmp, timeDelta, heaterPowerAvg, ventEnabled, heaterEnabled, temp] = data.split(';');
     const frequency = (1 / timeDelta) * 1000000;
+    const heaterPower = +heaterPowerAvg / 5;
     const heaterWatts = heaterPower * 240;
 
     iObj = {
