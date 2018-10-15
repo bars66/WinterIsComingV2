@@ -18,12 +18,12 @@ class Control {
   constructor(_logger) {
     _defineProperty(this, "CO2_MAX_TRESHOLD", 900);
 
-    _defineProperty(this, "CO2_MIN_TRESHOLD", 500);
+    _defineProperty(this, "CO2_MIN_TRESHOLD", 800);
 
     _defineProperty(this, "TMP_TRESHOLD", 1.5);
 
     _defineProperty(this, "ventByCo2AndTemp", () => {
-      const co2Value = this.sensors.co2.value;
+      const co2Value = this.sensors.co2.value.value;
       const insideTmpValue = this.sensors.temp.value.insideTmp;
       const ventController = this.controllers.vent;
       const ventControllerTemp = this.controllers.vent.params.temp;
