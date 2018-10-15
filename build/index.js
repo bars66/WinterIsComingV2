@@ -72,7 +72,7 @@ class Control {
     this.controllers = {
       vent: _ventController.VentController.getSingletone(_logger)
     };
-    setTimeout(() => {
+    setInterval(() => {
       this.handle();
     }, 20 * 1000);
     this.tgBot = new _telegramController.TelegramController(this);
