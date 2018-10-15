@@ -10,7 +10,7 @@ export class TelegramController {
   }
 
   watch = () => {
-    this.bot.onText(/status/, this.cmd_status);
+    this.bot.onText(/status/, this.cmd_status)
 
     this.bot.on('polling_error', (error) => {
       this.logger.error(error)
@@ -33,6 +33,4 @@ export class TelegramController {
 
     this.bot.sendMessage(chatId, JSON.stringify(cnt, null, 2))
   }
-
-
 }

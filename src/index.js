@@ -31,13 +31,13 @@ class Control {
 
   ventByCo2AndTemp = () => {
     const co2Value = this.sensors.co2.value.value
-    const insideTmpValue = this.sensors.temp.value.insideTmp
+    const insideTmpValue = this.sensors.temp.value.inside
     const ventController = this.controllers.vent
     const ventControllerTemp = this.controllers.vent.params.temp
     logger.debug({
       co2Value,
       insideTmpValue,
-      ventControllerTemp,
+      ventControllerTemp
     }, 'ventByCo2AndTemp')
     if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
       logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by temp treshold')
