@@ -69,6 +69,7 @@ class VentController extends _events.default {
         heaterEnabled
       } = this.params;
       const tempLength = `${temp}`;
+      this.logger.debug(`SEND::: ${ventEnabled}${heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`);
       this.port.write(`${ventEnabled}${heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`);
       this.params = _objectSpread({}, this.params, {
         temp
