@@ -10,9 +10,9 @@ export class TempSensor extends AbstractSensor {
   }
 
   subscribe = () => {
-    this.vC.on('values', ({ canalTmp, insideTmp }) => {
+    this.vC.on('values', ({ canaltTmp, insideTmp }) => {
       this.value = {
-        canal: canalTmp,
+        canal: canaltTmp,
         inside: insideTmp
       }
     })
