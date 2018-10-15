@@ -29,7 +29,6 @@ export class VentController extends EventEmitter {
   }
 
   static getSingletone = (logger) => {
-    console.log(logger);
     if (!VentController.instance) {
       VentController.instance = new VentController(logger)
     }
@@ -80,7 +79,7 @@ export class VentController extends EventEmitter {
   }
 
   subscribe = () => {
-    this.port.on('data', function (dataBuffer) {
+    this.port.on('data', (dataBuffer) => {
       const dataString = dataBuffer.toString('utf8')
       const [type, data] = dataString.split('=')
 

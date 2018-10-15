@@ -22,4 +22,4 @@ const logger = bunyan.createLogger({
   ]
 })
 
-module.exports = logger
+export default logger;
