@@ -71,8 +71,9 @@ export class VentController extends EventEmitter {
     this.checkPort()
     const { ventEnabled, heaterEnabled } = this.params
     const tempLength = `${temp}`
-    this.logger.debug(`SEND::: ${ventEnabled}${heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`);
-    this.port.write(`${ventEnabled}${heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`)
+    const sendStr = `${+ventEnabled}${+heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`;
+    this.logger.debug(`SEND::: ${sendStr}`);
+    this.port.write(sendStr)
     this.params = {
       ...this.params,
       temp
