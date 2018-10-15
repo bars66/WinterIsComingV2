@@ -53,7 +53,7 @@ class TelegramController {
       const chatId = msg.chat.id;
       const resp = match[1];
       this.control.controllers.vent.setTemp(resp);
-      bot.sendMessage(chatId, `SEND 11 ${resp}`);
+      this.bot.sendMessage(chatId, `SEND 11 ${resp}`);
       setTimeout(() => {
         this.cmd_status(msg, match);
       }, 10 * 1000);
