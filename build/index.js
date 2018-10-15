@@ -28,6 +28,12 @@ class Control {
       const ventController = this.controllers.vent;
       const ventControllerTemp = this.controllers.vent.params.temp;
 
+      _logger2.default.debug({
+        co2Value,
+        insideTmpValue,
+        ventControllerTemp
+      }, 'ventByCo2AndTemp');
+
       if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
         _logger2.default.info({
           msgType: 'ventByCo2AndTemp'
