@@ -1,8 +1,10 @@
 import { VentController } from '../controllers/ventController'
+import { AbstractSensor } from './abstractSensor'
 
-export class TempSensor {
+export class TempSensor extends AbstractSensor {
   value = {};
   constructor (logger) {
+    super();
     this.vC = VentController.getSingletone(logger)
     this.subscribe()
   }

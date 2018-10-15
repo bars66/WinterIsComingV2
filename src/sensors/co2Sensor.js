@@ -1,12 +1,18 @@
+import { AbstractSensor } from './abstractSensor'
+
 require('dotenv').config()
 const PORT = '/dev/ttyS2'
 const DEBUG = process.env.DEBUG
 const SerialPort = require('serialport')
 const Readline = SerialPort.parsers.Readline
 
-export class Co2Sensor {
+import {AbstractSensor} from './abstractSensor';
+
+export class Co2Sensor extends AbstractSensor {
   value = {};
   constructor (logger) {
+    super();
+
     this.cmd = new Buffer([0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79])
     if (!DEBUG) {
       this.port = new SerialPort(PORT, {

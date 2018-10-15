@@ -26,11 +26,19 @@ export class TelegramController {
 
     const chatId = msg.chat.id
 
-    const cnt = {
-      ...this.control,
-      tgBot: undefined
+    const sensors = {};
+    const controllers = {};
+
+    const {sensors: sensorsControl, controllers: controllersControl} = this.control;
+
+    for (const key in sensorsControl) {
+      sensors[key] = sensorsControl[key].getValues();
     }
 
-    this.bot.sendMessage(chatId, JSON.stringify(cnt, null, 2))
+    for (const key in controllersControl) {
+      controllers[key] = controllersControl[key].params;
+    }
+
+    this.bot.sendMessage(chatId, JSON.stringify({sensors, controllers}, null, 2))
   }
 }
