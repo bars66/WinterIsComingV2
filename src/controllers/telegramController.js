@@ -26,7 +26,12 @@ export class TelegramController {
 
     const chatId = msg.chat.id
 
-    this.bot.sendMessage(chatId, JSON.stringify(this.control, null, 2))
+    const cnt = {
+      ...this.control,
+      tgBot: undefined
+    }
+
+    this.bot.sendMessage(chatId, JSON.stringify(cnt, null, 2))
   }
 
 
