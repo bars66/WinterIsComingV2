@@ -34,7 +34,11 @@ class Control {
     const insideTmpValue = this.sensors.temp.value.insideTmp
     const ventController = this.controllers.vent
     const ventControllerTemp = this.controllers.vent.params.temp
-
+    logger.debug({
+      co2Value,
+      insideTmpValue,
+      ventControllerTemp,
+    }, 'ventByCo2AndTemp')
     if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
       logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by temp treshold')
       ventController.enable()
