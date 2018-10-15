@@ -22,7 +22,7 @@ class Control {
       vent: VentController.getSingletone(logger)
     }
 
-    setTimeout(() => {
+    setInterval(() => {
       this.handle()
     }, 20 * 1000)
 
