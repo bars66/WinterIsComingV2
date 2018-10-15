@@ -123,9 +123,6 @@ new Control(_logger2.default); // bot.onText(/disabled/, (msg, match) => {
 //   }, 10 * 1000)
 // })
 //
-// bot.on('polling_error', (error) => {
-//   console.log(error) // => 'EFATAL'
-// })
 //
 // bot.onText(/log/, (msg, match) => {
 //   const chatId = msg.chat.id

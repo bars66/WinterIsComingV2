@@ -127,6 +127,8 @@ exports.VentController = VentController;
 _defineProperty(VentController, "instance", void 0);
 
 _defineProperty(VentController, "getSingletone", logger => {
+  console.log(logger);
+
   if (!VentController.instance) {
     VentController.instance = new VentController(logger);
   }
