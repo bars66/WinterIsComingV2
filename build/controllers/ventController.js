@@ -76,7 +76,7 @@ class VentController extends _events.default {
     });
 
     _defineProperty(this, "subscribe", () => {
-      this.port.on('data', function (dataBuffer) {
+      this.port.on('data', dataBuffer => {
         const dataString = dataBuffer.toString('utf8');
         const [type, data] = dataString.split('=');
 
@@ -127,8 +127,6 @@ exports.VentController = VentController;
 _defineProperty(VentController, "instance", void 0);
 
 _defineProperty(VentController, "getSingletone", logger => {
-  console.log(logger);
-
   if (!VentController.instance) {
     VentController.instance = new VentController(logger);
   }

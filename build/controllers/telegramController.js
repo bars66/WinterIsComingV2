@@ -15,7 +15,7 @@ class TelegramController {
   constructor(control) {
     _defineProperty(this, "watch", () => {
       this.bot.onText(/status/, this.cmd_status);
-      this.bot.bot.on('polling_error', error => {
+      this.bot.on('polling_error', error => {
         this.logger.error(error);
       });
     });

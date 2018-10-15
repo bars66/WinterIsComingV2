@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 require('dotenv').config();
 
 const bunyan = require('bunyan');
@@ -20,4 +25,5 @@ const logger = bunyan.createLogger({
     stream: logzioStream
   }]
 });
-module.exports = logger;
+var _default = logger;
+exports.default = _default;
