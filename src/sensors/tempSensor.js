@@ -1,6 +1,7 @@
 import { VentController } from '../controllers/ventController'
 
 export class TempSensor {
+  value = {};
   constructor (logger) {
     this.vC = VentController.getSingletone(logger)
     this.subscribe()

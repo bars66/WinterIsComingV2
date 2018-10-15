@@ -7,7 +7,7 @@ import { TempSensor } from './sensors/tempSensor'
 import { TelegramController } from './controllers/telegramController'
 
 class Control {
-  CO2_MAX_TRESHOLD = 600;
+  CO2_MAX_TRESHOLD = 900;
   CO2_MIN_TRESHOLD = 500;
   TMP_TRESHOLD = 1.5;
 
