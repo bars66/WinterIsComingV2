@@ -29,6 +29,7 @@ export class VentController extends EventEmitter {
   }
 
   static getSingletone = (logger) => {
+    console.log(logger);
     if (!VentController.instance) {
       VentController.instance = new VentController(logger)
     }

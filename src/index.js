@@ -108,9 +108,7 @@ new Control(logger)
 //   }, 10 * 1000)
 // })
 //
-// bot.on('polling_error', (error) => {
-//   console.log(error) // => 'EFATAL'
-// })
+
 //
 // bot.onText(/log/, (msg, match) => {
 //   const chatId = msg.chat.id
