@@ -8,7 +8,7 @@ import { TelegramController } from './controllers/telegramController'
 
 class Control {
   CO2_MAX_TRESHOLD = 900;
-  CO2_MIN_TRESHOLD = 500;
+  CO2_MIN_TRESHOLD = 800;
   TMP_TRESHOLD = 1.5;
 
   constructor (logger) {
@@ -30,7 +30,7 @@ class Control {
   }
 
   ventByCo2AndTemp = () => {
-    const co2Value = this.sensors.co2.value
+    const co2Value = this.sensors.co2.value.value
     const insideTmpValue = this.sensors.temp.value.insideTmp
     const ventController = this.controllers.vent
     const ventControllerTemp = this.controllers.vent.params.temp

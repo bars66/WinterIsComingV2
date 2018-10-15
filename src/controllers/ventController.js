@@ -105,12 +105,13 @@ export class VentController extends EventEmitter {
 
         this.logger.info(this.params)
         return
+      } else {
+        this.logger.info({
+          msgType: type,
+          data
+        })
       }
 
-      this.logger.info({
-        msgType: type,
-        data
-      })
     })
   }
 }
