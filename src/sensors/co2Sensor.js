@@ -1,5 +1,3 @@
-import { AbstractSensor } from './abstractSensor'
-
 require('dotenv').config()
 const PORT = '/dev/ttyS2'
 const DEBUG = process.env.DEBUG
