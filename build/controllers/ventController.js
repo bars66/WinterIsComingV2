@@ -99,7 +99,6 @@ class VentController extends _events.default {
           };
           this.emit('values', this.params);
           this.logger.info(this.params);
-          return;
         } else {
           this.logger.info({
             msgType: type,

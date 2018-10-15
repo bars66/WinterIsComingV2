@@ -24,7 +24,7 @@ class Control {
 
     _defineProperty(this, "ventByCo2AndTemp", () => {
       const co2Value = this.sensors.co2.value.value;
-      const insideTmpValue = this.sensors.temp.value.insideTmp;
+      const insideTmpValue = this.sensors.temp.value.inside;
       const ventController = this.controllers.vent;
       const ventControllerTemp = this.controllers.vent.params.temp;
 
