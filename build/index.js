@@ -16,9 +16,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 class Control {
   constructor(_logger) {
-    _defineProperty(this, "CO2_MAX_TRESHOLD", 900);
+    _defineProperty(this, "CO2_MAX_TRESHOLD", 600);
 
-    _defineProperty(this, "CO2_MIN_TRESHOLD", 800);
+    _defineProperty(this, "CO2_MIN_TRESHOLD", 490);
 
     _defineProperty(this, "TMP_TRESHOLD", 1.5);
 

@@ -9,8 +9,6 @@ var _nodeTelegramBotApi = _interopRequireDefault(require("node-telegram-bot-api"
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class TelegramController {
@@ -29,12 +27,25 @@ class TelegramController {
     _defineProperty(this, "cmd_status", (msg, match) => {
       this.logMessage(msg);
       const chatId = msg.chat.id;
+      const sensors = {};
+      const controllers = {};
+      const {
+        sensors: sensorsControl,
+        controllers: controllersControl
+      } = this.control;
 
-      const cnt = _objectSpread({}, this.control, {
-        tgBot: undefined
-      });
+      for (const key in sensorsControl) {
+        sensors[key] = sensorsControl[key].getValues();
+      }
 
-      this.bot.sendMessage(chatId, JSON.stringify(cnt, null, 2));
+      for (const key in controllersControl) {
+        controllers[key] = controllersControl[key].params;
+      }
+
+      this.bot.sendMessage(chatId, JSON.stringify({
+        sensors,
+        controllers
+      }, null, 2));
     });
 
     this.control = control;

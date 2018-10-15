@@ -7,10 +7,14 @@ exports.TempSensor = void 0;
 
 var _ventController = require("../controllers/ventController");
 
+var _abstractSensor = require("./abstractSensor");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-class TempSensor {
+class TempSensor extends _abstractSensor.AbstractSensor {
   constructor(logger) {
+    super();
+
     _defineProperty(this, "value", {});
 
     _defineProperty(this, "subscribe", () => {
