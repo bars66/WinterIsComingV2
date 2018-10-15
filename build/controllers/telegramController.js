@@ -15,6 +15,7 @@ class TelegramController {
   constructor(control) {
     _defineProperty(this, "watch", () => {
       this.bot.onText(/status/, this.cmd_status);
+      this.bot.onText(/iamadmin (.+)/, this.cmd_setTemp);
       this.bot.on('polling_error', error => {
         this.logger.error(error);
       });
@@ -46,6 +47,16 @@ class TelegramController {
         sensors,
         controllers
       }, null, 2));
+    });
+
+    _defineProperty(this, "cmd_setTemp", (msg, match) => {
+      const chatId = msg.chat.id;
+      const resp = match[1];
+      this.control.controllers.vent.setTemp(resp);
+      bot.sendMessage(chatId, `SEND 11 ${resp}`);
+      setTimeout(() => {
+        this.cmd_status(msg, match);
+      }, 10 * 1000);
     });
 
     this.control = control;

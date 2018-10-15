@@ -19,11 +19,11 @@ class TempSensor extends _abstractSensor.AbstractSensor {
 
     _defineProperty(this, "subscribe", () => {
       this.vC.on('values', ({
-        canalTmp,
+        canaltTmp,
         insideTmp
       }) => {
         this.value = {
-          canal: canalTmp,
+          canal: canaltTmp,
           inside: insideTmp
         };
       });
