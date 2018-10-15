@@ -11,6 +11,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 class TempSensor {
   constructor(logger) {
+    _defineProperty(this, "value", {});
+
     _defineProperty(this, "subscribe", () => {
       this.vC.on('values', ({
         canalTmp,
