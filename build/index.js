@@ -14,6 +14,8 @@ var _telegramController = require("./controllers/telegramController");
 
 var _events = require("./controllers/events");
 
+var _sunriseSensor = require("./sensors/sunriseSensor");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -53,6 +55,7 @@ class Control {
     new _ventController.Vent(this.context);
     new _co2Sensor.Co2Room(this.context);
     new _tempSensor.Temp(this.context);
+    new _sunriseSensor.Sunrise(this.context);
 
     _nodeCron.default.schedule('* * * * * *', () => {
       this.runHandlersByTime('Second');
