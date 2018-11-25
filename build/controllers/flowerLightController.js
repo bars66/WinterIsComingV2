@@ -103,7 +103,7 @@ class FlowerLightController {
       }
     });
 
-    this.logger = logger;
+    this.logger = context.logger;
     this.context = context;
     this.context.controllers.FlowerLight = this;
     this.logger.debug('controllers/ FlowerLight started');

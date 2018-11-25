@@ -173,7 +173,7 @@ class Vent {
       }
     });
 
-    this.logger = _logger.default;
+    this.logger = context.logger;
     this.context = context;
     const port = new _serialport.default(VENT_SERIAL_PORT, {
       baudRate: 38400
