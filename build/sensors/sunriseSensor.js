@@ -5,9 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Sunrise = void 0;
 
-var _suncalc = require("suncalc");
+var _suncalc = _interopRequireDefault(require("suncalc"));
 
 var _abstractSensor = require("./abstractSensor");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20,7 +22,7 @@ class Sunrise extends _abstractSensor.AbstractSensor {
     _defineProperty(this, "value", {});
 
     _defineProperty(this, "handle_Minute", () => {
-      this.value = _suncalc.SunCalc.getTimes(new Date(), lat, lon);
+      this.value = _suncalc.default.getTimes(new Date(), lat, lon);
     });
 
     this.context = context;
