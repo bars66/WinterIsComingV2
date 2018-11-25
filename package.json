@@ -15,7 +15,8 @@
     "logzio-nodejs": "^0.4.15",
     "node-cron": "^2.0.3",
     "node-telegram-bot-api": "^0.30.0",
-    "serialport": "^7.0.2"
+    "serialport": "^7.0.2",
+    "suncalc": "^1.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

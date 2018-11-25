@@ -7,6 +7,7 @@ import { Vent } from './controllers/ventController'
 import { Temp } from './sensors/tempSensor'
 import { Telegram } from './controllers/telegramController'
 import { Events } from './controllers/events'
+import {Sunrise} from './sensors/sunriseSensor'
 
 class Control {
   context = {};
@@ -26,6 +27,7 @@ class Control {
 
     new Co2Room(this.context)
     new Temp(this.context)
+    new Sunrise(this.context)
 
     cron.schedule('* * * * * *', () => {
       this.runHandlersByTime('Second')
