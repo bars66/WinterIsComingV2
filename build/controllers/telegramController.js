@@ -61,6 +61,8 @@ class Telegram {
     });
 
     _defineProperty(this, "cmd_eval", async (msg, match) => {
+      const chatId = msg.chat.id;
+
       try {
         const code = match[1];
         let run;
