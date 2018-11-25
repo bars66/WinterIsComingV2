@@ -50,7 +50,7 @@ export class Telegram {
     const chatId = msg.chat.id
     const resp = match[1]
 
-    this.context.controllers.vent.setTemp(resp)
+    this.context.controllers.Vent.setTemp(resp)
 
     this.bot.sendMessage(chatId, `SEND 11 ${resp}`)
     setTimeout(() => {
