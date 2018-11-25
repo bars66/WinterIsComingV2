@@ -8,7 +8,7 @@ import { Temp } from './sensors/tempSensor'
 import { Telegram } from './controllers/telegramController'
 import { Events } from './controllers/events'
 import { Sunrise } from './sensors/sunriseSensor'
-import {FlowerLightController} from './controllers/flowerLightController'
+import { FlowerLightController } from './controllers/flowerLightController'
 
 class Control {
   context = {};
@@ -25,7 +25,7 @@ class Control {
     new Events(this.context) // Должен быть запущен первым
     new Telegram(this.context)
     new Vent(this.context)
-    new FlowerLightController(this.context);
+    new FlowerLightController(this.context)
 
     new Co2Room(this.context)
     new Temp(this.context)

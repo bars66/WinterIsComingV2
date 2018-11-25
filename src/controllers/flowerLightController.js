@@ -20,12 +20,12 @@ export class FlowerLightController {
   switchRelay = async (number, state) => {
     const options = {
       method: 'GET',
-      uri: flowerLightUrl + 'api/relayChange' + `?relay=${number}&state=${state}`,
+      uri: flowerLightUrl + 'api/relayChange' + `?relay=${number}&state=${state}`
     }
 
     try {
       const result = await rp(options)
-      this.logger.trace(result, 'Relay change result');
+      this.logger.trace(result, 'Relay change result')
     } catch (e) {
       this.logger.error({ name: this.name, e, stackTrace: e.stackTrace }, 'Relay change error')
     }
@@ -42,7 +42,7 @@ export class FlowerLightController {
       const result = await rp(options)
       this.params.relayValues = result.data.relays
     } catch (e) {
-      console.log(e);
+      console.log(e)
       this.logger.error({ name: this.name, e, stackTrace: e.stackTrace }, 'Relay get status error')
     }
   }
