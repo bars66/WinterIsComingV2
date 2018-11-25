@@ -3,7 +3,7 @@ import { AbstractSensor } from './abstractSensor'
 
 const [lat, lon] = process.env.COORDS_FOR_SUN.split(',')
 
-const mockedSunriseTime = new Date(new Date() + 1 * 60 * 1000)
+const mockedSunriseTime = new Date(new Date() + 2 * 60 * 1000)
 
 export class Sunrise extends AbstractSensor {
   value = {};
