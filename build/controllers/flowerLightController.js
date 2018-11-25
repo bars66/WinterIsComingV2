@@ -17,7 +17,7 @@ class FlowerLightController {
   constructor(context) {
     _defineProperty(this, "name", 'controllers/FlowerLight');
 
-    _defineProperty(this, "FLOWER_LIGHT_TIME", 2 * 60 * 1000);
+    _defineProperty(this, "FLOWER_LIGHT_TIME", 12 * 60 * 60 * 1000);
 
     _defineProperty(this, "params", {});
 
