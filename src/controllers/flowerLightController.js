@@ -21,14 +21,16 @@ export class FlowerLightController {
     const options = {
       method: 'POST',
       uri: flowerLightUrl + 'api/relayChange',
-      body: {
+      form: {
         relay: number,
         state
       }
     }
+    console.log('kdadsmk',options);
 
     try {
       const result = await rp(options)
+      console.log(result);
     } catch (e) {
       this.logger.error({ name: this.name, e, stackTrace: e.stackTrace }, 'Relay change error')
     }
@@ -43,16 +45,17 @@ export class FlowerLightController {
 
     try {
       const result = await rp(options)
-      params.relayValues = result.data.relays
+      this.params.relayValues = result.data.relays
     } catch (e) {
+      console.log(e);
       this.logger.error({ name: this.name, e, stackTrace: e.stackTrace }, 'Relay get status error')
     }
   }
 
   handle_Minute = () => {
-    this.enableOrDisableRelaysBySunrise().catch(e => {})
+    this.enableOrDisableRelaysBySunrise()
 
-    this.getRelayStatus().catch(e => {})
+    this.getRelayStatus()
   }
 
   enableOrDisableRelaysBySunrise = () => {

@@ -23,8 +23,8 @@ class Control {
     }
 
     new Events(this.context) // Должен быть запущен первым
-    new Telegram(this.context)
-    new Vent(this.context)
+    // new Telegram(this.context)
+    // new Vent(this.context)
     new FlowerLightController(this.context);
 
     new Co2Room(this.context)
