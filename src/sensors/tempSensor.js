@@ -1,28 +1,24 @@
-import { VentController } from '../controllers/ventController'
 import { AbstractSensor } from './abstractSensor'
 
-export class TempSensor extends AbstractSensor {
+export class Temp extends AbstractSensor {
   value = {};
-  constructor (logger) {
-    super();
-    this.vC = VentController.getSingletone(logger)
+  constructor (context) {
+    super()
+    this.context = context
+    this.logger = context.logger
+
     this.subscribe()
+
+    this.context.sensors.Temp = this
+    this.logger.debug('sensors/Temp started')
   }
 
   subscribe = () => {
-    this.vC.on('values', ({ canaltTmp, insideTmp }) => {
+    this.context.controllers.Events.on('temperatureFromVent', ({ canaltTmp, insideTmp }) => {
       this.value = {
         canal: canaltTmp,
         inside: insideTmp
       }
     })
   }
-
-  static getSingletone = (logger) => {
-    if (!TempSensor.instance) {
-      TempSensor.instance = new TempSensor(logger)
-    }
-
-    return TempSensor.instance
-  };
 }

@@ -1,15 +1,18 @@
+import { AbstractSensor } from './abstractSensor'
+
 require('dotenv').config()
 const PORT = '/dev/ttyS2'
 const DEBUG = process.env.DEBUG
 const SerialPort = require('serialport')
 const Readline = SerialPort.parsers.Readline
 
-import {AbstractSensor} from './abstractSensor';
-
-export class Co2Sensor extends AbstractSensor {
+export class Co2Room extends AbstractSensor {
   value = {};
-  constructor (logger) {
-    super();
+  constructor (context) {
+    super()
+    this.context = context
+    this.logger = context.logger
+    const logger = this.logger
 
     this.cmd = new Buffer([0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79])
     if (!DEBUG) {
@@ -55,13 +58,8 @@ export class Co2Sensor extends AbstractSensor {
 
       logger.debug('Create mocked serialport')
     }
+
+    this.context.sensors.Co2Room = this
+    this.logger.debug('sensors/Co2Room started')
   }
-
-  static getSingletone = (logger) => {
-    if (!Co2Sensor.instance) {
-      Co2Sensor.instance = new Co2Sensor(logger)
-    }
-
-    return Co2Sensor.instance
-  };
 }

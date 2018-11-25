@@ -1,5 +1,5 @@
 export class AbstractSensor {
   getValues = () => {
-    return this.value;
+    return this.value
   }
 }

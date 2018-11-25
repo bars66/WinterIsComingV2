@@ -1,63 +1,64 @@
 import logger from './logger'
+import cron from 'node-cron'
 
-import { Co2Sensor } from './sensors/co2Sensor'
+import { Co2Room } from './sensors/co2Sensor'
 
-import { VentController } from './controllers/ventController'
-import { TempSensor } from './sensors/tempSensor'
-import { TelegramController } from './controllers/telegramController'
+import { Vent } from './controllers/ventController'
+import { Temp } from './sensors/tempSensor'
+import { Telegram } from './controllers/telegramController'
+import { Events } from './controllers/events'
 
 class Control {
-  CO2_MAX_TRESHOLD = 600;
-  CO2_MIN_TRESHOLD = 490;
-  TMP_TRESHOLD = 1;
+  context = {};
 
   constructor (logger) {
     this.logger = logger
-    this.sensors = {
-      co2: Co2Sensor.getSingletone(logger),
-      temp: TempSensor.getSingletone(logger)
+
+    this.context = {
+      logger,
+      sensors: {},
+      controllers: {}
     }
 
-    this.controllers = {
-      vent: VentController.getSingletone(logger)
-    }
+    new Events(this.context) // Должен быть запущен первым
+    new Telegram(this.context)
+    new Vent(this.context)
 
-    setInterval(() => {
-      this.handle()
-    }, 20 * 1000)
+    new Co2Room(this.context)
+    new Temp(this.context)
 
-    this.tgBot = new TelegramController(this)
+    cron.schedule('* * * * * *', () => {
+      this.runHandlersByTime('Second')
+    })
+
+    cron.schedule('*/20 * * * * *', () => {
+      this.runHandlersByTime('20_Second')
+    })
+
+    cron.schedule('* * * * *', () => {
+      this.runHandlersByTime('Minute')
+    })
+
+    cron.schedule('*/30 * * * *', () => {
+      this.runHandlersByTime('Half_hour')
+    })
+
+    cron.schedule('0 * * * *', () => {
+      this.runHandlersByTime('Hour')
+    })
   }
 
-  ventByCo2AndTemp = () => {
-    const co2Value = this.sensors.co2.value.value
-    const insideTmpValue = this.sensors.temp.value.inside
-    const ventController = this.controllers.vent
-    const ventControllerTemp = this.controllers.vent.params.temp
-    logger.debug({
-      co2Value,
-      insideTmpValue,
-      ventControllerTemp
-    }, 'ventByCo2AndTemp')
-    if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
-      logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by temp treshold')
-      ventController.enable()
-      return
-    }
+  runHandlersByTime = (handlerName) => {
+    const { sensors, controllers } = this.context
 
-    if (co2Value > this.CO2_MAX_TRESHOLD) {
-      logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by CO2 treshold')
-      ventController.enable()
-    }
+    for (const type of [sensors, controllers]) {
+      for (const wtf in type) { // Надо придумать нормальный нейминг
+        const handler = wtf[`handle_${handlerName}`]
 
-    if (co2Value < this.CO2_MIN_TRESHOLD) {
-      logger.info({ msgType: 'ventByCo2AndTemp' }, 'Disable by CO2 treshold')
-      ventController.disable()
+        if (!handler) return
+        handler()
+      }
     }
-  }
-
-  handle = () => {
-    this.ventByCo2AndTemp()
   }
 }
 
