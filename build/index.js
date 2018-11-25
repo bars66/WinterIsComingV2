@@ -35,7 +35,7 @@ class Control {
             wtf
           }, `Try run ${`handle_${handlerName}`}`);
           const handler = wtf[`handle_${handlerName}`];
-          if (!handler) return;
+          if (!handler) continue;
           handler();
         }
       }
