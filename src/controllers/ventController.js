@@ -103,7 +103,7 @@ export class Vent {
           frequency: +frequency / 2,
           heaterWatts
         }
-        this.context.controllers.Events('values', this.params)
+        this.context.controllers.Events.send('temperatureFromVent', this.params)
 
         this.logger.info(this.params)
       } else {
