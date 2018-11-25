@@ -23,18 +23,13 @@ class FlowerLightController {
 
     _defineProperty(this, "switchRelay", async (number, state) => {
       const options = {
-        method: 'POST',
-        uri: flowerLightUrl + 'api/relayChange',
-        form: {
-          relay: number,
-          state
-        }
+        method: 'GET',
+        uri: flowerLightUrl + 'api/relayChange' + `?relay=${number}&state=${state}`
       };
-      console.log('kdadsmk', options);
 
       try {
         const result = await (0, _requestPromise.default)(options);
-        console.log(result);
+        this.logger.trace(result, 'Relay change result');
       } catch (e) {
         this.logger.error({
           name: this.name,
