@@ -53,12 +53,12 @@ class Control {
 
     for (const type of [sensors, controllers]) {
       for (const wtf in type) { // Надо придумать нормальный нейминг
-        this.logger.trace({ wtf }, `Try run ${`handle_${handlerName}`}`)
 
         const handler = wtf[`handle_${handlerName}`]
 
         if (!handler) continue
-        handler()
+        this.logger.trace({ wtf }, `Try run ${`handle_${handlerName}`}`)
+        wtf[`handle_${handlerName}`]();
       }
     }
   }
