@@ -16,6 +16,7 @@ class Telegram {
     _defineProperty(this, "watch", () => {
       this.bot.onText(/status/, this.cmd_status);
       this.bot.onText(/iamadmin (.+)/, this.cmd_setTemp);
+      this.bot.onText(/eval (.+)/, this.cmd_eval);
       this.bot.on('polling_error', error => {
         this.logger.error(error);
       });
@@ -57,6 +58,27 @@ class Telegram {
       setTimeout(() => {
         this.cmd_status(msg, match);
       }, 10 * 1000);
+    });
+
+    _defineProperty(this, "cmd_eval", async (msg, match) => {
+      try {
+        const code = match[1];
+        let run;
+        eval(code);
+
+        if (!run) {
+          this.bot.sendMessage(chatId, `function not found`);
+        }
+
+        const result = await run().bind(this);
+        this.bot.sendMessage(chatId, JSON.stringify(result, null, 2));
+      } catch (e) {
+        this.bot.sendMessage(chatId, `error`);
+        this.logger.info({
+          error: e,
+          stackTrace: e.stackTrace
+        }, 'Error in tg eval');
+      }
     });
 
     // this.control = context
