@@ -70,9 +70,10 @@ class Telegram {
 
         if (!run) {
           this.bot.sendMessage(chatId, `function not found`);
+          return;
         }
 
-        const result = await run().bind(this);
+        const result = run().bind(this);
         this.bot.sendMessage(chatId, JSON.stringify(result, null, 2));
       } catch (e) {
         this.bot.sendMessage(chatId, `error`);
