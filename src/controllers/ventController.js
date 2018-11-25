@@ -116,7 +116,7 @@ export class Vent {
   }
 
   handle_20_Second = () => {
-    this.logger.debug({ name }, 'Start 20 second handler')
+    this.logger.debug({ name: this.name }, 'Start 20 second handler')
     this.ventByCo2AndTemp()
   }
 
