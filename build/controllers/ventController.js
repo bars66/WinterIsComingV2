@@ -120,7 +120,7 @@ class Vent {
 
     _defineProperty(this, "handle_20_Second", () => {
       this.logger.debug({
-        name
+        name: this.name
       }, 'Start 20 second handler');
       this.ventByCo2AndTemp();
     });
