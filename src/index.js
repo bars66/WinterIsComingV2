@@ -57,7 +57,7 @@ class Control {
 
         const handler = wtf[`handle_${handlerName}`]
 
-        if (!handler) return
+        if (!handler) continue
         handler()
       }
     }
