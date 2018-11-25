@@ -1,4 +1,4 @@
-import {SunCalc} from 'suncalc'
+import SunCalc from 'suncalc'
 import { AbstractSensor } from './abstractSensor'
 
 const [lat, lon] = process.env.COORDS_FOR_SUN.split(',');
