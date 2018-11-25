@@ -19,18 +19,13 @@ export class FlowerLightController {
 
   switchRelay = async (number, state) => {
     const options = {
-      method: 'POST',
-      uri: flowerLightUrl + 'api/relayChange',
-      form: {
-        relay: number,
-        state
-      }
+      method: 'GET',
+      uri: flowerLightUrl + 'api/relayChange' + `?relay=${number}&state=${state}`,
     }
-    console.log('kdadsmk',options);
 
     try {
       const result = await rp(options)
-      console.log(result);
+      this.logger.trace(result, 'Relay change result');
     } catch (e) {
       this.logger.error({ name: this.name, e, stackTrace: e.stackTrace }, 'Relay change error')
     }
