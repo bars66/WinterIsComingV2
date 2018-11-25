@@ -16,7 +16,7 @@ const logzioStream = new LogzioBunyanStream({
 });
 const logger = bunyan.createLogger({
   name: 'Object-Controller',
-  level: 'debug',
+  level: 'trace',
   streams: [{
     stream: process.stdout // `type: 'stream'` is implied
 
