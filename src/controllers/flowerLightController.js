@@ -4,7 +4,7 @@ const flowerLightUrl = process.env.FLOWER_LIGHT
 
 export class FlowerLightController {
   name = 'controllers/FlowerLight';
-  FLOWER_LIGHT_TIME = 2 * 60 * 1000;
+  FLOWER_LIGHT_TIME = 12 * 60 * 60 * 1000;
 
   params = {
   };
