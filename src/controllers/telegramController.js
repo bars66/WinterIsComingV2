@@ -60,6 +60,8 @@ export class Telegram {
   }
 
   cmd_eval = async (msg, match) => {
+    const chatId = msg.chat.id
+
     try {
       const code = match[1]
 
