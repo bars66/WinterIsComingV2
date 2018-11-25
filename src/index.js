@@ -7,7 +7,7 @@ import { Vent } from './controllers/ventController'
 import { Temp } from './sensors/tempSensor'
 import { Telegram } from './controllers/telegramController'
 import { Events } from './controllers/events'
-import {Sunrise} from './sensors/sunriseSensor'
+import { Sunrise } from './sensors/sunriseSensor'
 
 class Control {
   context = {};
@@ -55,12 +55,11 @@ class Control {
 
     for (const type of [sensors, controllers]) {
       for (const wtf in type) { // Надо придумать нормальный нейминг
-
         const handler = type[wtf][`handle_${handlerName}`]
 
         if (!handler) continue
         this.logger.trace({ wtf }, `Try run ${`handle_${handlerName}`}`)
-        handler();
+        handler()
       }
     }
   }

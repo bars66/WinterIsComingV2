@@ -1,7 +1,9 @@
 import SunCalc from 'suncalc'
 import { AbstractSensor } from './abstractSensor'
 
-const [lat, lon] = process.env.COORDS_FOR_SUN.split(',');
+const [lat, lon] = process.env.COORDS_FOR_SUN.split(',')
+
+const mockedSunriseTime = new Date(new Date() + 1 * 60 * 1000)
 
 export class Sunrise extends AbstractSensor {
   value = {};
@@ -15,6 +17,7 @@ export class Sunrise extends AbstractSensor {
   }
 
   handle_Minute = () => {
-    this.value = SunCalc.getTimes(new Date, lat, lon);
+    this.value = SunCalc.getTimes(new Date(), lat, lon)
+    this.value.sunrise = mockedSunriseTime
   }
 }
