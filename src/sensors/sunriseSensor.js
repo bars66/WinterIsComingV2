@@ -1,7 +1,7 @@
 import {SunCalc} from 'suncalc'
 import { AbstractSensor } from './abstractSensor'
 
-const [lat, lon] = process.ENV.COORDS_FOR_SUN.split(',');
+const [lat, lon] = process.env.COORDS_FOR_SUN.split(',');
 
 export class Sunrise extends AbstractSensor {
   value = {};
