@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Co2Sensor = void 0;
+exports.Co2Room = void 0;
 
 var _abstractSensor = require("./abstractSensor");
 
@@ -20,12 +20,15 @@ const SerialPort = require('serialport');
 
 const Readline = SerialPort.parsers.Readline;
 
-class Co2Sensor extends _abstractSensor.AbstractSensor {
-  constructor(logger) {
+class Co2Room extends _abstractSensor.AbstractSensor {
+  constructor(context) {
     super();
 
     _defineProperty(this, "value", {});
 
+    this.context = context;
+    this.logger = context.logger;
+    const logger = this.logger;
     this.cmd = new Buffer([0xFF, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79]);
 
     if (!DEBUG) {
@@ -66,16 +69,11 @@ class Co2Sensor extends _abstractSensor.AbstractSensor {
       };
       logger.debug('Create mocked serialport');
     }
+
+    this.context.sensors.Co2Room = this;
+    this.logger.debug('sensors/Co2Room started');
   }
 
 }
 
-exports.Co2Sensor = Co2Sensor;
-
-_defineProperty(Co2Sensor, "getSingletone", logger => {
-  if (!Co2Sensor.instance) {
-    Co2Sensor.instance = new Co2Sensor(logger);
-  }
-
-  return Co2Sensor.instance;
-});
+exports.Co2Room = Co2Room;

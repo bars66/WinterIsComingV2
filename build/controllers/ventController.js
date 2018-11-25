@@ -3,11 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.VentController = void 0;
+exports.Vent = void 0;
 
 var _serialport = _interopRequireDefault(require("serialport"));
 
 var _events = _interopRequireDefault(require("events"));
+
+var _logger = _interopRequireDefault(require("../logger"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19,9 +21,15 @@ require('dotenv').config();
 
 const VENT_SERIAL_PORT = process.env.VENT_SERIAL_PORT;
 
-class VentController extends _events.default {
-  constructor(logger) {
-    super();
+class Vent {
+  constructor(context) {
+    _defineProperty(this, "CO2_MAX_TRESHOLD", 600);
+
+    _defineProperty(this, "CO2_MIN_TRESHOLD", 490);
+
+    _defineProperty(this, "TMP_TRESHOLD", 1);
+
+    _defineProperty(this, "name", 'controllers/Vent');
 
     _defineProperty(this, "connected", false);
 
@@ -99,7 +107,7 @@ class VentController extends _events.default {
             frequency: +frequency / 2,
             heaterWatts
           };
-          this.emit('values', this.params);
+          this.context.controllers.Events('values', this.params);
           this.logger.info(this.params);
         } else {
           this.logger.info({
@@ -110,7 +118,56 @@ class VentController extends _events.default {
       });
     });
 
-    this.logger = logger;
+    _defineProperty(this, "handle_20_Second", () => {
+      this.logger.debug({
+        name
+      }, 'Start 20 second handler');
+      this.ventByCo2AndTemp();
+    });
+
+    _defineProperty(this, "ventByCo2AndTemp", () => {
+      const {
+        Co2Room,
+        Temp
+      } = this.context.sensors;
+      const co2Value = Co2Room.value.value;
+      const insideTmpValue = Temp.value.inside;
+      const ventControllerTemp = this.params.temp;
+
+      _logger.default.debug({
+        co2Value,
+        insideTmpValue,
+        ventControllerTemp
+      }, 'ventByCo2AndTemp');
+
+      if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
+        _logger.default.info({
+          msgType: 'ventByCo2AndTemp'
+        }, 'Enable by temp treshold');
+
+        this.enable();
+        return;
+      }
+
+      if (co2Value > this.CO2_MAX_TRESHOLD) {
+        _logger.default.info({
+          msgType: 'ventByCo2AndTemp'
+        }, 'Enable by CO2 treshold');
+
+        this.enable();
+      }
+
+      if (co2Value < this.CO2_MIN_TRESHOLD) {
+        _logger.default.info({
+          msgType: 'ventByCo2AndTemp'
+        }, 'Disable by CO2 treshold');
+
+        this.disable();
+      }
+    });
+
+    this.logger = _logger.default;
+    this.context = context;
     const port = new _serialport.default(VENT_SERIAL_PORT, {
       baudRate: 38400
     });
@@ -119,18 +176,10 @@ class VentController extends _events.default {
       this.connected = true;
       this.subscribe();
     });
+    this.context.controllers.Vent = this;
+    this.logger.debug('controllers/Vent started');
   }
 
 }
 
-exports.VentController = VentController;
-
-_defineProperty(VentController, "instance", void 0);
-
-_defineProperty(VentController, "getSingletone", logger => {
-  if (!VentController.instance) {
-    VentController.instance = new VentController(logger);
-  }
-
-  return VentController.instance;
-});
+exports.Vent = Vent;

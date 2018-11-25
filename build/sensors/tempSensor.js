@@ -3,22 +3,20 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TempSensor = void 0;
-
-var _ventController = require("../controllers/ventController");
+exports.Temp = void 0;
 
 var _abstractSensor = require("./abstractSensor");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-class TempSensor extends _abstractSensor.AbstractSensor {
-  constructor(logger) {
+class Temp extends _abstractSensor.AbstractSensor {
+  constructor(context) {
     super();
 
     _defineProperty(this, "value", {});
 
     _defineProperty(this, "subscribe", () => {
-      this.vC.on('values', ({
+      this.context.controllers.Events.on('temperatureFromVent', ({
         canaltTmp,
         insideTmp
       }) => {
@@ -29,18 +27,13 @@ class TempSensor extends _abstractSensor.AbstractSensor {
       });
     });
 
-    this.vC = _ventController.VentController.getSingletone(logger);
+    this.context = context;
+    this.logger = context.logger;
     this.subscribe();
+    this.context.sensors.Temp = this;
+    this.logger.debug('sensors/Temp started');
   }
 
 }
 
-exports.TempSensor = TempSensor;
-
-_defineProperty(TempSensor, "getSingletone", logger => {
-  if (!TempSensor.instance) {
-    TempSensor.instance = new TempSensor(logger);
-  }
-
-  return TempSensor.instance;
-});
+exports.Temp = Temp;

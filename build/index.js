@@ -1,6 +1,8 @@
 "use strict";
 
-var _logger2 = _interopRequireDefault(require("./logger"));
+var _logger = _interopRequireDefault(require("./logger"));
+
+var _nodeCron = _interopRequireDefault(require("node-cron"));
 
 var _co2Sensor = require("./sensors/co2Sensor");
 
@@ -10,74 +12,66 @@ var _tempSensor = require("./sensors/tempSensor");
 
 var _telegramController = require("./controllers/telegramController");
 
+var _events = require("./controllers/events");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 class Control {
-  constructor(_logger) {
-    _defineProperty(this, "CO2_MAX_TRESHOLD", 600);
+  constructor(logger) {
+    _defineProperty(this, "context", {});
 
-    _defineProperty(this, "CO2_MIN_TRESHOLD", 490);
+    _defineProperty(this, "runHandlersByTime", handlerName => {
+      const {
+        sensors,
+        controllers
+      } = this.context;
 
-    _defineProperty(this, "TMP_TRESHOLD", 1);
-
-    _defineProperty(this, "ventByCo2AndTemp", () => {
-      const co2Value = this.sensors.co2.value.value;
-      const insideTmpValue = this.sensors.temp.value.inside;
-      const ventController = this.controllers.vent;
-      const ventControllerTemp = this.controllers.vent.params.temp;
-
-      _logger2.default.debug({
-        co2Value,
-        insideTmpValue,
-        ventControllerTemp
-      }, 'ventByCo2AndTemp');
-
-      if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
-        _logger2.default.info({
-          msgType: 'ventByCo2AndTemp'
-        }, 'Enable by temp treshold');
-
-        ventController.enable();
-        return;
-      }
-
-      if (co2Value > this.CO2_MAX_TRESHOLD) {
-        _logger2.default.info({
-          msgType: 'ventByCo2AndTemp'
-        }, 'Enable by CO2 treshold');
-
-        ventController.enable();
-      }
-
-      if (co2Value < this.CO2_MIN_TRESHOLD) {
-        _logger2.default.info({
-          msgType: 'ventByCo2AndTemp'
-        }, 'Disable by CO2 treshold');
-
-        ventController.disable();
+      for (const type of [sensors, controllers]) {
+        for (const wtf in type) {
+          // Надо придумать нормальный нейминг
+          const handler = wtf[`handle_${handlerName}`];
+          if (!handler) return;
+          handler();
+        }
       }
     });
 
-    _defineProperty(this, "handle", () => {
-      this.ventByCo2AndTemp();
+    this.logger = logger;
+    this.context = {
+      logger,
+      sensors: {},
+      controllers: {}
+    };
+    new _events.Events(this.context); // Должен быть запущен первым
+
+    new _telegramController.Telegram(this.context);
+    new _ventController.Vent(this.context);
+    new _co2Sensor.Co2Room(this.context);
+    new _tempSensor.Temp(this.context);
+
+    _nodeCron.default.schedule('* * * * * *', () => {
+      this.runHandlersByTime('Second');
     });
 
-    this.logger = _logger;
-    this.sensors = {
-      co2: _co2Sensor.Co2Sensor.getSingletone(_logger),
-      temp: _tempSensor.TempSensor.getSingletone(_logger)
-    };
-    this.controllers = {
-      vent: _ventController.VentController.getSingletone(_logger)
-    };
-    setInterval(() => {
-      this.handle();
-    }, 20 * 1000);
-    this.tgBot = new _telegramController.TelegramController(this);
+    _nodeCron.default.schedule('*/20 * * * * *', () => {
+      this.runHandlersByTime('20_Second');
+    });
+
+    _nodeCron.default.schedule('* * * * *', () => {
+      this.runHandlersByTime('Minute');
+    });
+
+    _nodeCron.default.schedule('*/30 * * * *', () => {
+      this.runHandlersByTime('Half_hour');
+    });
+
+    _nodeCron.default.schedule('0 * * * *', () => {
+      this.runHandlersByTime('Hour');
+    });
   }
 
 }
 
-new Control(_logger2.default);
+new Control(_logger.default);
