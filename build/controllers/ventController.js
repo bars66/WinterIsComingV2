@@ -140,6 +140,13 @@ class Vent {
         ventControllerTemp
       }, 'ventByCo2AndTemp');
 
+      this.logger.trace({
+        tempDelta: ventControllerTemp - insideTmpValue,
+        tmpTreshold: this.TMP_TRESHOLD,
+        co2MaxTreshold: this.CO2_MAX_TRESHOLD,
+        co2MinTreshold: this.CO2_MIN_TRESHOLD
+      }, 'ventByCo2AndTemp');
+
       if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
         _logger.default.info({
           msgType: 'ventByCo2AndTemp'
