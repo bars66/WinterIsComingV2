@@ -76,6 +76,7 @@ class Telegram {
         const result = run().bind(this);
         this.bot.sendMessage(chatId, JSON.stringify(result, null, 2));
       } catch (e) {
+        console.log('ERROR', e);
         this.bot.sendMessage(chatId, `error`);
         this.logger.info({
           error: e,
