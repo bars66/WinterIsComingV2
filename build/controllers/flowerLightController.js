@@ -25,14 +25,16 @@ class FlowerLightController {
       const options = {
         method: 'POST',
         uri: flowerLightUrl + 'api/relayChange',
-        body: {
+        form: {
           relay: number,
           state
         }
       };
+      console.log('kdadsmk', options);
 
       try {
         const result = await (0, _requestPromise.default)(options);
+        console.log(result);
       } catch (e) {
         this.logger.error({
           name: this.name,
@@ -51,8 +53,9 @@ class FlowerLightController {
 
       try {
         const result = await (0, _requestPromise.default)(options);
-        params.relayValues = result.data.relays;
+        this.params.relayValues = result.data.relays;
       } catch (e) {
+        console.log(e);
         this.logger.error({
           name: this.name,
           e,
@@ -62,8 +65,8 @@ class FlowerLightController {
     });
 
     _defineProperty(this, "handle_Minute", () => {
-      this.enableOrDisableRelaysBySunrise().catch(e => {});
-      this.getRelayStatus().catch(e => {});
+      this.enableOrDisableRelaysBySunrise();
+      this.getRelayStatus();
     });
 
     _defineProperty(this, "enableOrDisableRelaysBySunrise", () => {

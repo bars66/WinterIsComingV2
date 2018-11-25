@@ -52,9 +52,9 @@ class Control {
       controllers: {}
     };
     new _events.Events(this.context); // Должен быть запущен первым
+    // new Telegram(this.context)
+    // new Vent(this.context)
 
-    new _telegramController.Telegram(this.context);
-    new _ventController.Vent(this.context);
     new _flowerLightController.FlowerLightController(this.context);
     new _co2Sensor.Co2Room(this.context);
     new _tempSensor.Temp(this.context);
