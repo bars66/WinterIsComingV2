@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const [lat, lon] = process.env.COORDS_FOR_SUN.split(',');
-const mockedSunriseTime = new Date(new Date() + 1 * 60 * 1000);
+const mockedSunriseTime = new Date(new Date() + 2 * 60 * 1000);
 
 class Sunrise extends _abstractSensor.AbstractSensor {
   constructor(context) {
