@@ -10,7 +10,7 @@ export class FlowerLightController {
   };
 
   constructor (context) {
-    this.logger = logger
+    this.logger = context.logger
     this.context = context
 
     this.context.controllers.FlowerLight = this

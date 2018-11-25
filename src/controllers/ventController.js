@@ -20,7 +20,7 @@ export class Vent {
   lastChanged = new Date(0);
 
   constructor (context) {
-    this.logger = logger
+    this.logger = context.logger
     this.context = context
     const port = new SerialPort(VENT_SERIAL_PORT, {
       baudRate: 38400
