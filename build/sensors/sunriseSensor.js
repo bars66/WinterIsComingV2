@@ -11,7 +11,7 @@ var _abstractSensor = require("./abstractSensor");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const [lat, lon] = process.ENV.COORDS_FOR_SUN.split(',');
+const [lat, lon] = process.env.COORDS_FOR_SUN.split(',');
 
 class Sunrise extends _abstractSensor.AbstractSensor {
   constructor(context) {
