@@ -117,7 +117,7 @@ export class Vent {
 
   handle_20_Second = () => {
     this.logger.debug({ name: this.name }, 'Start 20 second handler')
-    this.ventByCo2AndTemp()
+    // this.ventByCo2AndTemp() // TODO: Отключил, пока не заклею окна, иначе перцы сдует сквозняком с щелей.
   }
 
   ventByCo2AndTemp = () => {
