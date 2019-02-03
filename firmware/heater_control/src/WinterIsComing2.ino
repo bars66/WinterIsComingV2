@@ -99,8 +99,11 @@ void loop() {
     }
 
     if (isTempTick()) {
-      sensors.requestTemperatures();
+      sensors.requestTemperaturesByAddress(canalTemperature);
       canaltTmp = sensors.getTempC(canalTemperature);
+      if (freqCounter % 3000 == 0) {
+        sensors.requestTemperaturesByAddress(insideThermometer);
+      }
       insideTmp = sensors.getTempC(insideThermometer);
 
       float value = K * (tmp - min(insideTmp, canaltTmp - 2.5));
