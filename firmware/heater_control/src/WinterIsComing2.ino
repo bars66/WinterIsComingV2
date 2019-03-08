@@ -126,7 +126,9 @@ void readSerial(Task* me) {
   float newTmp = tempAsStr.toFloat();
   if (tmp > 40 || tmp < 0) {
     Serial.print("F=INCORRECT_INPUT_TEMP;V:");
-    Serial.println(inputString);
+    Serial.print(tempAsStr);
+    Serial.print(";PARSED:");
+    Serial.println(newTmp);
     return;
   } else {
     tmp = newTmp;
