@@ -15,7 +15,7 @@ class Telegram {
   constructor(context) {
     _defineProperty(this, "watch", () => {
       this.bot.onText(/status/, this.cmd_status);
-      this.bot.onText(/iamadmin (.+)/, this.cmd_setTemp);
+      this.bot.onText(/setTemp (.+)/, this.cmd_setTemp);
       this.bot.onText(/eval (.+)/, this.cmd_eval);
       this.bot.on('polling_error', error => {
         this.logger.error(error);
@@ -85,12 +85,19 @@ class Telegram {
       }
     });
 
+    _defineProperty(this, "sendBroadcastMessage", async msg => {
+      for (const id of this.notificationsIds) {
+        await this.bot.sendMessage(id, msg);
+      }
+    });
+
     // this.control = context
     this.context = context;
     this.logger = context.logger;
     this.bot = new _nodeTelegramBotApi.default(process.env.TG_BOT, {
       polling: true
     });
+    this.notificationsIds = process.env.TG_IDS.split(',');
     this.watch();
     this.context.controllers.Telegram = this;
     this.logger.debug('controllers/Telegram started');
