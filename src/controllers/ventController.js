@@ -75,7 +75,7 @@ export class Vent {
   setTemp = (temp) => {
     this.checkPort()
     const { ventEnabled, heaterEnabled } = this.params
-    const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(2)}`;
+    const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(1)}`;
     this.logger.debug(`SEND::: ${sendStr}`)
     this.port.write(sendStr.trim());
     this.params = {
