@@ -49,25 +49,26 @@ export class Vent {
   }
 
   disable = (force = true) => {
-    this.checkPort()
-    this.manualControl = force
-    this.port.write(`00 ${this.params.temp}`)
+    this.manualControl = force;
     this.params = {
       ...this.params,
       ventEnabled: false,
       heaterEnabled: false
     }
+
+    this.setTemp(this.params.temp);
   }
 
   enable = (force = true) => {
     if (!force && this.manualControl) return
     this.checkPort()
-    this.port.write(`11 ${this.params.temp}`)
     this.params = {
       ...this.params,
       ventEnabled: true,
       heaterEnabled: true
     }
+
+    this.setTemp(this.params.temp)
   }
 
   setTemp = (temp) => {
