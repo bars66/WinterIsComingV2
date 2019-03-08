@@ -7,6 +7,8 @@ exports.Telegram = void 0;
 
 var _nodeTelegramBotApi = _interopRequireDefault(require("node-telegram-bot-api"));
 
+var _debounce = _interopRequireDefault(require("debounce"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -90,6 +92,8 @@ class Telegram {
         await this.bot.sendMessage(id, msg);
       }
     });
+
+    _defineProperty(this, "debouncedBroadcastSend", (0, _debounce.default)(this.sendBroadcastMessage, 5000));
 
     // this.control = context
     this.context = context;
