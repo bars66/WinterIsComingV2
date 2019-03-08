@@ -17,6 +17,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+const Readline = require('@serialport/parser-readline');
+
 require('dotenv').config();
 
 const VENT_SERIAL_PORT = process.env.VENT_SERIAL_PORT;
@@ -86,8 +88,7 @@ class Vent {
     });
 
     _defineProperty(this, "subscribe", () => {
-      this.port.on('data', dataBuffer => {
-        const dataString = dataBuffer.toString('utf8');
+      this.parser.on('data', dataString => {
         const [type, data] = dataString.split('=');
 
         if (type === 'I') {
@@ -179,6 +180,9 @@ class Vent {
       baudRate: 38400
     });
     this.port = port;
+    this.parser = port.pipe(new Readline({
+      delimiter: '\n'
+    }));
     port.on('open', () => {
       this.connected = true;
       this.subscribe();
