@@ -53,23 +53,22 @@ class Vent {
     });
 
     _defineProperty(this, "disable", (force = true) => {
-      this.checkPort();
       this.manualControl = force;
-      this.port.write(`00 ${this.params.temp}`);
       this.params = _objectSpread({}, this.params, {
         ventEnabled: false,
         heaterEnabled: false
       });
+      this.setTemp(this.params.temp);
     });
 
     _defineProperty(this, "enable", (force = true) => {
       if (!force && this.manualControl) return;
       this.checkPort();
-      this.port.write(`11 ${this.params.temp}`);
       this.params = _objectSpread({}, this.params, {
         ventEnabled: true,
         heaterEnabled: true
       });
+      this.setTemp(this.params.temp);
     });
 
     _defineProperty(this, "setTemp", temp => {
