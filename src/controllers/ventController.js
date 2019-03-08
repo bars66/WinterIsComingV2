@@ -40,7 +40,7 @@ export class Vent {
     this.logger.debug('controllers/Vent started')
   }
 
-  writeToSerialPort = () => {
+  writeToSerialPort = (data) => {
     return new Promise((resolve, reject) => {
       this.port.write(data);
       this.port.drain(error => {
