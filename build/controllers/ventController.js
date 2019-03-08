@@ -25,9 +25,9 @@ const VENT_SERIAL_PORT = process.env.VENT_SERIAL_PORT;
 
 class Vent {
   constructor(context) {
-    _defineProperty(this, "CO2_MAX_TRESHOLD", 600);
+    _defineProperty(this, "CO2_MAX_TRESHOLD", 500);
 
-    _defineProperty(this, "CO2_MIN_TRESHOLD", 490);
+    _defineProperty(this, "CO2_MIN_TRESHOLD", 402);
 
     _defineProperty(this, "TMP_TRESHOLD", 1);
 
@@ -42,6 +42,16 @@ class Vent {
     });
 
     _defineProperty(this, "lastChanged", new Date(0));
+
+    _defineProperty(this, "writeToSerialPort", () => {
+      return new Promise((resolve, reject) => {
+        this.port.write(data);
+        this.port.drain(error => {
+          if (error) return reject(error);
+          return resolve();
+        });
+      });
+    });
 
     _defineProperty(this, "checkPort", () => {
       if (!this.connected) throw new Error('Not connected to vent controller');
@@ -58,7 +68,7 @@ class Vent {
         ventEnabled: false,
         heaterEnabled: false
       });
-      this.setTemp(this.params.temp);
+      this.setTemp(this.params.temp).catch(error => {});
     });
 
     _defineProperty(this, "enable", (force = true) => {
@@ -68,10 +78,10 @@ class Vent {
         ventEnabled: true,
         heaterEnabled: true
       });
-      this.setTemp(this.params.temp);
+      this.setTemp(this.params.temp).catch(error => {});
     });
 
-    _defineProperty(this, "setTemp", temp => {
+    _defineProperty(this, "setTemp", async temp => {
       this.checkPort();
       const {
         ventEnabled,
@@ -79,7 +89,16 @@ class Vent {
       } = this.params;
       const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(1)}`;
       this.logger.debug(`SEND::: ${sendStr}`);
-      this.port.write(sendStr.trim());
+
+      try {
+        await this.writeToSerialPort(sendStr.trim());
+      } catch (error) {
+        this.logger.error({
+          error,
+          params: this.params
+        }, 'Error set temp');
+      }
+
       this.params = _objectSpread({}, this.params, {
         temp
       });

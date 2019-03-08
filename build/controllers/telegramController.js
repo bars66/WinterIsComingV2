@@ -55,7 +55,7 @@ class Telegram {
     _defineProperty(this, "cmd_setTemp", (msg, match) => {
       const chatId = msg.chat.id;
       const resp = match[1];
-      this.context.controllers.Vent.setTemp(resp);
+      this.context.controllers.Vent.setTemp(resp).catch(error => {});
       this.bot.sendMessage(chatId, `SEND 11 ${resp}`);
       setTimeout(() => {
         this.cmd_status(msg, match);
