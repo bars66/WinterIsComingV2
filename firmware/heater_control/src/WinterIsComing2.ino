@@ -97,11 +97,12 @@ void readSerial(Task* me) {
 
   while (Serial.available()) {
     char inputChar = (char)Serial.read();
-    inputString += inputChar;
     if (inputChar == '\n' || inputChar == '\r') {
       serialFlush();
       break;
     }
+
+    inputString += inputChar;
   }
   Serial.print("OUTPUT=");
   Serial.println(inputString);
