@@ -3,7 +3,7 @@ echo Stop main service
 systemctl stop winterIsComing.service
 sleep 1
 echo Start uploading
-pio run -t upload --target-port=/dev/ttyUSB0
+pio run -t upload --upload-port=/dev/ttyUSB0
 sleep 1
 echo Start main service
 systemctl start winterIsComing.service
