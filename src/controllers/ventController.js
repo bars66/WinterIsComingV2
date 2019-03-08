@@ -8,8 +8,8 @@ require('dotenv').config()
 const VENT_SERIAL_PORT = process.env.VENT_SERIAL_PORT
 
 export class Vent {
-  CO2_MAX_TRESHOLD = 600;
-  CO2_MIN_TRESHOLD = 490;
+  CO2_MAX_TRESHOLD = 500;
+  CO2_MIN_TRESHOLD = 402;
   TMP_TRESHOLD = 1;
   name = 'controllers/Vent';
 
@@ -40,6 +40,17 @@ export class Vent {
     this.logger.debug('controllers/Vent started')
   }
 
+  writeToSerialPort = () => {
+    return new Promise((resolve, reject) => {
+      this.port.write(data);
+      this.port.drain(error => {
+        if (error) return reject(error);
+
+        return resolve();
+      });
+    })
+  }
+
   checkPort = () => {
     if (!this.connected) throw new Error('Not connected to vent controller')
     this.lastChanged = new Date()
@@ -57,7 +68,7 @@ export class Vent {
       heaterEnabled: false
     }
 
-    this.setTemp(this.params.temp);
+    this.setTemp(this.params.temp).catch(error => {});
   }
 
   enable = (force = true) => {
@@ -69,15 +80,19 @@ export class Vent {
       heaterEnabled: true
     }
 
-    this.setTemp(this.params.temp)
+    this.setTemp(this.params.temp).catch(error => {});
   }
 
-  setTemp = (temp) => {
+  setTemp = async (temp) => {
     this.checkPort()
     const { ventEnabled, heaterEnabled } = this.params
     const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(1)}`;
-    this.logger.debug(`SEND::: ${sendStr}`)
-    this.port.write(sendStr.trim());
+    this.logger.debug(`SEND::: ${sendStr}`);
+    try {
+      await this.writeToSerialPort(sendStr.trim());
+    } catch (error) {
+      this.logger.error({error, params: this.params}, 'Error set temp')
+    }
     this.params = {
       ...this.params,
       temp
