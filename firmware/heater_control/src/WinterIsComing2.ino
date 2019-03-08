@@ -98,7 +98,7 @@ void readSerial(Task* me) {
   while (Serial.available()) {
     char inputChar = (char)Serial.read();
     inputString += inputChar;
-    if (inputChar == '\n') {
+    if (inputChar == '\n' || inputChar == '\r') {
       serialFlush();
       break;
     }
@@ -108,7 +108,7 @@ void readSerial(Task* me) {
 
   // TODO В отдельнуб функцию
   if (inputString.length() != 7) {
-    Serial.print("F=INCRORRECT_INPUT;V=");
+    Serial.print("F=INCRORRECT_INPUT;V:");
     Serial.println(inputString);
     return;
   }
@@ -124,7 +124,7 @@ void readSerial(Task* me) {
 
   float newTmp = tempAsStr.toFloat();
   if (tmp > 40 || tmp < 0) {
-    Serial.print("F=INCORRECT_INPUT_TEMP;V=");
+    Serial.print("F=INCORRECT_INPUT_TEMP;V:");
     Serial.println(inputString);
     return;
   } else {
