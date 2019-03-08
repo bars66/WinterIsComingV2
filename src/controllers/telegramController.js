@@ -1,4 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api'
+import debounce from 'debounce';
 
 export class Telegram {
   constructor (context) {
@@ -89,4 +90,6 @@ export class Telegram {
       await this.bot.sendMessage(id, msg);
     }
   }
+
+  debouncedBroadcastSend = debounce(this.sendBroadcastMessage, 5000);
 }

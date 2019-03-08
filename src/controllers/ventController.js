@@ -1,5 +1,6 @@
 import SerialPort from 'serialport'
-const Readline = require('@serialport/parser-readline')
+import Readline from '@serialport/parser-readline';
+
 import EventEmitter from 'events'
 import logger from '../logger'
 require('dotenv').config()
@@ -111,7 +112,7 @@ export class Vent {
         this.logger.info(this.params)
       } else {
         if (type === 'F') {
-          this.context.controllers.Telegram.sendBroadcastMessage(data).catch(e => {});
+          this.context.controllers.Telegram.debouncedBroadcastSend(data).catch(e => {});
         }
 
         this.logger.info({
