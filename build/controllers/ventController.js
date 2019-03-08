@@ -77,8 +77,8 @@ class Vent {
         ventEnabled,
         heaterEnabled
       } = this.params;
-      const tempLength = `${+temp}`;
-      const sendStr = `${+ventEnabled}${+heaterEnabled} ${temp}${tempLength === 2 ? '.0' : ''}`;
+      const tempStr = `${+temp}`;
+      const sendStr = `${+ventEnabled}${+heaterEnabled} ${tempStr}${tempStr.length === 2 ? '.0' : ''}`;
       this.logger.debug(`SEND::: ${sendStr}`);
       this.port.write(sendStr.trim());
       this.params = _objectSpread({}, this.params, {
@@ -101,8 +101,8 @@ class Vent {
             insideTmp: +insideTmp,
             timeDelta,
             heaterPower: +heaterPower,
-            ventEnabled: Boolean(ventEnabled),
-            heaterEnabled: Boolean(heaterEnabled),
+            ventEnabled: Boolean(+ventEnabled),
+            heaterEnabled: Boolean(+heaterEnabled),
             temp: +temp,
             frequency: +frequency / 2,
             heaterWatts
