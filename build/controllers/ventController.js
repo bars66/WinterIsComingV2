@@ -105,7 +105,8 @@ class Vent {
             heaterEnabled: Boolean(+heaterEnabled),
             temp: +temp,
             frequency: +frequency / 2,
-            heaterWatts
+            heaterWatts,
+            lastAnswer: new Date()
           };
           this.context.controllers.Events.send('temperatureFromVent', this.params);
           this.logger.info(this.params);
