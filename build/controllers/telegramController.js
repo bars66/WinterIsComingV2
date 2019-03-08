@@ -88,8 +88,12 @@ class Telegram {
     });
 
     _defineProperty(this, "sendBroadcastMessage", async msg => {
-      for (const id of this.notificationsIds) {
-        await this.bot.sendMessage(id, msg);
+      try {
+        for (const id of this.notificationsIds) {
+          await this.bot.sendMessage(id, msg);
+        }
+      } catch (e) {
+        logger.error(e, 'broadcast send error');
       }
     });
 

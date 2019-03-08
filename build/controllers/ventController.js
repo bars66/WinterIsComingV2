@@ -111,7 +111,7 @@ class Vent {
           this.logger.info(this.params);
         } else {
           if (type === 'F') {
-            this.context.controllers.Telegram.debouncedBroadcastSend(data).catch(e => {});
+            this.context.controllers.Telegram.debouncedBroadcastSend(data);
           }
 
           this.logger.info({
