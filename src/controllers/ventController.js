@@ -1,4 +1,5 @@
 import SerialPort from 'serialport'
+const Readline = require('@serialport/parser-readline')
 import EventEmitter from 'events'
 import logger from '../logger'
 require('dotenv').config()
@@ -26,7 +27,9 @@ export class Vent {
       baudRate: 38400
     })
 
-    this.port = port
+    this.port = port;
+    this.parser = port.pipe(new Readline({ delimiter: '\n' }));
+
     port.on('open', () => {
       this.connected = true
       this.subscribe()
@@ -81,8 +84,7 @@ export class Vent {
   }
 
   subscribe = () => {
-    this.port.on('data', (dataBuffer) => {
-      const dataString = dataBuffer.toString('utf8')
+    this.parser.on('data', (dataString) => {
       const [type, data] = dataString.split('=')
 
       if (type === 'I') {

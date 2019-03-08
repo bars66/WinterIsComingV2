@@ -246,11 +246,23 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@serialport/parser-delimiter/-/parser-delimiter-2.0.1.tgz#5aeb60579a8f8fb47d095a66c7bea9f861ca1728"
 
+"@serialport/parser-delimiter@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-delimiter/-/parser-delimiter-2.0.2.tgz#2765b37c8227c22e1e48f51f8c84cdeb2c650988"
+  integrity sha512-zB02LahFfyZmJqak9l37vP/F1K+KCUxd1KQj35OhD1+0q/unMjVTZmsfkxFSM4gkaxP9j7+8USk+LQJ3V8U26Q==
+
 "@serialport/parser-readline@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@serialport/parser-readline/-/parser-readline-2.0.1.tgz#e491bdf432b4f96f31fd8206b49feb03776a201b"
   dependencies:
     "@serialport/parser-delimiter" "^2.0.1"
+
+"@serialport/parser-readline@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@serialport/parser-readline/-/parser-readline-2.0.2.tgz#850882a8abd6df50ac538301ae53e374fd510277"
+  integrity sha512-thL26dGEHB+eINNydJmzcLLhiqcBQkF+wNTbRaYblTP/6dm7JsfjYSud7bTkN63AgE0xpe9tKXBFqc8zgJ1VKg==
+  dependencies:
+    "@serialport/parser-delimiter" "^2.0.2"
 
 "@serialport/parser-ready@^2.0.1":
   version "2.0.1"

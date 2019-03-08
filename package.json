@@ -9,6 +9,7 @@
     "babel": "rm -rf build && babel -q --out-dir build src && echo 'Full babel compilation finished'"
   },
   "dependencies": {
+    "@serialport/parser-readline": "^2.0.2",
     "bunyan": "^1.8.12",
     "dotenv": "^6.0.0",
     "logzio-bunyan": "^0.2.3",
