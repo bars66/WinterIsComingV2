@@ -43,7 +43,7 @@ class Vent {
 
     _defineProperty(this, "lastChanged", new Date(0));
 
-    _defineProperty(this, "writeToSerialPort", () => {
+    _defineProperty(this, "writeToSerialPort", data => {
       return new Promise((resolve, reject) => {
         this.port.write(data);
         this.port.drain(error => {
