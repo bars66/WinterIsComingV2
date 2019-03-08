@@ -109,8 +109,7 @@ void readSerial(Task* me) {
 
   // TODO В отдельнуб функцию
   if (inputString.length() != 7) {
-    Serial.print("F=INCRORRECT_INPUT;V:");
-    Serial.println(inputString);
+    Serial.print("F=INCRORRECT_INPUT");
     return;
   }
 
