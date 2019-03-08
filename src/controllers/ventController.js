@@ -109,6 +109,10 @@ export class Vent {
 
         this.logger.info(this.params)
       } else {
+        if (type === 'F') {
+          this.context.controllers.Telegram.sendBroadcastMessage(data).catch(e => {});
+        }
+
         this.logger.info({
           msgType: type,
           data

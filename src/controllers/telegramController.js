@@ -6,6 +6,7 @@ export class Telegram {
     this.context = context
     this.logger = context.logger
     this.bot = new TelegramBot(process.env.TG_BOT, { polling: true })
+    this.notificationsIds=process.env.TG_IDS.split(',');
     this.watch()
 
     this.context.controllers.Telegram = this
@@ -14,7 +15,7 @@ export class Telegram {
 
   watch = () => {
     this.bot.onText(/status/, this.cmd_status)
-    this.bot.onText(/iamadmin (.+)/, this.cmd_setTemp)
+    this.bot.onText(/setTemp (.+)/, this.cmd_setTemp)
     this.bot.onText(/eval (.+)/, this.cmd_eval)
 
     this.bot.on('polling_error', (error) => {
@@ -80,6 +81,12 @@ export class Telegram {
       console.log('ERROR', e);
       this.bot.sendMessage(chatId, `error`)
       this.logger.info({ error: e, stackTrace: e.stackTrace }, 'Error in tg eval')
+    }
+  }
+
+  sendBroadcastMessage = async (msg) => {
+    for (const id of this.notificationsIds) {
+      await this.bot.sendMessage(id, msg);
     }
   }
 }
