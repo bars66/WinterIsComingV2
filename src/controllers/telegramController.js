@@ -1,5 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api'
-import debounce from 'debounce';
+import debounce from 'debounce'
 
 export class Telegram {
   constructor (context) {
@@ -7,7 +7,7 @@ export class Telegram {
     this.context = context
     this.logger = context.logger
     this.bot = new TelegramBot(process.env.TG_BOT, { polling: true })
-    this.notificationsIds=process.env.TG_IDS.split(',');
+    this.notificationsIds = process.env.TG_IDS.split(',')
     this.watch()
 
     this.context.controllers.Telegram = this
@@ -53,7 +53,7 @@ export class Telegram {
     const chatId = msg.chat.id
     const resp = match[1]
 
-    this.context.controllers.Vent.setTemp(resp).catch(error => {});
+    this.context.controllers.Vent.setTemp(resp).catch(error => {})
 
     this.bot.sendMessage(chatId, `SEND 11 ${resp}`)
     setTimeout(() => {
@@ -73,13 +73,13 @@ export class Telegram {
 
       if (!run) {
         this.bot.sendMessage(chatId, `function not found`)
-        return;
+        return
       }
 
       const result = await run.bind(this)()
       this.bot.sendMessage(chatId, JSON.stringify(result, null, 2))
     } catch (e) {
-      console.log('ERROR', e);
+      console.log('ERROR', e)
       this.bot.sendMessage(chatId, `error`)
       this.logger.info({ error: e, stackTrace: e.stackTrace }, 'Error in tg eval')
     }
@@ -88,10 +88,10 @@ export class Telegram {
   sendBroadcastMessage = async (msg) => {
     try {
       for (const id of this.notificationsIds) {
-        await this.bot.sendMessage(id, msg);
+        await this.bot.sendMessage(id, msg)
       }
     } catch (e) {
-      logger.error(e, 'broadcast send error');
+      logger.error(e, 'broadcast send error')
     }
   }
 

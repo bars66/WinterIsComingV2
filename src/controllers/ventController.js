@@ -1,5 +1,5 @@
 import SerialPort from 'serialport'
-import Readline from '@serialport/parser-readline';
+import Readline from '@serialport/parser-readline'
 
 import EventEmitter from 'events'
 import logger from '../logger'
@@ -29,8 +29,8 @@ export class Vent {
       baudRate: 38400
     })
 
-    this.port = port;
-    this.parser = port.pipe(new Readline({ delimiter: '\n' }));
+    this.port = port
+    this.parser = port.pipe(new Readline({ delimiter: '\n' }))
 
     port.on('open', () => {
       this.connected = true
@@ -43,12 +43,12 @@ export class Vent {
 
   writeToSerialPort = (data) => {
     return new Promise((resolve, reject) => {
-      this.port.write(data);
+      this.port.write(data)
       this.port.drain(error => {
-        if (error) return reject(error);
+        if (error) return reject(error)
 
-        return resolve();
-      });
+        return resolve()
+      })
     })
   }
 
@@ -62,14 +62,14 @@ export class Vent {
   }
 
   disable = (force = true) => {
-    this.manualControl = force;
+    this.manualControl = force
     this.params = {
       ...this.params,
       ventEnabled: false,
       heaterEnabled: false
     }
 
-    this.setTemp(this.params.temp).catch(error => {});
+    this.setTemp(this.params.temp).catch(error => {})
   }
 
   enable = (force = true) => {
@@ -81,18 +81,18 @@ export class Vent {
       heaterEnabled: true
     }
 
-    this.setTemp(this.params.temp).catch(error => {});
+    this.setTemp(this.params.temp).catch(error => {})
   }
 
   setTemp = async (temp) => {
     this.checkPort()
     const { ventEnabled, heaterEnabled } = this.params
-    const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(1)}`;
-    this.logger.debug(`SEND::: ${sendStr}`);
+    const sendStr = `${+ventEnabled}${+heaterEnabled} ${(+temp).toFixed(1)}`
+    this.logger.debug(`SEND::: ${sendStr}`)
     try {
-      await this.writeToSerialPort(sendStr.trim());
+      await this.writeToSerialPort(sendStr.trim())
     } catch (error) {
-      this.logger.error({error, params: this.params}, 'Error set temp')
+      this.logger.error({ error, params: this.params }, 'Error set temp')
     }
     this.params = {
       ...this.params,
@@ -121,14 +121,14 @@ export class Vent {
           temp: +temp,
           frequency: +frequency / 2,
           heaterWatts,
-          lastAnswer: new Date(),
+          lastAnswer: new Date()
         }
         this.context.controllers.Events.send('temperatureFromVent', this.params)
 
         this.logger.info(this.params)
       } else {
         if (type === 'F') {
-          this.context.controllers.Telegram.debouncedBroadcastSend(data);
+          this.context.controllers.Telegram.debouncedBroadcastSend(data)
         }
 
         this.logger.info({

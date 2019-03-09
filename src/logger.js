@@ -14,7 +14,7 @@ const logger = bunyan.createLogger({
     {
       stream: process.stdout
       // `type: 'stream'` is implied
-    },
+    }
     // {
     //   type: 'raw',
     //   stream: logzioStream

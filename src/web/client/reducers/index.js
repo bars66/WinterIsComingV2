@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import contextReducer from './context';
+import ventReducer from './vent'
 
 const reducers = combineReducers({
   isLoading: (state = false) => state,
-  context: contextReducer,
+  vent: ventReducer,
 })
 
-export default reducers;
+export default reducers

@@ -8,5 +8,5 @@ export default (req, res, next) => {
     
     <script src="dist/main.bundle.js"></script>
 </body>
-</html>`);
+</html>`)
 }
