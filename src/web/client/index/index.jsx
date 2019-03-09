@@ -1,15 +1,8 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
-
-const styles = {
-  root: {
-    width: 300,
-  },
-  slider: {
-    padding: '22px 0px',
-  },
-};
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 class StepSlider extends React.Component {
   state = {
@@ -25,18 +18,20 @@ class StepSlider extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className={classes.root}>
-        <Slider
-          classes={{ container: classes.slider }}
-          value={value}
-          min={0}
-          max={6}
-          step={1}
-          onChange={this.handleChange}
-        />
-      </div>
+      <React.Fragment>
+        <Typography component="h2" variant="display1" gutterBottom>
+          Вентиляция
+        </Typography>
+          <Slider
+            value={value}
+            min={0}
+            max={6}
+            step={1}
+            onChange={this.handleChange}
+          />
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(StepSlider);
+export default (StepSlider);
