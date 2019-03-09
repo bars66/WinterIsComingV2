@@ -4,7 +4,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _app = _interopRequireDefault(require("./app.js"));
+var _app = _interopRequireDefault(require("./app.jsx"));
 
 var _reactRedux = require("react-redux");
 

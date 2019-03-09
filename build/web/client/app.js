@@ -9,6 +9,14 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactRedux = require("react-redux");
 
+var _CssBaseline = _interopRequireDefault(require("@material-ui/core/CssBaseline"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
+
+var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
+
 var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus"));
 
 var _index = _interopRequireDefault(require("./index/index"));
@@ -37,7 +45,26 @@ class App extends React.Component {
   }
 
   render() {
-    return React.createElement(_index.default, null);
+    return React.createElement("div", {
+      style: {
+        width: '100%',
+        padding: '10px'
+      }
+    }, React.createElement(_CssBaseline.default, null), React.createElement(_Typography.default, {
+      component: "h2",
+      variant: "display2",
+      gutterBottom: true
+    }, "WiC V2.1. ", React.createElement("span", {
+      style: {
+        color: 'green'
+      }
+    }, "Stable")), React.createElement(_Divider.default, null), React.createElement(_Grid.default, {
+      container: true,
+      spacing: 8
+    }, React.createElement(_Grid.default, {
+      item: true,
+      xs: 12
+    }, React.createElement(_index.default, null))));
   }
 
 }
