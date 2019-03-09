@@ -20,6 +20,7 @@ export class Vent {
     heaterEnabled: false
   };
   lastChanged = new Date(0);
+  switchReason = {};
 
   constructor (context) {
     this.logger = context.logger
@@ -166,16 +167,28 @@ export class Vent {
     if (ventControllerTemp - insideTmpValue > this.TMP_TRESHOLD) {
       logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by temp treshold')
       this.enable()
+      this.switchReason = {
+        isEnabled: true,
+        reason: 'TMP_TRASHOLD'
+      }
       return
     }
 
     if (co2Value > this.CO2_MAX_TRESHOLD) {
       logger.info({ msgType: 'ventByCo2AndTemp' }, 'Enable by CO2 treshold')
+      this.switchReason = {
+        isEnabled: true,
+        reason: 'CO2_MAX_TRASHOLD'
+      }
       this.enable()
     }
 
     if (co2Value < this.CO2_MIN_TRESHOLD) {
       logger.info({ msgType: 'ventByCo2AndTemp' }, 'Disable by CO2 treshold')
+      this.switchReason = {
+        isEnabled: false,
+        reason: 'CO2_MIN_TRASHOLD'
+      }
       this.disable()
     }
   }

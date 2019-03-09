@@ -10,6 +10,8 @@ import { Events } from './controllers/events'
 import { Sunrise } from './sensors/sunriseSensor'
 import { FlowerLightController } from './controllers/flowerLightController'
 
+import WebApp from './web/app';
+
 class Control {
   context = {};
 
@@ -30,6 +32,8 @@ class Control {
     new Co2Room(this.context)
     new Temp(this.context)
     new Sunrise(this.context)
+
+    WebApp(this.context);
 
     cron.schedule('* * * * * *', () => {
       this.runHandlersByTime('Second')
