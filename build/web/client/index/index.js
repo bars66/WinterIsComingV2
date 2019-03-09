@@ -52,8 +52,8 @@ class Vent extends _react.default.Component {
         time
       },
       temp,
-      insideTemp,
-      canalTemp
+      insideTmp,
+      canaltTmp
     } = this.props;
     const {
       value
