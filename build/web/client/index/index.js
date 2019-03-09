@@ -108,13 +108,13 @@ class Vent extends _react.default.Component {
     }, _react.default.createElement(_Typography.default, null, "\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u044F\u044F:")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, insideTemp))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, insideTmp))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
     }, _react.default.createElement(_Typography.default, null, "\u041A\u0430\u043D\u0430\u043B\u044C\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, canalTemp))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
+    }, _react.default.createElement(_Typography.default, null, canaltTmp))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
       style: {
         marginTop: '20px'
       },
