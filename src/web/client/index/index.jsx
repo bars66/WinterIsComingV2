@@ -20,7 +20,7 @@ class Vent extends React.Component {
   };
 
   render () {
-    const { switchReason: { isEnabled, reason, time}, temp, insideTemp, canalTemp } = this.props
+    const { switchReason: { isEnabled, reason, time}, temp, insideTmp, canaltTmp } = this.props
     const { value } = this.state
 
     return (
@@ -74,7 +74,7 @@ class Vent extends React.Component {
             </Grid>
           </Grid>
           <Divider />
-          
+
           <Slider
             style={{marginTop: '20px'}}
             value={value}
