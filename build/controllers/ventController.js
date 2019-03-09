@@ -43,7 +43,11 @@ class Vent {
 
     _defineProperty(this, "lastChanged", new Date(0));
 
-    _defineProperty(this, "switchReason", {});
+    _defineProperty(this, "switchReason", {
+      isEnabled: false,
+      reason: 'UNKNOWN_MAY_BE_ENABLED',
+      time: new Date()
+    });
 
     _defineProperty(this, "writeToSerialPort", data => {
       return new Promise((resolve, reject) => {
@@ -180,7 +184,8 @@ class Vent {
         this.enable();
         this.switchReason = {
           isEnabled: true,
-          reason: 'TMP_TRASHOLD'
+          reason: 'TMP_TRASHOLD',
+          time: new Date()
         };
         return;
       }
@@ -192,7 +197,8 @@ class Vent {
 
         this.switchReason = {
           isEnabled: true,
-          reason: 'CO2_MAX_TRASHOLD'
+          reason: 'CO2_MAX_TRASHOLD',
+          time: new Date()
         };
         this.enable();
       }
@@ -204,7 +210,8 @@ class Vent {
 
         this.switchReason = {
           isEnabled: false,
-          reason: 'CO2_MIN_TRASHOLD'
+          reason: 'CO2_MIN_TRASHOLD',
+          time: new Date()
         };
         this.disable();
       }

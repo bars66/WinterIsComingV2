@@ -48,13 +48,11 @@ var _default = {
             },
             reason: {
               type: _graphql.GraphQLString
+            },
+            time: {
+              type: _graphql.GraphQLString
             }
-          },
-
-          resolve(unused, unused1, context) {
-            return context.controllers.Vent.switchReason;
           }
-
         })
       }
     }
@@ -62,7 +60,7 @@ var _default = {
 
   resolve(unused1, unused2, context) {
     return _objectSpread({}, context.controllers.Vent.params, {
-      switchReason: {}
+      switchReason: context.controllers.Vent.switchReason
     });
   }
 

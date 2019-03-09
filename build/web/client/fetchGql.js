@@ -17,7 +17,7 @@ async function fetchGql(query, variables) {
     })
   });
   const result = await response.json();
-  if (!!result.errors) return {};
+  if (result.errors) return {};
   return result.data;
 }
 

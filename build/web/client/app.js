@@ -17,6 +17,8 @@ var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
+var _LinearProgress = _interopRequireDefault(require("@material-ui/core/LinearProgress"));
+
 var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus"));
 
 var _index = _interopRequireDefault(require("./index/index"));
@@ -45,9 +47,15 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      statusColor,
+      sysStatus,
+      isLoading
+    } = this.props;
     return React.createElement("div", {
       style: {
-        width: '100%',
+        maxWidth: '100%',
+        overflowX: 'hidden',
         padding: '10px'
       }
     }, React.createElement(_CssBaseline.default, null), React.createElement(_Typography.default, {
@@ -56,22 +64,32 @@ class App extends React.Component {
       gutterBottom: true
     }, "WiC V2.1. ", React.createElement("span", {
       style: {
-        color: 'green'
+        color: statusColor
       }
-    }, "Stable")), React.createElement(_Divider.default, null), React.createElement(_Grid.default, {
+    }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
+      color: "secondary"
+    })) : React.createElement(React.Fragment, null, React.createElement(_Grid.default, {
       container: true,
       spacing: 8
     }, React.createElement(_Grid.default, {
       item: true,
       xs: 12
-    }, React.createElement(_index.default, null))));
+    }, React.createElement(_index.default, null)))));
   }
 
 }
 
 exports.App = App;
 
-var _default = (0, _reactRedux.connect)(undefined, dispatch => ({
+var _default = (0, _reactRedux.connect)(({
+  isLoading
+}) => {
+  return {
+    isLoading,
+    sysStatus: !isLoading ? 'Fatal' : 'Stable',
+    statusColor: !isLoading ? 'red' : 'green'
+  };
+}, dispatch => ({
   updateSystemStatus: () => {
     dispatch((0, _getSystemStatus.default)());
   }

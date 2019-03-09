@@ -23,6 +23,7 @@ query getVentStatus{
     switchReason {
       isEnabled
       reason
+      time
     }
   }
 }`;
@@ -37,6 +38,10 @@ var _default = () => {
         payload: data.vent
       });
     }
+
+    dispatch({
+      type: '@@loading/COMPLETE'
+    });
   };
 };
 
