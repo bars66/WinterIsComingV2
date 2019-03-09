@@ -18,6 +18,8 @@ var _sunriseSensor = require("./sensors/sunriseSensor");
 
 var _flowerLightController = require("./controllers/flowerLightController");
 
+var _app = _interopRequireDefault(require("./web/app"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -59,6 +61,7 @@ class Control {
     new _co2Sensor.Co2Room(this.context);
     new _tempSensor.Temp(this.context);
     new _sunriseSensor.Sunrise(this.context);
+    (0, _app.default)(this.context);
 
     _nodeCron.default.schedule('* * * * * *', () => {
       this.runHandlersByTime('Second');

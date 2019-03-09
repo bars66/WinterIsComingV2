@@ -43,6 +43,8 @@ class Vent {
 
     _defineProperty(this, "lastChanged", new Date(0));
 
+    _defineProperty(this, "switchReason", {});
+
     _defineProperty(this, "writeToSerialPort", data => {
       return new Promise((resolve, reject) => {
         this.port.write(data);
@@ -176,6 +178,10 @@ class Vent {
         }, 'Enable by temp treshold');
 
         this.enable();
+        this.switchReason = {
+          isEnabled: true,
+          reason: 'TMP_TRASHOLD'
+        };
         return;
       }
 
@@ -184,6 +190,10 @@ class Vent {
           msgType: 'ventByCo2AndTemp'
         }, 'Enable by CO2 treshold');
 
+        this.switchReason = {
+          isEnabled: true,
+          reason: 'CO2_MAX_TRASHOLD'
+        };
         this.enable();
       }
 
@@ -192,6 +202,10 @@ class Vent {
           msgType: 'ventByCo2AndTemp'
         }, 'Disable by CO2 treshold');
 
+        this.switchReason = {
+          isEnabled: false,
+          reason: 'CO2_MIN_TRASHOLD'
+        };
         this.disable();
       }
     });
