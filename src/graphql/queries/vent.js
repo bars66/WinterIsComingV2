@@ -16,16 +16,14 @@ export default {
         name: 'VentSwitchReasons',
         fields: {
           isEnabled: { type: GraphQLBoolean },
-          reason: { type: GraphQLString }
-        },
-        resolve (unused, unused1, context) {
-          return context.controllers.Vent.switchReason;
+          reason: { type: GraphQLString },
+          time: { type: GraphQLString }
         }
       }) }
     }
   }),
 
   resolve (unused1, unused2, context) {
-    return {...context.controllers.Vent.params, switchReason: {}}
+    return { ...context.controllers.Vent.params, switchReason: context.controllers.Vent.switchReason }
   }
 }

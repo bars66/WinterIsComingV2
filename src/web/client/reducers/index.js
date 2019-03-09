@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
 import ventReducer from './vent'
+import loadingReducer from './loading'
 
 const reducers = combineReducers({
-  isLoading: (state = false) => state,
-  vent: ventReducer,
+  isLoading: loadingReducer,
+  vent: ventReducer
 })
 
 export default reducers

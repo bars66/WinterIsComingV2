@@ -1,4 +1,4 @@
-import fetchGql from '../fetchGql';
+import fetchGql from '../fetchGql'
 
 const query = `
 query getVentStatus{
@@ -14,16 +14,19 @@ query getVentStatus{
     switchReason {
       isEnabled
       reason
+      time
     }
   }
-}`;
+}`
 
 export default () => {
   return async (dispatch, getState) => {
-    const data = await fetchGql(query);
+    const data = await fetchGql(query)
 
     if (data.vent) {
-      dispatch({type: '@@vent/UPDATE', payload: data.vent});
+      dispatch({ type: '@@vent/UPDATE', payload: data.vent })
     }
-  };
+
+    dispatch({ type: '@@loading/COMPLETE' })
+  }
 }

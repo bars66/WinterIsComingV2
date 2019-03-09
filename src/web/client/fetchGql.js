@@ -1,5 +1,5 @@
 
-export default async function fetchGql(query, variables) {
+export default async function fetchGql (query, variables) {
   const response = await fetch('/graphql', {
     method: 'POST',
     headers: {
@@ -7,12 +7,12 @@ export default async function fetchGql(query, variables) {
     },
     body: JSON.stringify({
       query,
-      variables,
+      variables
     })
-  });
+  })
 
   const result = await response.json()
-  if (!!result.errors) return {};
+  if (result.errors) return {}
 
-  return result.data;
+  return result.data
 };
