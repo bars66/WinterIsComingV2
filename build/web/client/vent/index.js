@@ -19,11 +19,13 @@ var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent
 
 var _CardHeader = _interopRequireDefault(require("@material-ui/core/CardHeader"));
 
-var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
-
 var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
+
+var _debounce = _interopRequireDefault(require("debounce"));
+
+var _setTemp = _interopRequireDefault(require("../actions/setTemp"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,10 +39,13 @@ class Vent extends _react.default.Component {
       value: this.props.temp
     });
 
+    _defineProperty(this, "debouncedSetTemp", (0, _debounce.default)(this.props.changeTemp, 500));
+
     _defineProperty(this, "handleChange", (event, value) => {
       this.setState({
         value
       });
+      this.debouncedSetTemp(value);
     });
   }
 
@@ -56,8 +61,9 @@ class Vent extends _react.default.Component {
       canaltTmp
     } = this.props;
     const {
-      value
+      value: valueFromState
     } = this.state;
+    const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
     return _react.default.createElement(_Card.default, null, _react.default.createElement(_CardHeader.default, {
       title: "\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u044F"
     }), _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
@@ -102,7 +108,7 @@ class Vent extends _react.default.Component {
       xs: 9
     }, _react.default.createElement(_Typography.default, {
       variant: "title"
-    }, _react.default.createElement("b", null, temp))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement("b", null, tempForShown))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
     }, _react.default.createElement(_Typography.default, null, "\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u044F\u044F:")), _react.default.createElement(_Grid.default, {
@@ -118,9 +124,9 @@ class Vent extends _react.default.Component {
       style: {
         marginTop: '20px'
       },
-      value: value,
+      value: tempForShown,
       min: 15,
-      max: 30,
+      max: 28,
       step: 0.5,
       onChange: this.handleChange
     })));
@@ -130,6 +136,8 @@ class Vent extends _react.default.Component {
 
 var _default = (0, _reactRedux.connect)(({
   vent
-}) => vent)(Vent);
+}) => vent, dispatch => ({
+  changeTemp: temp => dispatch((0, _setTemp.default)(temp))
+}))(Vent);
 
 exports.default = _default;

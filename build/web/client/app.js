@@ -21,13 +21,25 @@ var _LinearProgress = _interopRequireDefault(require("@material-ui/core/LinearPr
 
 var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus"));
 
-var _index = _interopRequireDefault(require("./index/index"));
+var _index = _interopRequireDefault(require("./vent/index"));
+
+var _getCO2color = _interopRequireDefault(require("./utils/getCO2color"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function genValues() {
+  let a = [];
+
+  for (let i = 390; i != 2000; ++i) {
+    a.push(i);
+  }
+
+  return a;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -68,13 +80,7 @@ class App extends React.Component {
       }
     }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
       color: "secondary"
-    })) : React.createElement(React.Fragment, null, React.createElement(_Grid.default, {
-      container: true,
-      spacing: 8
-    }, React.createElement(_Grid.default, {
-      item: true,
-      xs: 12
-    }, React.createElement(_index.default, null)))));
+    })) : React.createElement(React.Fragment, null, React.createElement(_index.default, null)));
   }
 
 }
