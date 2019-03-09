@@ -6,22 +6,29 @@ import { connect } from 'react-redux'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
-import CardActions from '@material-ui/core/CardActions'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
+
+import debounce from 'debounce';
+
+import setTemp from '../actions/setTemp';
 
 class Vent extends React.Component {
   state = {
     value: this.props.temp
   };
 
+  debouncedSetTemp = debounce(this.props.changeTemp, 500);
+
   handleChange = (event, value) => {
     this.setState({ value })
+    this.debouncedSetTemp(value);
   };
 
   render () {
     const { switchReason: { isEnabled, reason, time}, temp, insideTmp, canaltTmp } = this.props
-    const { value } = this.state
+    const { value: valueFromState } = this.state
+    const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
 
     return (
       <Card>
@@ -58,7 +65,7 @@ class Vent extends React.Component {
               <Typography >Заданная:</Typography>
             </Grid>
             <Grid item xs={9}>
-              <Typography variant='title'><b>{temp}</b></Typography>
+              <Typography variant='title'><b>{tempForShown}</b></Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography >Внутренняя:</Typography>
@@ -77,9 +84,9 @@ class Vent extends React.Component {
 
           <Slider
             style={{marginTop: '20px'}}
-            value={value}
+            value={tempForShown}
             min={15}
-            max={30}
+            max={28}
             step={0.5}
             onChange={this.handleChange}
           />
@@ -89,4 +96,6 @@ class Vent extends React.Component {
   }
 }
 
-export default connect(({ vent }) => vent)(Vent)
+export default connect(({ vent }) => vent, (dispatch) => ({
+  changeTemp: temp => dispatch(setTemp(temp))
+}))(Vent)

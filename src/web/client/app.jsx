@@ -7,7 +7,18 @@ import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import getSystemStatus from './actions/getSystemStatus'
-import Index from './index/index'
+import Vent from './vent/index'
+import getCO2Color from './utils/getCO2color';
+
+function genValues () {
+  let a = [];
+
+  for (let i = 390; i != 2000; ++i) {
+    a.push(i);
+  }
+
+  return a;
+}
 
 export class App extends React.Component {
   intervalId;
@@ -41,17 +52,18 @@ export class App extends React.Component {
         </Typography>
         <Divider />
 
-        {!this.props.isLoading ? <React.Fragment>
-          <LinearProgress />
-          <br />
-          <LinearProgress color='secondary' />
-        </React.Fragment> : <React.Fragment>
-          <Grid container spacing={8}>
-            <Grid item xs={12}>
-              <Index />
-            </Grid>
-          </Grid>
-        </React.Fragment>}
+        {!this.props.isLoading
+          ?
+          <React.Fragment>
+            <LinearProgress />
+            <br />
+            <LinearProgress color='secondary' />
+          </React.Fragment>
+          :
+          <React.Fragment>
+            <Vent />
+          </React.Fragment>
+        }
 
       </div>
     )
