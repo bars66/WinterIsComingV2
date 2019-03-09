@@ -64,13 +64,13 @@ class Vent extends React.Component {
               <Typography >Внутренняя:</Typography>
             </Grid>
             <Grid item xs={9}>
-              <Typography ><b>{insideTemp}</b></Typography>
+              <Typography ><b>{insideTmp}</b></Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography >Канальная:</Typography>
             </Grid>
             <Grid item xs={9}>
-              <Typography >{canalTemp}</Typography>
+              <Typography >{canaltTmp}</Typography>
             </Grid>
           </Grid>
           <Divider />
