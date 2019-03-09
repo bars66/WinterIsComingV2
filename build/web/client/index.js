@@ -4,7 +4,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _index = _interopRequireDefault(require("./index/index"));
+var _app = _interopRequireDefault(require("./app.js"));
 
 var _reactRedux = require("react-redux");
 
@@ -16,4 +16,4 @@ const store = (0, _store.default)();
 
 _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: store
-}, _react.default.createElement(_index.default, null)), document.getElementById("root"));
+}, _react.default.createElement(_app.default, null)), document.getElementById('root'));

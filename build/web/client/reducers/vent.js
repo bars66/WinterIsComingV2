@@ -7,7 +7,7 @@ exports.default = contextReducer;
 
 function contextReducer(state = {}, action) {
   switch (action.type) {
-    case '@@context/UPDATE':
+    case '@@vent/UPDATE':
       return action.payload;
 
     default:

@@ -19,6 +19,10 @@ const logger = bunyan.createLogger({
   level: 'trace',
   streams: [{
     stream: process.stdout // `type: 'stream'` is implied
+    // {
+    //   type: 'raw',
+    //   stream: logzioStream
+    // }
 
   }]
 });
