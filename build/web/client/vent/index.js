@@ -56,6 +56,10 @@ class Vent extends _react.default.Component {
         temp,
         insideTmp
       } = this.props;
+      const {
+        value: valueFromState
+      } = this.state;
+      const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
       if (!ventEnabled) return '#bdbdbd';
       if (temp.toFixed(2) !== insideTmp.toFixed(2)) return '#ffd54f';
       return '#4caf50';
@@ -120,21 +124,7 @@ class Vent extends _react.default.Component {
     }), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, new Date(+time).toISOString()))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Grid.default, {
-      container: true,
-      spacing: 0
-    }, _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 12
-    }, _react.default.createElement(_Typography.default, {
-      variant: "title"
-    }, "\u0422\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u0430.")), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 3
-    }, _react.default.createElement(_Typography.default, null, "\u0417\u0430\u0434\u0430\u043D\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 9
-    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, tempForShown)))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
+    }, _react.default.createElement(_Typography.default, null, new Date(+time).toISOString()))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
       style: {
         marginTop: '20px'
       },
