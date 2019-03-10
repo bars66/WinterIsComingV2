@@ -23,7 +23,7 @@ var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus
 
 var _index = _interopRequireDefault(require("./vent/index"));
 
-var _getCO2color = _interopRequireDefault(require("./utils/getCO2color"));
+var _index2 = _interopRequireDefault(require("./co2/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80,7 +80,7 @@ class App extends React.Component {
       }
     }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
       color: "secondary"
-    })) : React.createElement(React.Fragment, null, React.createElement(_index.default, null)));
+    })) : React.createElement(React.Fragment, null, React.createElement(_index2.default, null), React.createElement(_index.default, null)));
   }
 
 }

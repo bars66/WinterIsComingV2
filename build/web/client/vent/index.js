@@ -23,6 +23,8 @@ var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
+var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
+
 var _debounce = _interopRequireDefault(require("debounce"));
 
 var _setTemp = _interopRequireDefault(require("../actions/setTemp"));
@@ -47,6 +49,17 @@ class Vent extends _react.default.Component {
       });
       this.debouncedSetTemp(value);
     });
+
+    _defineProperty(this, "getColorByStatus", () => {
+      const {
+        ventEnabled,
+        temp,
+        insideTmp
+      } = this.props;
+      if (!ventEnabled) return '#bdbdbd';
+      if (temp.toFixed(2) !== insideTmp.toFixed(2)) return '#ffd54f';
+      return '#4caf50';
+    });
   }
 
   render() {
@@ -65,7 +78,18 @@ class Vent extends _react.default.Component {
     } = this.state;
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
     return _react.default.createElement(_Card.default, null, _react.default.createElement(_CardHeader.default, {
-      title: "\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u044F"
+      title: "\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u044F",
+      titleTypographyProps: {
+        variant: 'display1'
+      },
+      avatar: _react.default.createElement(_Avatar.default, {
+        style: {
+          width: 60,
+          height: 60,
+          color: '#fff',
+          backgroundColor: this.getColorByStatus()
+        }
+      }, _react.default.createElement("b", null, "+", tempForShown))
     }), _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
       container: true,
       spacing: 0
@@ -106,9 +130,7 @@ class Vent extends _react.default.Component {
     }, _react.default.createElement(_Typography.default, null, "\u0417\u0430\u0434\u0430\u043D\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, {
-      variant: "title"
-    }, _react.default.createElement("b", null, tempForShown))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, tempForShown))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
     }, _react.default.createElement(_Typography.default, null, "\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u044F\u044F:")), _react.default.createElement(_Grid.default, {

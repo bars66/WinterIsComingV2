@@ -11,11 +11,14 @@ var _vent = _interopRequireDefault(require("./vent"));
 
 var _loading = _interopRequireDefault(require("./loading"));
 
+var _co = _interopRequireDefault(require("./co2"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const reducers = (0, _redux.combineReducers)({
   isLoading: _loading.default,
-  vent: _vent.default
+  vent: _vent.default,
+  co2: _co.default
 });
 var _default = reducers;
 exports.default = _default;

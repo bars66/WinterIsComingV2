@@ -67,6 +67,9 @@ class Co2Room extends _abstractSensor.AbstractSensor {
           logger.info(args, 'Write in SerialPort');
         }
       };
+      this.value = {
+        value: 1900
+      };
       logger.debug('Create mocked serialport');
     }
 

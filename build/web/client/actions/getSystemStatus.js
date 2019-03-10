@@ -26,6 +26,9 @@ query getVentStatus{
       time
     }
   }
+  co2 {
+    value
+  }
 }`;
 
 var _default = () => {
@@ -36,6 +39,13 @@ var _default = () => {
       dispatch({
         type: '@@vent/UPDATE',
         payload: data.vent
+      });
+    }
+
+    if (data.co2) {
+      dispatch({
+        type: '@@co2/UPDATE',
+        payload: data.co2
       });
     }
 

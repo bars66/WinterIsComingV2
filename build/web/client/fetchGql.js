@@ -5,8 +5,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = fetchGql;
 
+var _isomorphicFetch = _interopRequireDefault(require("isomorphic-fetch"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 async function fetchGql(query, variables) {
-  const response = await fetch('/graphql', {
+  const response = await (0, _isomorphicFetch.default)('/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
