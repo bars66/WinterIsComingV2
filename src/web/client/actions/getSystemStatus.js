@@ -39,7 +39,7 @@ export default () => {
     }
 
     if (data.temps) {
-      dispatch({ type: '@@temps/UPDATE', payload: data.co2 })
+      dispatch({ type: '@@temps/UPDATE', payload: data.temps })
     }
 
     dispatch({ type: '@@loading/COMPLETE' })
