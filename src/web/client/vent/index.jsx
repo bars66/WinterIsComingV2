@@ -28,6 +28,8 @@ class Vent extends React.Component {
 
   getColorByStatus = () => {
     const {ventEnabled, temp, insideTmp} = this.props;
+    const { value: valueFromState } = this.state
+    const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     if (!ventEnabled) return '#bdbdbd';
 
@@ -80,18 +82,6 @@ class Vent extends React.Component {
             <Grid item xs={3} />
             <Grid item xs={9}>
               <Typography >{(new Date(+time)).toISOString()}</Typography>
-            </Grid>
-          </Grid>
-          <Divider />
-          <Grid container spacing={0}>
-            <Grid item xs={12}>
-              <Typography variant='title'>Температура.</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography>Заданная:</Typography>
-            </Grid>
-            <Grid item xs={9}>
-              <Typography><b>{tempForShown}</b></Typography>
             </Grid>
           </Grid>
           <Divider />
