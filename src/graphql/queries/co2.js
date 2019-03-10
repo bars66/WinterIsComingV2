@@ -4,7 +4,8 @@ export default {
   type: new GraphQLObjectType({
     name: 'CO2',
     fields: {
-      value: { type: GraphQLInt }
+      value: { type: GraphQLInt },
+      lastUpdate: { type: GraphQLString }
     }
   }),
 

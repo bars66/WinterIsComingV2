@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider'
 
 import getCO2Color from '../utils/getCO2color'
 
-const CO2 = ({ value }) => {
+const CO2 = ({ value, lastUpdate }) => {
   return (
     <Card style={{ marginBottom: '20px' }}>
       <CardHeader
@@ -18,6 +18,7 @@ const CO2 = ({ value }) => {
         titleTypographyProps={{
           variant: 'display2',
         }}
+        subheader={(new Date(+lastUpdate)).toISOString()}
         avatar={
           <Avatar style={{
             width: 60,

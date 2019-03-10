@@ -35,7 +35,7 @@ export class Co2Room extends AbstractSensor {
           temp: b[4] - 40,
           st: Number(b[5]),
           u: 256 * b[6] + b[7],
-          _lastUpdate: new Date()
+          lastUpdate: new Date()
         }
         logger.info({
           ...this.value,
@@ -57,7 +57,8 @@ export class Co2Room extends AbstractSensor {
       }
 
       this.value = {
-        value: 1900
+        value: 1900,
+        lastUpdate: new Date(),
       }
 
       logger.debug('Create mocked serialport')

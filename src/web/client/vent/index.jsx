@@ -48,6 +48,7 @@ class Vent extends React.Component {
           titleTypographyProps={{
             variant: 'display1',
           }}
+          subheader={(new Date(+lastAnswer)).toISOString()}
           avatar={
             <Avatar style={{
               width: 60,
@@ -91,10 +92,6 @@ class Vent extends React.Component {
             </Grid>
             <Grid item xs={9}>
               <Typography><b>{tempForShown}</b></Typography>
-            </Grid>
-            <Grid item xs={3} />
-            <Grid item xs={9}>
-              <Typography >{(new Date(+lastAnswer)).toISOString()}</Typography>
             </Grid>
           </Grid>
           <Divider />

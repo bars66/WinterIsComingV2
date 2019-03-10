@@ -17,7 +17,8 @@ export class Temp extends AbstractSensor {
     this.context.controllers.Events.on('temperatureFromVent', ({ canaltTmp, insideTmp }) => {
       this.value = {
         canal: canaltTmp,
-        inside: insideTmp
+        inside: insideTmp,
+        lastUpdate: new Date(),
       }
     })
   }

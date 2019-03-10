@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 
-const Temps = ({inside, canal}) => {
+const Temps = ({inside, canal, lastUpdate}) => {
     return (
       <Card>
         <CardHeader
@@ -18,6 +18,7 @@ const Temps = ({inside, canal}) => {
           titleTypographyProps={{
             variant: 'display1',
           }}
+          subheader={(new Date(+lastUpdate)).toISOString()}
           avatar={
             <Avatar style={{
               width: 60,

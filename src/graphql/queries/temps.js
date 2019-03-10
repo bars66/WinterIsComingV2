@@ -6,6 +6,7 @@ export default {
     fields: {
       canal: { type: GraphQLFloat },
       inside: { type: GraphQLFloat },
+      lastUpdate: { type: GraphQLString }
     }
   }),
 
