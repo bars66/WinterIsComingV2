@@ -56,6 +56,10 @@ export class Co2Room extends AbstractSensor {
         }
       }
 
+      this.value = {
+        value: 1900
+      }
+
       logger.debug('Create mocked serialport')
     }
 

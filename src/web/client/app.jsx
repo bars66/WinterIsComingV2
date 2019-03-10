@@ -8,16 +8,16 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 
 import getSystemStatus from './actions/getSystemStatus'
 import Vent from './vent/index'
-import getCO2Color from './utils/getCO2color';
+import CO2 from './co2/index'
 
 function genValues () {
-  let a = [];
+  let a = []
 
   for (let i = 390; i != 2000; ++i) {
-    a.push(i);
+    a.push(i)
   }
 
-  return a;
+  return a
 }
 
 export class App extends React.Component {
@@ -53,14 +53,13 @@ export class App extends React.Component {
         <Divider />
 
         {!this.props.isLoading
-          ?
-          <React.Fragment>
+          ? <React.Fragment>
             <LinearProgress />
             <br />
             <LinearProgress color='secondary' />
           </React.Fragment>
-          :
-          <React.Fragment>
+          : <React.Fragment>
+            <CO2 />
             <Vent />
           </React.Fragment>
         }

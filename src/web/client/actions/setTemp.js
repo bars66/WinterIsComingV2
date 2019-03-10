@@ -8,6 +8,6 @@ mutation setTemp($temp: Float!) {
 
 export default (temp) => {
   return async (dispatch, getState) => {
-    await fetchGql(query, {temp})
+    await fetchGql(query, { temp })
   }
 }

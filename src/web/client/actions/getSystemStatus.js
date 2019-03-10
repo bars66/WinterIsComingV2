@@ -17,6 +17,9 @@ query getVentStatus{
       time
     }
   }
+  co2 {
+    value
+  }
 }`
 
 export default () => {
@@ -25,6 +28,10 @@ export default () => {
 
     if (data.vent) {
       dispatch({ type: '@@vent/UPDATE', payload: data.vent })
+    }
+
+    if (data.co2) {
+      dispatch({ type: '@@co2/UPDATE', payload: data.co2 })
     }
 
     dispatch({ type: '@@loading/COMPLETE' })

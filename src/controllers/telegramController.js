@@ -91,7 +91,7 @@ export class Telegram {
         await this.bot.sendMessage(id, msg)
       }
     } catch (e) {
-      logger.error(e, 'broadcast send error')
+      this.logger.error(e, 'broadcast send error')
     }
   }
 

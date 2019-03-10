@@ -8,10 +8,11 @@ import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
 
-import debounce from 'debounce';
+import debounce from 'debounce'
 
-import setTemp from '../actions/setTemp';
+import setTemp from '../actions/setTemp'
 
 class Vent extends React.Component {
   state = {
@@ -22,17 +23,42 @@ class Vent extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value })
-    this.debouncedSetTemp(value);
+    this.debouncedSetTemp(value)
   };
 
+  getColorByStatus = () => {
+    const {ventEnabled, temp, insideTmp} = this.props;
+
+    if (!ventEnabled) return '#bdbdbd';
+
+    if (temp.toFixed(2) !== insideTmp.toFixed(2)) return '#ffd54f';
+
+    return '#4caf50';
+   }
+
   render () {
-    const { switchReason: { isEnabled, reason, time}, temp, insideTmp, canaltTmp } = this.props
+    const { switchReason: { isEnabled, reason, time }, temp, insideTmp, canaltTmp } = this.props
     const { value: valueFromState } = this.state
-    const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
+    const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     return (
       <Card>
-        <CardHeader title='Вентиляция' />
+        <CardHeader
+          title='Вентиляция'
+          titleTypographyProps={{
+            variant: 'display1',
+          }}
+          avatar={
+            <Avatar style={{
+              width: 60,
+              height: 60,
+              color: '#fff',
+              backgroundColor: this.getColorByStatus()
+            }}>
+              <b>+{tempForShown}</b>
+            </Avatar>
+          }
+        />
         <CardContent>
 
           <Grid container spacing={0}>
@@ -65,7 +91,7 @@ class Vent extends React.Component {
               <Typography >Заданная:</Typography>
             </Grid>
             <Grid item xs={9}>
-              <Typography variant='title'><b>{tempForShown}</b></Typography>
+              <Typography><b>{tempForShown}</b></Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography >Внутренняя:</Typography>
@@ -83,7 +109,7 @@ class Vent extends React.Component {
           <Divider />
 
           <Slider
-            style={{marginTop: '20px'}}
+            style={{ marginTop: '20px' }}
             value={tempForShown}
             min={15}
             max={28}

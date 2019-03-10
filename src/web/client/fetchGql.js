@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 
 export default async function fetchGql (query, variables) {
   const response = await fetch('/graphql', {
