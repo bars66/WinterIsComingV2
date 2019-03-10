@@ -9,6 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import getSystemStatus from './actions/getSystemStatus'
 import Vent from './vent/index'
 import CO2 from './co2/index'
+import Temps from './temps/index'
 
 function genValues () {
   let a = []
@@ -61,6 +62,7 @@ export class App extends React.Component {
           : <React.Fragment>
             <CO2 />
             <Vent />
+            <Temps />
           </React.Fragment>
         }
 

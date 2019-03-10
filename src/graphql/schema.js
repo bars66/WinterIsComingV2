@@ -6,6 +6,8 @@ import {
 
 import vent from './queries/vent'
 import co2 from './queries/co2'
+import temps from './queries/temps'
+
 import setTemp from './mutations/setTemp'
 
 export default new GraphQLSchema({
@@ -13,7 +15,8 @@ export default new GraphQLSchema({
     name: 'SchemaQueries',
     fields: {
       vent,
-      co2
+      co2,
+      temps,
     }
   }),
   mutation: new GraphQLObjectType({

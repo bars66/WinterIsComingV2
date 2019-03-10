@@ -37,12 +37,12 @@ class Vent extends React.Component {
    }
 
   render () {
-    const { switchReason: { isEnabled, reason, time }, temp, insideTmp, canaltTmp } = this.props
+    const { switchReason: { isEnabled, reason, time }, temp, lastAnswer } = this.props
     const { value: valueFromState } = this.state
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     return (
-      <Card>
+      <Card style={{ marginBottom: '20px' }}>
         <CardHeader
           title='Вентиляция'
           titleTypographyProps={{
@@ -60,7 +60,6 @@ class Vent extends React.Component {
           }
         />
         <CardContent>
-
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <Typography variant='title' >Автоматическое управление.</Typography>
@@ -85,25 +84,17 @@ class Vent extends React.Component {
           <Divider />
           <Grid container spacing={0}>
             <Grid item xs={12}>
-              <Typography variant='title'> Температуры.</Typography>
+              <Typography variant='title'>Температура.</Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography >Заданная:</Typography>
+              <Typography>Заданная:</Typography>
             </Grid>
             <Grid item xs={9}>
               <Typography><b>{tempForShown}</b></Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Typography >Внутренняя:</Typography>
-            </Grid>
+            <Grid item xs={3} />
             <Grid item xs={9}>
-              <Typography ><b>{insideTmp}</b></Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography >Канальная:</Typography>
-            </Grid>
-            <Grid item xs={9}>
-              <Typography >{canaltTmp}</Typography>
+              <Typography >{(new Date(+lastAnswer)).toISOString()}</Typography>
             </Grid>
           </Grid>
           <Divider />
