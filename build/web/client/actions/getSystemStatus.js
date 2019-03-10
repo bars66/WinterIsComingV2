@@ -56,7 +56,7 @@ var _default = () => {
     if (data.temps) {
       dispatch({
         type: '@@temps/UPDATE',
-        payload: data.co2
+        payload: data.temps
       });
     }
 
