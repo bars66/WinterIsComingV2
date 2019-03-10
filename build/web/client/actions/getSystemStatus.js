@@ -29,6 +29,10 @@ query getVentStatus{
   co2 {
     value
   }
+  temps {
+    inside
+    canal
+  }
 }`;
 
 var _default = () => {
@@ -45,6 +49,13 @@ var _default = () => {
     if (data.co2) {
       dispatch({
         type: '@@co2/UPDATE',
+        payload: data.co2
+      });
+    }
+
+    if (data.temps) {
+      dispatch({
+        type: '@@temps/UPDATE',
         payload: data.co2
       });
     }

@@ -70,14 +70,17 @@ class Vent extends _react.default.Component {
         time
       },
       temp,
-      insideTmp,
-      canaltTmp
+      lastAnswer
     } = this.props;
     const {
       value: valueFromState
     } = this.state;
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
-    return _react.default.createElement(_Card.default, null, _react.default.createElement(_CardHeader.default, {
+    return _react.default.createElement(_Card.default, {
+      style: {
+        marginBottom: '20px'
+      }
+    }, _react.default.createElement(_CardHeader.default, {
       title: "\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u044F",
       titleTypographyProps: {
         variant: 'display1'
@@ -124,7 +127,7 @@ class Vent extends _react.default.Component {
       xs: 12
     }, _react.default.createElement(_Typography.default, {
       variant: "title"
-    }, " \u0422\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u044B.")), _react.default.createElement(_Grid.default, {
+    }, "\u0422\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u0430.")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
     }, _react.default.createElement(_Typography.default, null, "\u0417\u0430\u0434\u0430\u043D\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
@@ -133,16 +136,10 @@ class Vent extends _react.default.Component {
     }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, tempForShown))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_Typography.default, null, "\u0412\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u044F\u044F:")), _react.default.createElement(_Grid.default, {
+    }), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, insideTmp))), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 3
-    }, _react.default.createElement(_Typography.default, null, "\u041A\u0430\u043D\u0430\u043B\u044C\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 9
-    }, _react.default.createElement(_Typography.default, null, canaltTmp))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
+    }, _react.default.createElement(_Typography.default, null, new Date(+lastAnswer).toISOString()))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
       style: {
         marginTop: '20px'
       },

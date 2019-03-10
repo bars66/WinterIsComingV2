@@ -11,6 +11,8 @@ var _vent = _interopRequireDefault(require("./queries/vent"));
 
 var _co = _interopRequireDefault(require("./queries/co2"));
 
+var _temps = _interopRequireDefault(require("./queries/temps"));
+
 var _setTemp = _interopRequireDefault(require("./mutations/setTemp"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -20,7 +22,8 @@ var _default = new _graphql.GraphQLSchema({
     name: 'SchemaQueries',
     fields: {
       vent: _vent.default,
-      co2: _co.default
+      co2: _co.default,
+      temps: _temps.default
     }
   }),
   mutation: new _graphql.GraphQLObjectType({

@@ -25,6 +25,8 @@ var _index = _interopRequireDefault(require("./vent/index"));
 
 var _index2 = _interopRequireDefault(require("./co2/index"));
 
+var _index3 = _interopRequireDefault(require("./temps/index"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -80,7 +82,7 @@ class App extends React.Component {
       }
     }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
       color: "secondary"
-    })) : React.createElement(React.Fragment, null, React.createElement(_index2.default, null), React.createElement(_index.default, null)));
+    })) : React.createElement(React.Fragment, null, React.createElement(_index2.default, null), React.createElement(_index.default, null), React.createElement(_index3.default, null)));
   }
 
 }
