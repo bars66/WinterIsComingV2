@@ -28,10 +28,12 @@ query getVentStatus{
   }
   co2 {
     value
+    lastUpdate
   }
   temps {
     inside
     canal
+    lastUpdate
   }
 }`;
 

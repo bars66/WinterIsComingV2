@@ -26,7 +26,8 @@ var _getCO2color = _interopRequireDefault(require("../utils/getCO2color"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const CO2 = ({
-  value
+  value,
+  lastUpdate
 }) => {
   return _react.default.createElement(_Card.default, {
     style: {
@@ -37,6 +38,7 @@ const CO2 = ({
     titleTypographyProps: {
       variant: 'display2'
     },
+    subheader: new Date(+lastUpdate).toISOString(),
     avatar: _react.default.createElement(_Avatar.default, {
       style: {
         width: 60,

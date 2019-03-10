@@ -85,6 +85,7 @@ class Vent extends _react.default.Component {
       titleTypographyProps: {
         variant: 'display1'
       },
+      subheader: new Date(+lastAnswer).toISOString(),
       avatar: _react.default.createElement(_Avatar.default, {
         style: {
           width: 60,
@@ -133,13 +134,7 @@ class Vent extends _react.default.Component {
     }, _react.default.createElement(_Typography.default, null, "\u0417\u0430\u0434\u0430\u043D\u043D\u0430\u044F:")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, tempForShown))), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 3
-    }), _react.default.createElement(_Grid.default, {
-      item: true,
-      xs: 9
-    }, _react.default.createElement(_Typography.default, null, new Date(+lastAnswer).toISOString()))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
+    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, tempForShown)))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
       style: {
         marginTop: '20px'
       },

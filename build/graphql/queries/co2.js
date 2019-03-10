@@ -13,6 +13,9 @@ var _default = {
     fields: {
       value: {
         type: _graphql.GraphQLInt
+      },
+      lastUpdate: {
+        type: _graphql.GraphQLString
       }
     }
   }),

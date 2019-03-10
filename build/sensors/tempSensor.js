@@ -22,7 +22,8 @@ class Temp extends _abstractSensor.AbstractSensor {
       }) => {
         this.value = {
           canal: canaltTmp,
-          inside: insideTmp
+          inside: insideTmp,
+          lastUpdate: new Date()
         };
       });
     });

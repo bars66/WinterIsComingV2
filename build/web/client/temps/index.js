@@ -29,13 +29,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const Temps = ({
   inside,
-  canal
+  canal,
+  lastUpdate
 }) => {
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_CardHeader.default, {
     title: "\u0422\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u044B",
     titleTypographyProps: {
       variant: 'display1'
     },
+    subheader: new Date(+lastUpdate).toISOString(),
     avatar: _react.default.createElement(_Avatar.default, {
       style: {
         width: 60,

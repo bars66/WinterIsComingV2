@@ -16,6 +16,9 @@ var _default = {
       },
       inside: {
         type: _graphql.GraphQLFloat
+      },
+      lastUpdate: {
+        type: _graphql.GraphQLString
       }
     }
   }),
