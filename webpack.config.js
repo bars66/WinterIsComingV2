@@ -3,7 +3,7 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: ['@babel/polyfill', './src/web/client/index.jsx'],
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
     rules: [
       {

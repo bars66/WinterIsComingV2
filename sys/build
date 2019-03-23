@@ -1,0 +1,10 @@
+#/bin/bash
+echo Build project
+echo babel
+yarn babel
+git add build
+echo webpack
+export NODE_ENV=production
+yarn webpack
+git add public/dist
+git commit --no-verify -m "Build project"

@@ -37,7 +37,7 @@ export class Co2Room extends AbstractSensor {
           u: 256 * b[6] + b[7],
           lastUpdate: new Date()
         }
-        if (this.value === 64) {
+        if (this.value.st === 64) {
           this.value.lastTrueValue = {...this.value};
         }
 
@@ -63,6 +63,12 @@ export class Co2Room extends AbstractSensor {
       this.value = {
         value: 1900,
         lastUpdate: new Date(),
+        st: 4,
+        lastTrueValue: {
+          value: 900,
+          lastUpdate: new Date(),
+          st: 64,
+        }
       }
 
       logger.debug('Create mocked serialport')
