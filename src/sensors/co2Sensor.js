@@ -37,6 +37,10 @@ export class Co2Room extends AbstractSensor {
           u: 256 * b[6] + b[7],
           lastUpdate: new Date()
         }
+        if (this.value === 64) {
+          this.value.lastTrueValue = {...this.value};
+        }
+
         logger.info({
           ...this.value,
           msgType: 'CO2_METRIC'

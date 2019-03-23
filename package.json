@@ -9,7 +9,7 @@
     "babel": "rm -rf build && babel -q --out-dir build src && echo 'Full babel compilation finished'",
     "babel-watch": "echo 'Watch mode' && babel src --watch --verbose --skip-initial-build --out-dir build",
     "dev-mode": "yarn babel & yarn babel-watch",
-    "app-watch": "nodemon build/index | bunyan"
+    "app-watch": "yarn dev-mode & nodemon build/index | bunyan"
   },
   "dependencies": {
     "@material-ui/core": "^3.9.2",
