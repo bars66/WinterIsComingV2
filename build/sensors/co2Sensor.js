@@ -54,9 +54,12 @@ class Co2Room extends _abstractSensor.AbstractSensor {
         };
 
         if (this.value.st === 64) {
-          this.value.lastTrueValue = _objectSpread({}, this.value);
+          this.lastTrueValue = _objectSpread({}, this.value);
         }
 
+        this.value = _objectSpread({}, this.value, {
+          lastTrueValue: this.lastTrueValue
+        });
         logger.info(_objectSpread({}, this.value, {
           msgType: 'CO2_METRIC'
         }), 'CO2 value');
