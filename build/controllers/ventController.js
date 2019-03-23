@@ -64,12 +64,12 @@ class Vent {
       this.lastChanged = new Date();
     });
 
-    _defineProperty(this, "setManual", manual => {
+    _defineProperty(this, "setManual", (manual, timeout) => {
       this.manualControl = manual;
+      this.manualTimeout = timeout;
     });
 
-    _defineProperty(this, "disable", (force = true) => {
-      this.manualControl = force;
+    _defineProperty(this, "disable", () => {
       this.params = _objectSpread({}, this.params, {
         ventEnabled: false,
         heaterEnabled: false
@@ -77,8 +77,7 @@ class Vent {
       this.setTemp(this.params.temp).catch(error => {});
     });
 
-    _defineProperty(this, "enable", (force = true) => {
-      if (!force && this.manualControl) return;
+    _defineProperty(this, "enable", () => {
       this.checkPort();
       this.params = _objectSpread({}, this.params, {
         ventEnabled: true,

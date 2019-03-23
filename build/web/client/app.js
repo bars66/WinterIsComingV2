@@ -33,16 +33,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function genValues() {
-  let a = [];
-
-  for (let i = 390; i != 2000; ++i) {
-    a.push(i);
-  }
-
-  return a;
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);

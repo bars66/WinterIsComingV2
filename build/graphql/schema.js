@@ -15,6 +15,8 @@ var _temps = _interopRequireDefault(require("./queries/temps"));
 
 var _setTemp = _interopRequireDefault(require("./mutations/setTemp"));
 
+var _manualHeater = _interopRequireDefault(require("./mutations/manualHeater"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = new _graphql.GraphQLSchema({
@@ -29,7 +31,8 @@ var _default = new _graphql.GraphQLSchema({
   mutation: new _graphql.GraphQLObjectType({
     name: 'SchemaMutations',
     fields: {
-      setTemp: _setTemp.default
+      setTemp: _setTemp.default,
+      manualHeater: _manualHeater.default
     }
   })
 });

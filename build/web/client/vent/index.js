@@ -25,9 +25,13 @@ var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
 var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
 
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
 var _debounce = _interopRequireDefault(require("debounce"));
 
 var _setTemp = _interopRequireDefault(require("../actions/setTemp"));
+
+var _manualMode = _interopRequireDefault(require("../actions/manualMode"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74,7 +78,8 @@ class Vent extends _react.default.Component {
         time
       },
       temp,
-      lastAnswer
+      lastAnswer,
+      manualHeater
     } = this.props;
     const {
       value: valueFromState
@@ -126,14 +131,26 @@ class Vent extends _react.default.Component {
       xs: 9
     }, _react.default.createElement(_Typography.default, null, new Date(+time).toISOString()))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Slider.default, {
       style: {
-        marginTop: '20px'
+        marginTop: '20px',
+        marginBottom: '60px'
       },
       value: tempForShown,
       min: 15,
       max: 28,
       step: 0.5,
       onChange: this.handleChange
-    })));
+    }), _react.default.createElement(_Button.default, {
+      variant: "contained",
+      color: "secondary",
+      onClick: () => manualHeater(false)
+    }, "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C"), _react.default.createElement(_Button.default, {
+      variant: "contained",
+      color: "primary",
+      onClick: () => manualHeater(true),
+      style: {
+        marginLeft: '20px'
+      }
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C")));
   }
 
 }
@@ -141,7 +158,8 @@ class Vent extends _react.default.Component {
 var _default = (0, _reactRedux.connect)(({
   vent
 }) => vent, dispatch => ({
-  changeTemp: temp => dispatch((0, _setTemp.default)(temp))
+  changeTemp: temp => dispatch((0, _setTemp.default)(temp)),
+  manualHeater: isEnabled => dispatch((0, _manualMode.default)(isEnabled))
 }))(Vent);
 
 exports.default = _default;
