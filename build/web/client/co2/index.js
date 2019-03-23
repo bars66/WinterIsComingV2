@@ -27,8 +27,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const CO2 = ({
   value,
-  lastUpdate
+  lastUpdate,
+  st,
+  lastTrueValue
 }) => {
+  let body;
+
+  if (lastTrueValue) {
+    body = _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, null, "Last stable: val: ", _react.default.createElement("b", null, lastTrueValue.value), " at ", new Date(+lastTrueValue.lastUpdate).toISOString()));
+  }
+
   return _react.default.createElement(_Card.default, {
     style: {
       marginBottom: '20px'
@@ -38,7 +46,7 @@ const CO2 = ({
     titleTypographyProps: {
       variant: 'display2'
     },
-    subheader: new Date(+lastUpdate).toISOString(),
+    subheader: _react.default.createElement(_react.default.Fragment, null, new Date(+lastUpdate).toISOString(), "; st: ", st),
     avatar: _react.default.createElement(_Avatar.default, {
       style: {
         width: 60,
@@ -47,7 +55,7 @@ const CO2 = ({
         backgroundColor: (0, _getCO2color.default)(value)
       }
     }, value)
-  }));
+  }), !!body && body);
 };
 
 var _default = (0, _reactRedux.connect)(({

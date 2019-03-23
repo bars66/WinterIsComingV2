@@ -29,6 +29,11 @@ query getVentStatus{
   co2 {
     value
     lastUpdate
+    st
+    lastTrueValue {
+      value
+      lastUpdate
+    }
   }
   temps {
     inside

@@ -53,7 +53,7 @@ class Co2Room extends _abstractSensor.AbstractSensor {
           lastUpdate: new Date()
         };
 
-        if (this.value === 64) {
+        if (this.value.st === 64) {
           this.value.lastTrueValue = _objectSpread({}, this.value);
         }
 
@@ -74,7 +74,13 @@ class Co2Room extends _abstractSensor.AbstractSensor {
       };
       this.value = {
         value: 1900,
-        lastUpdate: new Date()
+        lastUpdate: new Date(),
+        st: 4,
+        lastTrueValue: {
+          value: 900,
+          lastUpdate: new Date(),
+          st: 64
+        }
       };
       logger.debug('Create mocked serialport');
     }

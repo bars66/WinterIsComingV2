@@ -16,6 +16,9 @@ const Co2GqlType = new _graphql.GraphQLObjectType({
     lastUpdate: {
       type: _graphql.GraphQLString
     },
+    st: {
+      type: _graphql.GraphQLInt
+    },
     lastTrueValue: {
       type: Co2GqlType
     }
