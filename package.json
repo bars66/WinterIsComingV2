@@ -67,7 +67,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "echo Clear build && git reset HEAD build && rm -rf build",
-      "post-commit": "./build"
+      "post-commit": "./sys/build"
     }
   }
 }
