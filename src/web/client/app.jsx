@@ -11,16 +11,6 @@ import Vent from './vent/index'
 import CO2 from './co2/index'
 import Temps from './temps/index'
 
-function genValues () {
-  let a = []
-
-  for (let i = 390; i != 2000; ++i) {
-    a.push(i)
-  }
-
-  return a
-}
-
 export class App extends React.Component {
   intervalId;
 

@@ -9,10 +9,12 @@ import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button';
 
 import debounce from 'debounce'
 
 import setTemp from '../actions/setTemp'
+import manualHeater from '../actions/manualMode';
 
 class Vent extends React.Component {
   state = {
@@ -39,7 +41,7 @@ class Vent extends React.Component {
    }
 
   render () {
-    const { switchReason: { isEnabled, reason, time }, temp, lastAnswer } = this.props
+    const { switchReason: { isEnabled, reason, time }, temp, lastAnswer, manualHeater} = this.props
     const { value: valueFromState } = this.state
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
@@ -87,13 +89,21 @@ class Vent extends React.Component {
           <Divider />
 
           <Slider
-            style={{ marginTop: '20px' }}
+            style={{ marginTop: '20px', marginBottom: '60px' }}
             value={tempForShown}
             min={15}
             max={28}
             step={0.5}
             onChange={this.handleChange}
           />
+
+          <Button variant="contained" color="secondary" onClick={() => manualHeater(false)}>
+            Отключить
+          </Button>
+          <Button variant="contained" color="primary" onClick={() => manualHeater(true)} style={{ marginLeft: '20px'}}
+          >
+            Включить
+          </Button>
         </CardContent>
       </Card>
     )
@@ -101,5 +111,6 @@ class Vent extends React.Component {
 }
 
 export default connect(({ vent }) => vent, (dispatch) => ({
-  changeTemp: temp => dispatch(setTemp(temp))
+  changeTemp: temp => dispatch(setTemp(temp)),
+  manualHeater: isEnabled => dispatch(manualHeater(isEnabled))
 }))(Vent)

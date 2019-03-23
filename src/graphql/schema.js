@@ -9,6 +9,7 @@ import co2 from './queries/co2'
 import temps from './queries/temps'
 
 import setTemp from './mutations/setTemp'
+import manualHeater from './mutations/manualHeater'
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -22,7 +23,8 @@ export default new GraphQLSchema({
   mutation: new GraphQLObjectType({
     name: 'SchemaMutations',
     fields: {
-      setTemp
+      setTemp,
+      manualHeater,
     }
   })
 })

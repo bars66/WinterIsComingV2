@@ -61,12 +61,12 @@ export class Vent {
     this.lastChanged = new Date()
   }
 
-  setManual = (manual) => {
-    this.manualControl = manual
+  setManual = (manual, timeout) => {
+    this.manualControl = manual;
+    this.manualTimeout = timeout;
   }
 
-  disable = (force = true) => {
-    this.manualControl = force
+  disable = () => {
     this.params = {
       ...this.params,
       ventEnabled: false,
@@ -76,8 +76,7 @@ export class Vent {
     this.setTemp(this.params.temp).catch(error => {})
   }
 
-  enable = (force = true) => {
-    if (!force && this.manualControl) return
+  enable = () => {
     this.checkPort()
     this.params = {
       ...this.params,
