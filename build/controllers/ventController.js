@@ -49,6 +49,8 @@ class Vent {
       time: new Date()
     });
 
+    _defineProperty(this, "manualControl", false);
+
     _defineProperty(this, "writeToSerialPort", data => {
       return new Promise((resolve, reject) => {
         this.port.write(data);
@@ -146,6 +148,15 @@ class Vent {
       });
     });
 
+    _defineProperty(this, "handle_Second", () => {
+      this.logger.debug({
+        name: this.name
+      }, 'Start second handler'); // if (this.manualControl && new Date() > new Date(this.manualTimeout)) {
+      //   this.manualControl = false;
+      //   this.logger.info('Run vent contol automatic')
+      // }
+    });
+
     _defineProperty(this, "handle_20_Second", () => {
       this.logger.debug({
         name: this.name
@@ -154,6 +165,12 @@ class Vent {
     });
 
     _defineProperty(this, "ventByCo2AndTemp", () => {
+      if (this.manualControl) {
+        _logger.default.debug('ventByCo2AndTemp: manual control. skipped');
+
+        return;
+      }
+
       const {
         Co2Room,
         Temp

@@ -20,6 +20,7 @@ query getVentStatus{
     temp
     heaterWatts
     lastAnswer
+    manualControl
     switchReason {
       isEnabled
       reason

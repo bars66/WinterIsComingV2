@@ -12,11 +12,19 @@ var _default = {
   args: {
     isEnabled: {
       type: _graphql.GraphQLBoolean
+    },
+    manualControl: {
+      type: _graphql.GraphQLBoolean
     }
   },
   resolve: (unused, {
-    isEnabled
+    isEnabled,
+    manualControl
   }, context) => {
+    if (manualControl !== undefined) {
+      context.controllers.Vent.setManual(manualControl);
+    }
+
     if (isEnabled !== undefined) {
       if (isEnabled) {
         context.controllers.Vent.enable();

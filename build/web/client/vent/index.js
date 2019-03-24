@@ -79,7 +79,8 @@ class Vent extends _react.default.Component {
       },
       temp,
       lastAnswer,
-      manualHeater
+      manualHeater,
+      manualControl
     } = this.props;
     const {
       value: valueFromState
@@ -111,7 +112,7 @@ class Vent extends _react.default.Component {
       xs: 12
     }, _react.default.createElement(_Typography.default, {
       variant: "title"
-    }, "\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435.")), _react.default.createElement(_Grid.default, {
+    }, manualControl ? 'Ручное управление' : 'Автоматическое управление')), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
     }, _react.default.createElement(_Typography.default, null, "\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435:")), _react.default.createElement(_Grid.default, {
@@ -140,6 +141,18 @@ class Vent extends _react.default.Component {
       step: 0.5,
       onChange: this.handleChange
     }), _react.default.createElement(_Button.default, {
+      variant: "outlined",
+      onClick: () => manualHeater(undefined, !manualControl)
+    }, !manualControl ? 'Переключить на ручной режим' : 'Переключить на автоматику'), manualControl && _react.default.createElement("div", {
+      style: {
+        marginTop: '10px'
+      }
+    }, _react.default.createElement(_Typography.default, {
+      variant: "title",
+      style: {
+        marginBottom: '10px'
+      }
+    }, "\u0420\u0443\u0447\u043D\u043E\u0435 \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435"), _react.default.createElement(_Button.default, {
       variant: "contained",
       color: "secondary",
       onClick: () => manualHeater(false)
@@ -150,7 +163,7 @@ class Vent extends _react.default.Component {
       style: {
         marginLeft: '20px'
       }
-    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C")));
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C"))));
   }
 
 }
@@ -159,7 +172,7 @@ var _default = (0, _reactRedux.connect)(({
   vent
 }) => vent, dispatch => ({
   changeTemp: temp => dispatch((0, _setTemp.default)(temp)),
-  manualHeater: isEnabled => dispatch((0, _manualMode.default)(isEnabled))
+  manualHeater: (isEnabled, manualControl) => dispatch((0, _manualMode.default)(isEnabled, manualControl))
 }))(Vent);
 
 exports.default = _default;

@@ -39,6 +39,9 @@ var _default = {
       lastAnswer: {
         type: _graphql.GraphQLString
       },
+      manualControl: {
+        type: _graphql.GraphQLBoolean
+      },
       switchReason: {
         type: new _graphql.GraphQLObjectType({
           name: 'VentSwitchReasons',
@@ -60,7 +63,8 @@ var _default = {
 
   resolve(unused1, unused2, context) {
     return _objectSpread({}, context.controllers.Vent.params, {
-      switchReason: context.controllers.Vent.switchReason
+      switchReason: context.controllers.Vent.switchReason,
+      manualControl: context.controllers.Vent.manualControl
     });
   }
 
