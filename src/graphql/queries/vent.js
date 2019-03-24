@@ -12,6 +12,7 @@ export default {
       temp: { type: GraphQLFloat },
       heaterWatts: { type: GraphQLFloat },
       lastAnswer: { type: GraphQLString },
+      manualControl: { type: GraphQLBoolean },
       switchReason: { type: new GraphQLObjectType({
         name: 'VentSwitchReasons',
         fields: {
@@ -24,6 +25,6 @@ export default {
   }),
 
   resolve (unused1, unused2, context) {
-    return { ...context.controllers.Vent.params, switchReason: context.controllers.Vent.switchReason }
+    return { ...context.controllers.Vent.params, switchReason: context.controllers.Vent.switchReason, manualControl: context.controllers.Vent.manualControl }
   }
 }

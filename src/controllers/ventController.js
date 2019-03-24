@@ -25,6 +25,7 @@ export class Vent {
     reason: 'UNKNOWN_MAY_BE_ENABLED',
     time: new Date()
   };
+  manualControl = false;
 
   constructor (context) {
     this.logger = context.logger
@@ -142,12 +143,26 @@ export class Vent {
     })
   }
 
+  handle_Second = () => {
+    this.logger.debug({ name: this.name }, 'Start second handler')
+    // if (this.manualControl && new Date() > new Date(this.manualTimeout)) {
+    //   this.manualControl = false;
+    //   this.logger.info('Run vent contol automatic')
+    // }
+  }
+
   handle_20_Second = () => {
     this.logger.debug({ name: this.name }, 'Start 20 second handler')
     this.ventByCo2AndTemp()
   }
 
   ventByCo2AndTemp = () => {
+    if (this.manualControl) {
+      logger.debug('ventByCo2AndTemp: manual control. skipped');
+
+      return;
+    }
+
     const { Co2Room, Temp } = this.context.sensors
 
     const co2Value = Co2Room.value.value

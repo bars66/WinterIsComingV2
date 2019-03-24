@@ -41,7 +41,7 @@ class Vent extends React.Component {
    }
 
   render () {
-    const { switchReason: { isEnabled, reason, time }, temp, lastAnswer, manualHeater} = this.props
+    const { switchReason: { isEnabled, reason, time }, temp, lastAnswer, manualHeater, manualControl} = this.props
     const { value: valueFromState } = this.state
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
@@ -67,7 +67,7 @@ class Vent extends React.Component {
         <CardContent>
           <Grid container spacing={0}>
             <Grid item xs={12}>
-              <Typography variant='title' >Автоматическое управление.</Typography>
+              <Typography variant='title' >{manualControl ? 'Ручное управление' : 'Автоматическое управление'}</Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography>Состояние:</Typography>
@@ -97,13 +97,21 @@ class Vent extends React.Component {
             onChange={this.handleChange}
           />
 
-          <Button variant="contained" color="secondary" onClick={() => manualHeater(false)}>
-            Отключить
+          <Button variant="outlined" onClick={() => manualHeater(undefined, !manualControl)}>
+            {!manualControl ? 'Переключить на ручной режим' : 'Переключить на автоматику'}
           </Button>
-          <Button variant="contained" color="primary" onClick={() => manualHeater(true)} style={{ marginLeft: '20px'}}
-          >
-            Включить
-          </Button>
+          {manualControl && <div style={{ marginTop: '10px'}}>
+            <Typography variant='title' style={{ marginBottom: '10px'}} >Ручное управление</Typography>
+            <Button variant="contained" color="secondary" onClick={() => manualHeater(false)}>
+              Отключить
+            </Button>
+            <Button variant="contained" color="primary" onClick={() => manualHeater(true)} style={{ marginLeft: '20px'}}
+            >
+              Включить
+            </Button>
+          </div>
+          }
+
         </CardContent>
       </Card>
     )
@@ -112,5 +120,5 @@ class Vent extends React.Component {
 
 export default connect(({ vent }) => vent, (dispatch) => ({
   changeTemp: temp => dispatch(setTemp(temp)),
-  manualHeater: isEnabled => dispatch(manualHeater(isEnabled))
+  manualHeater: (isEnabled, manualControl) => dispatch(manualHeater(isEnabled, manualControl))
 }))(Vent)

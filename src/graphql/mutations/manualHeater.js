@@ -1,11 +1,16 @@
-import { GraphQLBoolean, GraphQLFloat, GraphQLNonNull } from 'graphql'
+import { GraphQLBoolean, GraphQLFloat, GraphQLNonNull, GraphQLInt } from 'graphql'
 
 export default {
   type: GraphQLBoolean,
   args: {
-    isEnabled: { type: GraphQLBoolean }
+    isEnabled: { type: GraphQLBoolean },
+    manualControl: { type: GraphQLBoolean }
+
   },
-  resolve: (unused, { isEnabled }, context) => {
+  resolve: (unused, { isEnabled, manualControl }, context) => {
+    if (manualControl !== undefined) {
+      context.controllers.Vent.setManual(manualControl);
+    }
 
     if (isEnabled !== undefined) {
       if (isEnabled) {
