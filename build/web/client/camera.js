@@ -11,21 +11,11 @@ var _reactRedux = require("react-redux");
 
 var _CssBaseline = _interopRequireDefault(require("@material-ui/core/CssBaseline"));
 
-var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
-
-var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
-
-var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
-
 var _LinearProgress = _interopRequireDefault(require("@material-ui/core/LinearProgress"));
 
-var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus"));
+var _core = require("@material-ui/core");
 
-var _index = _interopRequireDefault(require("./vent/index"));
-
-var _index2 = _interopRequireDefault(require("./co2/index"));
-
-var _index3 = _interopRequireDefault(require("./temps/index"));
+var _jsmpegPlayer = _interopRequireDefault(require("@cycjimmy/jsmpeg-player"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,9 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.props.updateSystemStatus();
-    }, 1000);
+    new _jsmpegPlayer.default.VideoElement('#videoWrapper', `ws://${window.location.hostname}:9999`);
   }
 
   componentWillUnmount() {
@@ -51,28 +39,21 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      statusColor,
-      sysStatus,
-      isLoading
-    } = this.props;
     return React.createElement("div", {
       style: {
         maxWidth: '100%',
         overflowX: 'hidden',
         padding: '10px'
       }
-    }, React.createElement(_CssBaseline.default, null), React.createElement(_Typography.default, {
-      component: "h2",
-      variant: "display2",
-      gutterBottom: true
-    }, "WiC V2.1. ", React.createElement("span", {
+    }, React.createElement("div", {
+      id: "videoWrapper",
       style: {
-        color: statusColor
+        position: 'relative',
+        width: '100%',
+        paddingTop: '56.25%' // 16:9
+
       }
-    }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
-      color: "secondary"
-    })) : React.createElement(React.Fragment, null, React.createElement(_index2.default, null), React.createElement(_index.default, null), React.createElement(_index3.default, null)));
+    }));
   }
 
 }
@@ -88,9 +69,7 @@ var _default = (0, _reactRedux.connect)(({
     statusColor: !isLoading ? 'red' : 'green'
   };
 }, dispatch => ({
-  updateSystemStatus: () => {
-    dispatch((0, _getSystemStatus.default)());
-  }
+  updateSystemStatus: () => {}
 }))(App);
 
 exports.default = _default;

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _default = (req, res, next) => {
+var _default = type => (req, res, next) => {
   res.send(`
 <html>
 <head>
@@ -15,7 +15,7 @@ var _default = (req, res, next) => {
 </head>
 <body>
     <div id="root"></div>
-    
+    <script>window._TYPE = '${type}'</script>
     <script src="dist/main.bundle.js"></script>
 </body>
 </html>`);

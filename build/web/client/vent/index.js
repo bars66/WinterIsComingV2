@@ -80,15 +80,19 @@ class Vent extends _react.default.Component {
       temp,
       lastAnswer,
       manualHeater,
-      manualControl
+      manualControl,
+      insideTmp,
+      small = false
     } = this.props;
     const {
       value: valueFromState
     } = this.state;
     const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp;
     return _react.default.createElement(_Card.default, {
-      style: {
+      style: !small ? {
         marginBottom: '20px'
+      } : {
+        marginBottom: '-20px'
       }
     }, _react.default.createElement(_CardHeader.default, {
       title: "\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u044F",
@@ -103,8 +107,12 @@ class Vent extends _react.default.Component {
           color: '#fff',
           backgroundColor: this.getColorByStatus()
         }
-      }, _react.default.createElement("b", null, "+", tempForShown))
-    }), _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
+      }, _react.default.createElement("b", null, "+", tempForShown, small ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("br", null), "+", insideTmp || 22.1) : ''))
+    }), _react.default.createElement(_CardContent.default, {
+      style: small ? {
+        marginTop: '-30px'
+      } : {}
+    }, !small && _react.default.createElement(_Grid.default, {
       container: true,
       spacing: 0
     }, _react.default.createElement(_Grid.default, {
@@ -140,7 +148,7 @@ class Vent extends _react.default.Component {
       max: 28,
       step: 0.5,
       onChange: this.handleChange
-    }), _react.default.createElement(_Button.default, {
+    }), !small && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Button.default, {
       variant: "outlined",
       onClick: () => manualHeater(undefined, !manualControl)
     }, !manualControl ? 'Переключить на ручной режим' : 'Переключить на автоматику'), manualControl && _react.default.createElement("div", {
@@ -163,7 +171,7 @@ class Vent extends _react.default.Component {
       style: {
         marginLeft: '20px'
       }
-    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C"))));
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C")))));
   }
 
 }

@@ -13,6 +13,10 @@ var _co = _interopRequireDefault(require("./queries/co2"));
 
 var _temps = _interopRequireDefault(require("./queries/temps"));
 
+var _weather = _interopRequireDefault(require("./queries/weather"));
+
+var _camera = _interopRequireDefault(require("./mutations/camera"));
+
 var _setTemp = _interopRequireDefault(require("./mutations/setTemp"));
 
 var _manualHeater = _interopRequireDefault(require("./mutations/manualHeater"));
@@ -25,14 +29,16 @@ var _default = new _graphql.GraphQLSchema({
     fields: {
       vent: _vent.default,
       co2: _co.default,
-      temps: _temps.default
+      temps: _temps.default,
+      weather: _weather.default
     }
   }),
   mutation: new _graphql.GraphQLObjectType({
     name: 'SchemaMutations',
     fields: {
       setTemp: _setTemp.default,
-      manualHeater: _manualHeater.default
+      manualHeater: _manualHeater.default,
+      camera: _camera.default
     }
   })
 });

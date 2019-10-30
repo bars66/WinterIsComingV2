@@ -32,7 +32,9 @@ function init(context) {
     req.context = context;
     next();
   });
-  app.get('/', _index.default);
+  app.get('/', (0, _index.default)('main'));
+  app.get('/planshet1', (0, _index.default)('planshet1'));
+  app.get('/camera', (0, _index.default)('camera'));
   app.listen(port, () => logger.info({
     port
   }, 'Server start'));

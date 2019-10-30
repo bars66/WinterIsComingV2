@@ -41,6 +41,28 @@ query getVentStatus{
     canal
     lastUpdate
   }
+  
+  weather {
+    currently {
+      ...Forecast
+    }
+    hourly {
+      ...Forecast
+    }
+  }
+}
+
+fragment Forecast on Forecast {
+  time {
+    unix
+    text
+  }
+  temperature
+  windSpeed
+  precipType
+  precipProbability
+  summary
+  icon
 }`;
 
 var _default = () => {
@@ -65,6 +87,13 @@ var _default = () => {
       dispatch({
         type: '@@temps/UPDATE',
         payload: data.temps
+      });
+    }
+
+    if (data.weather) {
+      dispatch({
+        type: '@@forecast/UPDATE',
+        payload: data.weather
       });
     }
 

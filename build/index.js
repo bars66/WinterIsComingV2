@@ -12,6 +12,8 @@ var _tempSensor = require("./sensors/tempSensor");
 
 var _telegramController = require("./controllers/telegramController");
 
+var _cameraController = require("./controllers/cameraController");
+
 var _events = require("./controllers/events");
 
 var _sunriseSensor = require("./sensors/sunriseSensor");
@@ -58,6 +60,7 @@ class Control {
     new _telegramController.Telegram(this.context);
     new _ventController.Vent(this.context);
     new _flowerLightController.FlowerLightController(this.context);
+    new _cameraController.Camera(this.context);
     new _co2Sensor.Co2Room(this.context);
     new _tempSensor.Temp(this.context);
     new _sunriseSensor.Sunrise(this.context);
