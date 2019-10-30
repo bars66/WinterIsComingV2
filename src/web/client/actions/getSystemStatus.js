@@ -32,6 +32,28 @@ query getVentStatus{
     canal
     lastUpdate
   }
+  
+  weather {
+    currently {
+      ...Forecast
+    }
+    hourly {
+      ...Forecast
+    }
+  }
+}
+
+fragment Forecast on Forecast {
+  time {
+    unix
+    text
+  }
+  temperature
+  windSpeed
+  precipType
+  precipProbability
+  summary
+  icon
 }`
 
 export default () => {
@@ -48,6 +70,10 @@ export default () => {
 
     if (data.temps) {
       dispatch({ type: '@@temps/UPDATE', payload: data.temps })
+    }
+
+    if (data.weather) {
+      dispatch({ type: '@@forecast/UPDATE', payload: data.weather })
     }
 
     dispatch({ type: '@@loading/COMPLETE' })

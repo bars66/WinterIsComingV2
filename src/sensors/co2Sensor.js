@@ -38,11 +38,11 @@ export class Co2Room extends AbstractSensor {
           lastUpdate: new Date()
         }
         if (this.value.st === 64) {
-          this.lastTrueValue = {...this.value};
+          this.lastTrueValue = { ...this.value }
         }
         this.value = {
           ...this.value,
-          lastTrueValue: this.lastTrueValue,
+          lastTrueValue: this.lastTrueValue
         }
 
         logger.info({
@@ -71,7 +71,7 @@ export class Co2Room extends AbstractSensor {
         lastTrueValue: {
           value: 900,
           lastUpdate: new Date(),
-          st: 64,
+          st: 64
         }
       }
 

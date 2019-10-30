@@ -11,6 +11,6 @@ export default {
   }),
 
   resolve (unused1, unused2, context) {
-    return context.sensors.Temp.value;
+    return context.sensors.Temp.value
   }
 }

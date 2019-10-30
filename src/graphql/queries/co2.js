@@ -6,7 +6,7 @@ export const Co2GqlType = new GraphQLObjectType({
     value: { type: GraphQLInt },
     lastUpdate: { type: GraphQLString },
     st: { type: GraphQLInt },
-    lastTrueValue: {type: Co2GqlType},
+    lastTrueValue: { type: Co2GqlType }
   })
 })
 

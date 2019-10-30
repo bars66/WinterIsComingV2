@@ -1,5 +1,5 @@
 
-export default (req, res, next) => {
+export default (type) => (req, res, next) => {
   res.send(`
 <html>
 <head>
@@ -9,7 +9,7 @@ export default (req, res, next) => {
 </head>
 <body>
     <div id="root"></div>
-    
+    <script>window._TYPE = '${type}'</script>
     <script src="dist/main.bundle.js"></script>
 </body>
 </html>`)

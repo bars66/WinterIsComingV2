@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider'
 import getCO2Color from '../utils/getCO2color'
 
 const CO2 = ({ value, lastUpdate, st, lastTrueValue }) => {
-  let body;
+  let body
   if (lastTrueValue) {
     body = <CardContent>
       <Typography>Last stable: val: <b>{lastTrueValue.value}</b> at {(new Date(+lastTrueValue.lastUpdate)).toISOString()}</Typography>
@@ -22,7 +22,7 @@ const CO2 = ({ value, lastUpdate, st, lastTrueValue }) => {
       <CardHeader
         title='CO2'
         titleTypographyProps={{
-          variant: 'display2',
+          variant: 'display2'
         }}
         subheader={<React.Fragment>{(new Date(+lastUpdate)).toISOString()}; st: {st}</React.Fragment>}
         avatar={

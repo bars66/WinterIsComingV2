@@ -11,7 +11,7 @@ import Vent from './vent/index'
 import CO2 from './co2/index'
 import Temps from './temps/index'
 
-export class App extends React.Component {
+export class Main extends React.Component {
   intervalId;
 
   constructor (props) {
@@ -34,7 +34,6 @@ export class App extends React.Component {
       <div style={{
         maxWidth: '100%',
         overflowX: 'hidden',
-        padding: '10px'
       }}>
         <CssBaseline />
 
@@ -67,4 +66,4 @@ export default connect(({ isLoading }) => {
   updateSystemStatus: () => {
     dispatch(getSystemStatus())
   }
-}))(App)
+}))(Main)

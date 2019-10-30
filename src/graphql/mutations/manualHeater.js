@@ -1,4 +1,4 @@
-import { GraphQLBoolean, GraphQLFloat, GraphQLNonNull, GraphQLInt } from 'graphql'
+import { GraphQLBoolean} from 'graphql'
 
 export default {
   type: GraphQLBoolean,
@@ -9,7 +9,7 @@ export default {
   },
   resolve: (unused, { isEnabled, manualControl }, context) => {
     if (manualControl !== undefined) {
-      context.controllers.Vent.setManual(manualControl);
+      context.controllers.Vent.setManual(manualControl)
     }
 
     if (isEnabled !== undefined) {

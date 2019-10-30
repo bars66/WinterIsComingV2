@@ -63,8 +63,8 @@ export class Vent {
   }
 
   setManual = (manual, timeout) => {
-    this.manualControl = manual;
-    this.manualTimeout = timeout;
+    this.manualControl = manual
+    this.manualTimeout = timeout
   }
 
   disable = () => {
@@ -158,9 +158,9 @@ export class Vent {
 
   ventByCo2AndTemp = () => {
     if (this.manualControl) {
-      logger.debug('ventByCo2AndTemp: manual control. skipped');
+      logger.debug('ventByCo2AndTemp: manual control. skipped')
 
-      return;
+      return
     }
 
     const { Co2Room, Temp } = this.context.sensors

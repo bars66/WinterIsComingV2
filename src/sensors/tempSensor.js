@@ -18,7 +18,7 @@ export class Temp extends AbstractSensor {
       this.value = {
         canal: canaltTmp,
         inside: insideTmp,
-        lastUpdate: new Date(),
+        lastUpdate: new Date()
       }
     })
   }

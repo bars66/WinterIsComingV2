@@ -2,6 +2,7 @@ import express from 'express'
 import GqlSchema from '../graphql/schema'
 
 import indexRoute from './routes/index'
+
 const graphqlHTTP = require('express-graphql')
 
 const app = express()
@@ -23,7 +24,9 @@ export default function init (context) {
     next()
   })
 
-  app.get('/', indexRoute)
+  app.get('/', indexRoute('main'))
+  app.get('/planshet1', indexRoute('planshet1'))
+  app.get('/camera', indexRoute('camera'))
 
   app.listen(port, () => logger.info({ port }, 'Server start'))
 }
