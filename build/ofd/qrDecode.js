@@ -10,25 +10,20 @@ var _qrcodeReader = _interopRequireDefault(require("qrcode-reader"));
 
 var _jimp = _interopRequireDefault(require("jimp"));
 
-var _canvas = _interopRequireDefault(require("canvas"));
-
 var _fs = _interopRequireDefault(require("fs"));
 
 var _assert = _interopRequireDefault(require("assert"));
 
-var _pdfjsDist = _interopRequireDefault(require("pdfjs-dist"));
-
-var _jsqr = _interopRequireDefault(require("jsqr"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import Canvas from 'canvas';
+// import pdfjsLib from 'pdfjs-dist';
+// import jsQR from "jsqr";
 // По мотивам - https://github.com/mozilla/pdf.js/tree/master/examples/node/pdf2png
 class NodeCanvasFactory {
   create(width, height) {
     (0, _assert.default)(width > 0 && height > 0, 'Invalid canvas size');
-
-    const canvas = _canvas.default.createCanvas(width, height);
-
+    const canvas = Canvas.createCanvas(width, height);
     const context = canvas.getContext('2d');
     return {
       canvas: canvas,
@@ -58,7 +53,7 @@ class NodeCanvasFactory {
 function getQrCodeDataByBuffer(buff, width, height) {
   return new Promise(async (resolve, reject) => {
     const image = await _jimp.default.read(buff);
-    const code = (0, _jsqr.default)(image.bitmap.data, width, height);
+    const code = jsQR(image.bitmap.data, width, height);
     if (code && code.data) return resolve({
       result: code.data
     });
@@ -79,7 +74,7 @@ function getQrCodeDataByBuffer(buff, width, height) {
 async function getQrData(buff) {
   // Read the PDF file into a typed array so PDF.js can load it.
   const rawData = new Uint8Array(buff);
-  const pdfDocument = await _pdfjsDist.default.getDocument(rawData).promise; // Get the first page.
+  const pdfDocument = await pdfjsLib.getDocument(rawData).promise; // Get the first page.
 
   let res;
 
