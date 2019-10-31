@@ -1,10 +1,10 @@
 import QrCode from 'qrcode-reader';
 import Jimp from 'jimp';
-import Canvas from 'canvas';
+// import Canvas from 'canvas';
 import fs from 'fs';
 import assert from 'assert';
-import pdfjsLib from 'pdfjs-dist';
-import jsQR from "jsqr";
+// import pdfjsLib from 'pdfjs-dist';
+// import jsQR from "jsqr";
 
 // По мотивам - https://github.com/mozilla/pdf.js/tree/master/examples/node/pdf2png
 
