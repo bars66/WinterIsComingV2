@@ -47,8 +47,7 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "serialport": "^7.0.2",
-    "suncalc": "^1.8.0",
-    "tomita-parser": "^0.0.3"
+    "suncalc": "^1.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
