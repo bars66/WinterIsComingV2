@@ -79,8 +79,8 @@ class FlowerLightController {
         setTimeout(() => {
           this.logger.info({
             name: this.name
-          }, 'Disable 2 relay by sunrise time');
-          this.switchRelay(2, 'disable');
+          }, 'Disable 3 relay by sunrise time');
+          this.switchRelay(3, 'disable');
         }, 5000);
         return;
       }
@@ -95,8 +95,8 @@ class FlowerLightController {
         setTimeout(() => {
           this.logger.info({
             name: this.name
-          }, 'Enable 2 relay by sunrise time');
-          this.switchRelay(2, 'enable');
+          }, 'Enable 3 relay by sunrise time');
+          this.switchRelay(3, 'enable');
         }, 5000);
       }
     });

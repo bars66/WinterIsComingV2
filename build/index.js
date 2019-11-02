@@ -20,6 +20,8 @@ var _sunriseSensor = require("./sensors/sunriseSensor");
 
 var _flowerLightController = require("./controllers/flowerLightController");
 
+var _scheduleController = require("./controllers/scheduleController");
+
 var _app = _interopRequireDefault(require("./web/app"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -61,6 +63,7 @@ class Control {
     new _ventController.Vent(this.context);
     new _flowerLightController.FlowerLightController(this.context);
     new _cameraController.Camera(this.context);
+    new _scheduleController.ScheduleController(this.context);
     new _co2Sensor.Co2Room(this.context);
     new _tempSensor.Temp(this.context);
     new _sunriseSensor.Sunrise(this.context);
