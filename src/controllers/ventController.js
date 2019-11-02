@@ -144,7 +144,7 @@ export class Vent {
   }
 
   handle_Second = () => {
-    this.logger.debug({ name: this.name }, 'Start second handler')
+    // this.logger.debug({ name: this.name }, 'Start second handler')
     // if (this.manualControl && new Date() > new Date(this.manualTimeout)) {
     //   this.manualControl = false;
     //   this.logger.info('Run vent contol automatic')

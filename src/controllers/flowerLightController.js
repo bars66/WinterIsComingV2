@@ -65,8 +65,8 @@ export class FlowerLightController {
       }, 1000)
 
       setTimeout(() => {
-        this.logger.info({ name: this.name }, 'Disable 2 relay by sunrise time')
-        this.switchRelay(2, 'disable')
+        this.logger.info({ name: this.name }, 'Disable 3 relay by sunrise time')
+        this.switchRelay(3, 'disable')
       }, 5000)
 
       return
@@ -79,8 +79,8 @@ export class FlowerLightController {
       }, 1000)
 
       setTimeout(() => {
-        this.logger.info({ name: this.name }, 'Enable 2 relay by sunrise time')
-        this.switchRelay(2, 'enable')
+        this.logger.info({ name: this.name }, 'Enable 3 relay by sunrise time')
+        this.switchRelay(3, 'enable')
       }, 5000)
     }
   }

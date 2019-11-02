@@ -10,7 +10,7 @@ import {Camera} from './controllers/cameraController'
 import { Events } from './controllers/events'
 import { Sunrise } from './sensors/sunriseSensor'
 import { FlowerLightController } from './controllers/flowerLightController'
-
+import {ScheduleController} from './controllers/scheduleController';
 import WebApp from './web/app'
 
 class Control {
@@ -30,6 +30,7 @@ class Control {
     new Vent(this.context)
     new FlowerLightController(this.context)
     new Camera(this.context)
+    new ScheduleController(this.context);
 
     new Co2Room(this.context)
     new Temp(this.context)
