@@ -43,6 +43,7 @@ class Grlnd extends _react.default.Component {
     console.log('AAA', setGrlnd); // const { value: valueFromState } = this.state
     // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
+    const isEnabled = pwmRY || pwmGB || time;
     return _react.default.createElement(_Card.default, {
       style: !small ? {
         marginBottom: '20px'
@@ -72,9 +73,14 @@ class Grlnd extends _react.default.Component {
     }, _react.default.createElement(_Typography.default, null, "\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435:")), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 9
-    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, "PWM_GB: ", pwmGB, "; PWM_RY: ", pwmRY, "; time: ", time)))), _react.default.createElement(_Divider.default, null), _react.default.createElement(_Button.default, {
-      variant: "outlined",
-      onClick: () => setGrlnd(!(pwmRY || pwmGB || time) ? {
+    }, _react.default.createElement(_Typography.default, null, _react.default.createElement("b", null, "PWM_GB: ", pwmGB, "; PWM_RY: ", pwmRY, "; time: ", time)))), _react.default.createElement(_Divider.default, null), _react.default.createElement("div", {
+      style: {
+        marginTop: '10px'
+      }
+    }, _react.default.createElement(_Button.default, {
+      variant: "contained",
+      color: !isEnabled ? 'primary' : 'secondary',
+      onClick: () => setGrlnd(!isEnabled ? {
         pwmRY: 999,
         pwmGB: 999,
         time: 0
@@ -83,7 +89,16 @@ class Grlnd extends _react.default.Component {
         pwmGB: 0,
         time: 0
       })
-    }, !(pwmRY || pwmGB || time) ? 'Включить' : 'Выключить')));
+    }, !isEnabled ? 'Включить' : 'Выключить'), !!isEnabled && _react.default.createElement(_Button.default, {
+      variant: "contained",
+      color: "primary",
+      onClick: () => setGrlnd({
+        time: 100
+      }),
+      style: {
+        marginLeft: '20px'
+      }
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043C\u0438\u0433\u0430\u043D\u0438\u0435"))));
   }
 
 }
