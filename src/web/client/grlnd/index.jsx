@@ -19,6 +19,8 @@ class Grlnd extends React.Component {
     // const { value: valueFromState } = this.state
     // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
+    const isEnabled = pwmRY || pwmGB || time;
+
     return (
       <Card style={!small ? { marginBottom: '20px' } : {marginBottom: '-20px'}}>
         <CardHeader
@@ -41,9 +43,17 @@ class Grlnd extends React.Component {
           </Grid>}
           <Divider />
 
-          <Button variant='outlined' onClick={() => setGrlnd(!(pwmRY || pwmGB || time) ? {pwmRY: 999, pwmGB: 999, time: 0} : {pwmRY: 0, pwmGB: 0, time: 0} )}>
-            {!(pwmRY || pwmGB || time) ? 'Включить' : 'Выключить'}
+          <div style={{ marginTop: '10px' }}>
+          <Button variant='contained' color={!isEnabled ? 'primary' : 'secondary'} onClick={() => setGrlnd(!isEnabled ? {pwmRY: 999, pwmGB: 999, time: 0} : {pwmRY: 0, pwmGB: 0, time: 0} )}>
+            {!isEnabled ? 'Включить' : 'Выключить'}
           </Button>
+
+          {!!isEnabled &&
+            <Button variant='contained' color='primary' onClick={() => setGrlnd({time: 100})} style={{ marginLeft: '20px' }}>
+              Включить мигание
+            </Button>
+          }
+          </div>
 
 
         </CardContent>
