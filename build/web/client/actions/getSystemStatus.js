@@ -42,6 +42,12 @@ query getVentStatus{
     lastUpdate
   }
   
+  grlnd {
+    pwmRY
+    pwmGB
+    time
+  }
+  
   weather {
     currently {
       ...Forecast
@@ -94,6 +100,13 @@ var _default = () => {
       dispatch({
         type: '@@forecast/UPDATE',
         payload: data.weather
+      });
+    }
+
+    if (data.grlnd) {
+      dispatch({
+        type: '@@grlnd/UPDATE',
+        payload: data.grlnd
       });
     }
 

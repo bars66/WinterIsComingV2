@@ -20,6 +20,8 @@ var _sunriseSensor = require("./sensors/sunriseSensor");
 
 var _flowerLightController = require("./controllers/flowerLightController");
 
+var _grlnNyController = require("./controllers/grlnNyController");
+
 var _scheduleController = require("./controllers/scheduleController");
 
 var _app = _interopRequireDefault(require("./web/app"));
@@ -62,6 +64,7 @@ class Control {
     new _telegramController.Telegram(this.context);
     new _ventController.Vent(this.context);
     new _flowerLightController.FlowerLightController(this.context);
+    new _grlnNyController.GrlndNyController(this.context);
     new _cameraController.Camera(this.context);
     new _scheduleController.ScheduleController(this.context);
     new _co2Sensor.Co2Room(this.context);

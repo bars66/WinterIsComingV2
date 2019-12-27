@@ -17,6 +17,8 @@ var _temps = _interopRequireDefault(require("./temps"));
 
 var _forecast = _interopRequireDefault(require("./forecast"));
 
+var _grlnd = _interopRequireDefault(require("./grlnd"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const reducers = (0, _redux.combineReducers)({
@@ -24,7 +26,8 @@ const reducers = (0, _redux.combineReducers)({
   vent: _vent.default,
   co2: _co.default,
   temps: _temps.default,
-  forecast: _forecast.default
+  forecast: _forecast.default,
+  grlnd: _grlnd.default
 });
 var _default = reducers;
 exports.default = _default;

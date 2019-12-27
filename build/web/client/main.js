@@ -21,11 +21,13 @@ var _LinearProgress = _interopRequireDefault(require("@material-ui/core/LinearPr
 
 var _getSystemStatus = _interopRequireDefault(require("./actions/getSystemStatus"));
 
-var _index = _interopRequireDefault(require("./vent/index"));
+var _index = _interopRequireDefault(require("./grlnd/index"));
 
-var _index2 = _interopRequireDefault(require("./co2/index"));
+var _index2 = _interopRequireDefault(require("./vent/index"));
 
-var _index3 = _interopRequireDefault(require("./temps/index"));
+var _index3 = _interopRequireDefault(require("./co2/index"));
+
+var _index4 = _interopRequireDefault(require("./temps/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71,7 +73,7 @@ class Main extends React.Component {
       }
     }, sysStatus)), React.createElement(_Divider.default, null), !this.props.isLoading ? React.createElement(React.Fragment, null, React.createElement(_LinearProgress.default, null), React.createElement("br", null), React.createElement(_LinearProgress.default, {
       color: "secondary"
-    })) : React.createElement(React.Fragment, null, React.createElement(_index2.default, null), React.createElement(_index.default, null), React.createElement(_index3.default, null)));
+    })) : React.createElement(React.Fragment, null, React.createElement(_index.default, null), React.createElement(_index3.default, null), React.createElement(_index2.default, null), React.createElement(_index4.default, null)));
   }
 
 }
