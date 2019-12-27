@@ -10,6 +10,7 @@ import {Camera} from './controllers/cameraController'
 import { Events } from './controllers/events'
 import { Sunrise } from './sensors/sunriseSensor'
 import { FlowerLightController } from './controllers/flowerLightController'
+import {GrlndNyController} from './controllers/grlnNyController'
 import {ScheduleController} from './controllers/scheduleController';
 import WebApp from './web/app'
 
@@ -29,6 +30,7 @@ class Control {
     new Telegram(this.context)
     new Vent(this.context)
     new FlowerLightController(this.context)
+    new GrlndNyController(this.context);
     new Camera(this.context)
     new ScheduleController(this.context);
 

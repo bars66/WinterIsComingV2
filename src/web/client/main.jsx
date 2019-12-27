@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import getSystemStatus from './actions/getSystemStatus'
+import Grlnd from './grlnd/index'
 import Vent from './vent/index'
 import CO2 from './co2/index'
 import Temps from './temps/index'
@@ -49,6 +50,7 @@ export class Main extends React.Component {
             <LinearProgress color='secondary' />
           </React.Fragment>
           : <React.Fragment>
+            <Grlnd />
             <CO2 />
             <Vent />
             <Temps />

@@ -33,6 +33,12 @@ query getVentStatus{
     lastUpdate
   }
   
+  grlnd {
+    pwmRY
+    pwmGB
+    time
+  }
+  
   weather {
     currently {
       ...Forecast
@@ -74,6 +80,10 @@ export default () => {
 
     if (data.weather) {
       dispatch({ type: '@@forecast/UPDATE', payload: data.weather })
+    }
+
+    if (data.grlnd) {
+      dispatch({ type: '@@grlnd/UPDATE', payload: data.grlnd })
     }
 
     dispatch({ type: '@@loading/COMPLETE' })

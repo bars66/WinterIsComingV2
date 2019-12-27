@@ -76,3 +76,9 @@ typings/
 
 .pioenvs
 .piolibdeps
+
+
+# devices envs
+env.h
+
+.DS_Store
