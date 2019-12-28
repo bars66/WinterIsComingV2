@@ -23,15 +23,36 @@ var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
 
-var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
-
 var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
 var _setGrlnd = _interopRequireDefault(require("../actions/setGrlnd"));
 
+var _debounce = _interopRequireDefault(require("debounce"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 class Grlnd extends _react.default.Component {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
+      value: this.props.time
+    });
+
+    _defineProperty(this, "debouncedSetTime", (0, _debounce.default)(this.props.setGrlnd, 500));
+
+    _defineProperty(this, "handleChange", (event, value) => {
+      this.setState({
+        value
+      });
+      this.debouncedSetTime({
+        time: value
+      });
+    });
+  }
+
   render() {
     const {
       pwmRY,
@@ -40,8 +61,9 @@ class Grlnd extends _react.default.Component {
       setGrlnd,
       small
     } = this.props;
-    console.log('AAA', setGrlnd); // const { value: valueFromState } = this.state
-    // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
+    const {
+      value: timeValueFromState
+    } = this.state; // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     const isEnabled = pwmRY || pwmGB || time;
     return _react.default.createElement(_Card.default, {
@@ -98,7 +120,23 @@ class Grlnd extends _react.default.Component {
       style: {
         marginLeft: '20px'
       }
-    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043C\u0438\u0433\u0430\u043D\u0438\u0435"))));
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043C\u0438\u0433\u0430\u043D\u0438\u0435"), !!time && _react.default.createElement("div", {
+      style: {
+        marginTop: '10px'
+      }
+    }, _react.default.createElement(_Typography.default, null, "T 1/4 \u043C\u0438\u0433\u0430\u043D\u0438\u044F, \u043C\u0441: ", timeValueFromState || 100), _react.default.createElement(_Slider.default, {
+      style: {
+        marginTop: '20px',
+        marginBottom: '60px',
+        marginLeft: '10px',
+        marginRight: '10px'
+      },
+      value: +timeValueFromState || 100,
+      min: 10,
+      max: 500,
+      step: 10,
+      onChange: this.handleChange
+    })))));
   }
 
 }
