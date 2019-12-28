@@ -70,7 +70,7 @@ class Grlnd extends React.Component {
             <div style={{marginTop: '10px'}}>
               <Typography >T 1/4 мигания, мс: {timeValueFromState || 100}</Typography>
               <Slider
-                style={{ marginTop: '20px', marginBottom: '60px', marginLeft: '10px', marginRight: '10px', }}
+                style={{ marginTop: '20px', marginBottom: '60px', marginLeft: '30px', marginRight: '10px', width: '90%' }}
                 value={+timeValueFromState || 100}
                 min={10}
                 max={500}
