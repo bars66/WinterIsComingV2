@@ -8,15 +8,26 @@ import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import setGrlnd from '../actions/setGrlnd'
+import debounce from 'debounce'
 
 class Grlnd extends React.Component {
+
+  state = {
+    value: this.props.time
+  };
+
+  debouncedSetTime = debounce(this.props.setGrlnd, 500);
+
+  handleChange = (event, value) => {
+    this.setState({ value })
+    this.debouncedSetTime({time: value})
+  };
+
   render () {
     const { pwmRY, pwmGB, time, setGrlnd, small} = this.props
-    console.log('AAA', setGrlnd)
-    // const { value: valueFromState } = this.state
+    const { value: timeValueFromState } = this.state
     // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     const isEnabled = pwmRY || pwmGB || time;
@@ -53,6 +64,23 @@ class Grlnd extends React.Component {
               Включить мигание
             </Button>
           }
+
+
+            {!!time &&
+            <div style={{marginTop: '10px'}}>
+              <Typography >T 1/4 мигания, мс: {timeValueFromState || 100}</Typography>
+              <Slider
+                style={{ marginTop: '20px', marginBottom: '60px', marginLeft: '10px', marginRight: '10px', }}
+                value={+timeValueFromState || 100}
+                min={10}
+                max={500}
+                step={10}
+                onChange={this.handleChange}
+              />
+            </div>
+            }
+
+
           </div>
 
 
