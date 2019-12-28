@@ -128,8 +128,9 @@ class Grlnd extends _react.default.Component {
       style: {
         marginTop: '20px',
         marginBottom: '60px',
-        marginLeft: '10px',
-        marginRight: '10px'
+        marginLeft: '30px',
+        marginRight: '10px',
+        width: '90%'
       },
       value: +timeValueFromState || 100,
       min: 10,
