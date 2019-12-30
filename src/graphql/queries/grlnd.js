@@ -7,6 +7,7 @@ export default {
       pwmGB: { type: GraphQLInt },
       pwmRY: { type: GraphQLInt },
       time: { type: GraphQLInt },
+      userBrightness: { type: GraphQLInt },
     }
   }),
 

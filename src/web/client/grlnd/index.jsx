@@ -15,19 +15,24 @@ import debounce from 'debounce'
 class Grlnd extends React.Component {
 
   state = {
-    value: this.props.time
+    value: this.props.time,
   };
 
-  debouncedSetTime = debounce(this.props.setGrlnd, 500);
+  debouncedSetGrlnd = debounce(this.props.setGrlnd, 500);
 
   handleChange = (event, value) => {
     this.setState({ value })
-    this.debouncedSetTime({time: value})
+    this.debouncedSetGrlnd({time: value})
+  };
+
+  handleChangeBrightness = (event, value) => {
+    this.setState({ brightness: value })
+    this.debouncedSetGrlnd({pwmRY: value, pwmGB: value, time: 0})
   };
 
   render () {
     const { pwmRY, pwmGB, time, setGrlnd, small} = this.props
-    const { value: timeValueFromState } = this.state
+    const { value: timeValueFromState, brightness } = this.state
     // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     const isEnabled = pwmRY || pwmGB || time;
@@ -55,7 +60,7 @@ class Grlnd extends React.Component {
           <Divider />
 
           <div style={{ marginTop: '10px' }}>
-          <Button variant='contained' color={!isEnabled ? 'primary' : 'secondary'} onClick={() => setGrlnd(!isEnabled ? {pwmRY: 999, pwmGB: 999, time: 0} : {pwmRY: 0, pwmGB: 0, time: 0} )}>
+          <Button variant='contained' color={!isEnabled ? 'primary' : 'secondary'} onClick={() => setGrlnd(!isEnabled ? {pwmRY: this.props.userBrightness, pwmGB: this.props.userBrightness, time: 0} : {pwmRY: 0, pwmGB: 0, time: 0} )}>
             {!isEnabled ? 'Включить' : 'Выключить'}
           </Button>
 
@@ -64,6 +69,20 @@ class Grlnd extends React.Component {
               Включить мигание
             </Button>
           }
+
+            {!!isEnabled && !time &&
+            <div style={{marginTop: '10px'}}>
+              <Typography >Яркость, {(pwmRY / 1000).toFixed(3)} %</Typography>
+              <Slider
+                style={{ marginTop: '20px', marginBottom: '60px', marginLeft: '30px', marginRight: '10px', width: '90%' }}
+                value={+brightness || 999}
+                min={1}
+                max={999}
+                step={1}
+                onChange={this.handleChangeBrightness}
+              />
+            </div>
+            }
 
 
             {!!time &&
