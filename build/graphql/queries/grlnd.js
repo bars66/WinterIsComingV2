@@ -23,6 +23,9 @@ var _default = {
       },
       time: {
         type: _graphql.GraphQLInt
+      },
+      userBrightness: {
+        type: _graphql.GraphQLInt
       }
     }
   }),

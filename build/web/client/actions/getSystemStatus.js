@@ -46,6 +46,7 @@ query getVentStatus{
     pwmRY
     pwmGB
     time
+    userBrightness
   }
   
   weather {
@@ -104,6 +105,7 @@ var _default = () => {
     }
 
     if (data.grlnd) {
+      console.log(data.grlnd);
       dispatch({
         type: '@@grlnd/UPDATE',
         payload: data.grlnd

@@ -20,7 +20,8 @@ class GrlndNyController {
     _defineProperty(this, "params", {
       time: 0,
       pwmRY: 0,
-      pwmGB: 0
+      pwmGB: 0,
+      userBrightness: 998
     });
 
     _defineProperty(this, "changeParams", async ({
@@ -34,6 +35,7 @@ class GrlndNyController {
       this.params.time = 0;
       this.params.pwmRY = pwmRY;
       this.params.pwmGB = pwmGB;
+      if (pwmRY !== 0) this.params.userBrightness = pwmRY;
 
       try {
         const result = await (0, _requestPromise.default)(options);

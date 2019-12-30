@@ -23,14 +23,14 @@ var _default = {
   resolve: (unused, {
     pwmGB,
     pwmRY,
-    time
+    time,
+    userBrightness
   }, context) => {
     if (!!time) {
       context.controllers.GrlndNyController.setBlink({
         time
       });
     } else {
-      console.log('mkadsd', pwmGB, pwmRY);
       context.controllers.GrlndNyController.changeParams({
         pwmGB,
         pwmRY

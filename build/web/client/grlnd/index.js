@@ -41,14 +41,25 @@ class Grlnd extends _react.default.Component {
       value: this.props.time
     });
 
-    _defineProperty(this, "debouncedSetTime", (0, _debounce.default)(this.props.setGrlnd, 500));
+    _defineProperty(this, "debouncedSetGrlnd", (0, _debounce.default)(this.props.setGrlnd, 500));
 
     _defineProperty(this, "handleChange", (event, value) => {
       this.setState({
         value
       });
-      this.debouncedSetTime({
+      this.debouncedSetGrlnd({
         time: value
+      });
+    });
+
+    _defineProperty(this, "handleChangeBrightness", (event, value) => {
+      this.setState({
+        brightness: value
+      });
+      this.debouncedSetGrlnd({
+        pwmRY: value,
+        pwmGB: value,
+        time: 0
       });
     });
   }
@@ -62,7 +73,8 @@ class Grlnd extends _react.default.Component {
       small
     } = this.props;
     const {
-      value: timeValueFromState
+      value: timeValueFromState,
+      brightness
     } = this.state; // const tempForShown = valueFromState.toFixed(2) !== temp.toFixed(2) ? valueFromState : temp
 
     const isEnabled = pwmRY || pwmGB || time;
@@ -103,8 +115,8 @@ class Grlnd extends _react.default.Component {
       variant: "contained",
       color: !isEnabled ? 'primary' : 'secondary',
       onClick: () => setGrlnd(!isEnabled ? {
-        pwmRY: 999,
-        pwmGB: 999,
+        pwmRY: this.props.userBrightness,
+        pwmGB: this.props.userBrightness,
         time: 0
       } : {
         pwmRY: 0,
@@ -120,7 +132,24 @@ class Grlnd extends _react.default.Component {
       style: {
         marginLeft: '20px'
       }
-    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043C\u0438\u0433\u0430\u043D\u0438\u0435"), !!time && _react.default.createElement("div", {
+    }, "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043C\u0438\u0433\u0430\u043D\u0438\u0435"), !!isEnabled && !time && _react.default.createElement("div", {
+      style: {
+        marginTop: '10px'
+      }
+    }, _react.default.createElement(_Typography.default, null, "\u042F\u0440\u043A\u043E\u0441\u0442\u044C, ", (pwmRY / 1000).toFixed(3), " %"), _react.default.createElement(_Slider.default, {
+      style: {
+        marginTop: '20px',
+        marginBottom: '60px',
+        marginLeft: '30px',
+        marginRight: '10px',
+        width: '90%'
+      },
+      value: +brightness || 999,
+      min: 1,
+      max: 999,
+      step: 1,
+      onChange: this.handleChangeBrightness
+    })), !!time && _react.default.createElement("div", {
       style: {
         marginTop: '10px'
       }
