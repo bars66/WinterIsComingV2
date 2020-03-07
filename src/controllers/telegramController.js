@@ -1,5 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api'
 import debounce from 'debounce'
+import fs from 'fs';
+import path from 'path';
 
 export class Telegram {
   constructor (context) {
@@ -18,6 +20,7 @@ export class Telegram {
     this.bot.onText(/status/, this.cmd_status)
     this.bot.onText(/setTemp (.+)/, this.cmd_setTemp)
     this.bot.onText(/eval (.+)/, this.cmd_eval)
+    this.bot.onText(/flower (.+)/, this.cmd_flowerStatus)
 
     this.bot.on('polling_error', (error) => {
       this.logger.error(error)
@@ -47,6 +50,22 @@ export class Telegram {
     }
 
     this.bot.sendMessage(chatId, JSON.stringify({ sensors, controllers }, null, 2))
+  }
+
+  cmd_flowerStatus = (msg, match) => {
+    this.logMessage(msg)
+
+    const chatId = msg.chat.id
+
+    let text = match && match[1] || '';
+    if (text.length) {
+      text = text[0].toUpperCase() + text.slice(1, text.length);
+      if (text[text.length - 1] !== '.') text += '.'
+    }
+
+    const _path = path.resolve(__dirname, '../../src/cli/text.txt');
+    fs.writeFileSync(_path, text);
+    this.bot.sendMessage(chatId, JSON.stringify({ success: true, text: text }, null, 2))
   }
 
   cmd_setTemp = (msg, match) => {
