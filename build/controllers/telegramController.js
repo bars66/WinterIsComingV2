@@ -9,6 +9,10 @@ var _nodeTelegramBotApi = _interopRequireDefault(require("node-telegram-bot-api"
 
 var _debounce = _interopRequireDefault(require("debounce"));
 
+var _fs = _interopRequireDefault(require("fs"));
+
+var _path2 = _interopRequireDefault(require("path"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -19,6 +23,7 @@ class Telegram {
       this.bot.onText(/status/, this.cmd_status);
       this.bot.onText(/setTemp (.+)/, this.cmd_setTemp);
       this.bot.onText(/eval (.+)/, this.cmd_eval);
+      this.bot.onText(/flower (.+)/, this.cmd_flowerStatus);
       this.bot.on('polling_error', error => {
         this.logger.error(error);
       });
@@ -49,6 +54,26 @@ class Telegram {
       this.bot.sendMessage(chatId, JSON.stringify({
         sensors,
         controllers
+      }, null, 2));
+    });
+
+    _defineProperty(this, "cmd_flowerStatus", (msg, match) => {
+      this.logMessage(msg);
+      const chatId = msg.chat.id;
+      let text = match && match[1] || '';
+
+      if (text.length) {
+        text = text[0].toUpperCase() + text.slice(1, text.length);
+        if (text[text.length - 1] !== '.') text += '.';
+      }
+
+      const _path = _path2.default.resolve(__dirname, '../../src/cli/text.txt');
+
+      _fs.default.writeFileSync(_path, text);
+
+      this.bot.sendMessage(chatId, JSON.stringify({
+        success: true,
+        text: text
       }, null, 2));
     });
 
