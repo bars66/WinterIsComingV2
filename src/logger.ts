@@ -1,11 +1,6 @@
 require('dotenv').config()
 
-const bunyan = require('bunyan')
-// const LogzioBunyanStream = require('logzio-bunyan')
-//
-// const logzioStream = new LogzioBunyanStream({
-//   token: process.env.LOGZIO_TOKEN
-// })
+import bunyan from 'bunyan';
 
 const logger = bunyan.createLogger({
   name: 'Object-Controller',

@@ -1,0 +1,33 @@
+- hosts: all
+  tasks:
+    - name: add nodejs repo
+      shell: curl -sL https://deb.nodesource.com/setup_10.x
+
+    - name: install nodejs
+      apt:
+        name: nodejs
+        update_cache: yes
+
+    - name: install node-gyp
+      apt:
+        name: node-gyp
+
+    - name: Add Yarn apt key
+      apt_key:
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg
+
+    - name: Add Yarn repository
+      apt_repository:
+        repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+        filename: yarn
+
+    - name: Install Yarn
+      apt:
+        name: yarn
+
+    - name: Set timezone to Europe/Moscow
+      timezone:
+        name: Europe/Moscow
+
+    - name: Apply settings
+      reboot:

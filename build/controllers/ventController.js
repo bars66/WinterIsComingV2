@@ -11,7 +11,7 @@ var _parserReadline = _interopRequireDefault(require("@serialport/parser-readlin
 
 var _events = _interopRequireDefault(require("events"));
 
-var _logger = _interopRequireDefault(require("../logger"));
+var _logger = _interopRequireDefault(require("../logger.ts"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

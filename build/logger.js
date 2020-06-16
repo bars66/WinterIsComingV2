@@ -5,16 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _bunyan = _interopRequireDefault(require("bunyan"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 require('dotenv').config();
 
-const bunyan = require('bunyan'); // const LogzioBunyanStream = require('logzio-bunyan')
-//
-// const logzioStream = new LogzioBunyanStream({
-//   token: process.env.LOGZIO_TOKEN
-// })
-
-
-const logger = bunyan.createLogger({
+const logger = _bunyan.default.createLogger({
   name: 'Object-Controller',
   level: 'trace',
   streams: [{
@@ -26,5 +23,6 @@ const logger = bunyan.createLogger({
 
   }]
 });
+
 var _default = logger;
 exports.default = _default;

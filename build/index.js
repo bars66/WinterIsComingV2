@@ -1,6 +1,6 @@
 "use strict";
 
-var _logger = _interopRequireDefault(require("./logger"));
+var _logger = _interopRequireDefault(require("./logger.ts"));
 
 var _nodeCron = _interopRequireDefault(require("node-cron"));
 

@@ -1,15 +1,18 @@
 {
   "name": "winteriscomingv2",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "repository": "git@github.com:bars66/WinterIsComingV2.git",
   "author": "Nikolay Pavlushin <i@bars66.com>",
   "license": "MIT",
   "scripts": {
-    "babel": "rm -rf build && babel -q --out-dir build src && echo 'Full babel compilation finished'",
-    "babel-watch": "echo 'Watch mode' && babel src --watch --verbose --skip-initial-build --out-dir build",
+    "babel": "rm -rf build && babel lib --extensions \".js,.jsx,.ts,.tsx\" -q --out-dir build src && echo 'Full babel compilation finished'",
+    "babel-watch": "echo 'Watch mode' && babel src --watch --verbose --extensions \".js,.jsx,.ts,.tsx\" --skip-initial-build --out-dir build",
     "dev-mode": "yarn babel & yarn babel-watch",
-    "app-watch": "yarn dev-mode & nodemon build/index | bunyan"
+    "app-watch": "yarn dev-mode & nodemon build/index | bunyan",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "dependencies": {
     "@cycjimmy/jsmpeg-player": "^4.0.2",
@@ -26,12 +29,14 @@
     "fluent-ffmpeg": "^2.1.2",
     "gradient-color": "^2.0.1",
     "graphql": "^14.1.1",
+    "invariant": "^2.2.4",
     "isomorphic-fetch": "^2.2.1",
     "jimp": "^0.8.2",
     "jsqr": "^1.2.0",
     "logzio-bunyan": "^0.2.3",
     "logzio-nodejs": "^0.4.15",
     "lru-cache": "^5.1.1",
+    "modbus-serial": "^8.0.0",
     "moment": "^2.24.0",
     "nedb": "^1.8.0",
     "nedb-promise": "^2.0.1",
@@ -49,7 +54,8 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "serialport": "^7.0.2",
-    "suncalc": "^1.8.0"
+    "suncalc": "^1.8.0",
+    "ts-invariant": "^0.4.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -60,6 +66,9 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.10.1",
+    "@types/bunyan": "^1.8.6",
+    "@types/invariant": "^2.2.33",
     "babel-eslint": "^10.0.1",
     "babel-loader": "8.0.2",
     "css-loader": "1.0.0",
@@ -68,17 +77,12 @@
     "nodemon": "^1.18.10",
     "standard": "^12.0.1",
     "style-loader": "0.23.0",
+    "typescript": "^3.9.5",
     "webpack": "^4.29.6",
     "webpack-cli": "3.1.1",
     "webpack-dev-server": "3.1.8"
   },
   "standard": {
     "parser": "babel-eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo Clear build && git reset HEAD build && rm -rf build",
-      "post-commit": "./sys/build"
-    }
   }
 }

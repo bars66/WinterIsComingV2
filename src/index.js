@@ -1,4 +1,4 @@
-import logger from './logger'
+import logger from './logger.ts'
 import cron from 'node-cron'
 
 import { Co2Room } from './sensors/co2Sensor'

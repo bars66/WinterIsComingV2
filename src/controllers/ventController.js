@@ -2,7 +2,7 @@ import SerialPort from 'serialport'
 import Readline from '@serialport/parser-readline'
 
 import EventEmitter from 'events'
-import logger from '../logger'
+import logger from '../logger.ts'
 require('dotenv').config()
 
 const VENT_SERIAL_PORT = process.env.VENT_SERIAL_PORT

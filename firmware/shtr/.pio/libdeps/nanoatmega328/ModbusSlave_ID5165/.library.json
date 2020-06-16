@@ -1,0 +1,40 @@
+{
+    "name": "ModbusSlave", 
+    "version": "2.0.0", 
+    "keywords": [
+        "communication"
+    ], 
+    "description": "A Modbus Slave library for Arduino.", 
+    "frameworks": [
+        "arduino"
+    ], 
+    "platforms": [
+        "atmelavr", 
+        "atmelsam"
+    ], 
+    "authors": [
+        {
+            "email": "kobi.zamir@gmail.com", 
+            "url": null, 
+            "maintainer": true, 
+            "name": "Yaacov Zamir"
+        }
+    ], 
+    "repository": {
+        "type": "git", 
+        "url": "https://github.com/yaacov/ArduinoModbusSlave"
+    }, 
+    "homepage": null, 
+    "export": {
+        "include": null, 
+        "exclude": [
+            "extras", 
+            "docs", 
+            "tests", 
+            "test", 
+            "*.doxyfile", 
+            "*.pdf"
+        ]
+    }, 
+    "id": 5165
+}
