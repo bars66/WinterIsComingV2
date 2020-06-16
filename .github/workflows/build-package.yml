@@ -23,7 +23,6 @@ jobs:
 
       - name: Удаляем исходники
         run: rm -rf src
-
       - name: Удаляем модули
         run: rm -rf node_modules
 
