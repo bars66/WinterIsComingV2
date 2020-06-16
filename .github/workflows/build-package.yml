@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Build package
 
 on:
   push:
@@ -27,6 +27,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+            
       - run: yarn install
       - run: yarn babel
       - run: rm -rf src
