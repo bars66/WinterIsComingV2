@@ -17,9 +17,9 @@ jobs:
           node-version: 10
 
       - run: yarn install
-
-
       - run: yarn babel
+      - run: export NODE_ENV=production
+      - run: yarn webpack
 
       - name: Удаляем исходники
         run: rm -rf src
@@ -27,7 +27,7 @@ jobs:
       - name: Удаляем модули
         run: rm -rf node_modules
 
-      - name: Build project # This would actually build your project, using zip for an example artifact
+      - name: Упаковываем
         run: |
           zip -r build.zip .
       - name: Create Release
@@ -36,8 +36,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: release/${{ github.ref }}/${{ github.run_id }}
-          release_name: Release ${{ github.run_id }}
+          tag_name: release/${{ github.ref }}/${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
