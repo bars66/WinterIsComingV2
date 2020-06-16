@@ -23,6 +23,7 @@ jobs:
 
       - name: Удаляем исходники
         run: rm -rf src
+
       - name: Удаляем модули
         run: rm -rf node_modules
 
@@ -36,7 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: release/master
+          tag_name: release/${{ github.run_id }}
           release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
