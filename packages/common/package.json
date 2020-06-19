@@ -1,0 +1,23 @@
+{
+  "name": "winteriscomingv2-common",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "git@github.com:bars66/WinterIsComingV2.git",
+  "author": "Nikolay Pavlushin <i@bars66.com>",
+  "main": "build/index.js",
+  "types": "./lib/index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "2.0.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/bunyan": "^1.8.6",
+    "@types/invariant": "^2.2.33"
+  },
+  "scripts": {
+    "babel": "rm -rf build && mkdir -p lib && babel lib --extensions \".js,.jsx,.ts,.tsx\" --out-dir build src && echo 'Full babel compilation finished'",
+    "babel-watch": "echo 'Watch mode' && babel src --watch --verbose --extensions \".js,.jsx,.ts,.tsx\" --skip-initial-build --out-dir build",
+    "dev-mode": "yarn babel & yarn babel-watch & tsc --emitDeclarationOnly --watch --preserveWatchOutput"
+  }
+}

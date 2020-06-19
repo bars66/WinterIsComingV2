@@ -19,7 +19,7 @@ jobs:
       - run: yarn install
       - run: yarn babel
       - run: export NODE_ENV=production
-      - run: yarn webpack
+#      - run: yarn webpack
 
       - name: Удаляем исходники
         run: rm -rf src
