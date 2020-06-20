@@ -1,10 +1,9 @@
-
-export default function co2Reducer (state = {}, action) {
+export default function co2Reducer(state = {}, action) {
   switch (action.type) {
     case '@@co2/UPDATE':
-      return action.payload
+      return action.payload;
 
     default:
-      return state
+      return state;
   }
 }

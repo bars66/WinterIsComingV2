@@ -1,18 +1,18 @@
-import { GraphQLObjectType, GraphQLFloat, GraphQLList, GraphQLString } from 'graphql'
-import rp from 'request-promise'
-import LRU from 'lru-cache'
+import {GraphQLObjectType, GraphQLFloat, GraphQLList, GraphQLString} from 'graphql';
+import rp from 'request-promise';
+import LRU from 'lru-cache';
 
-const API_KEY = process.env.DARKSKY
-const COORDS = process.env.COORDS_FOR_SUN
-const API_URL = `https://api.darksky.net/forecast/`
-const MORNING_HOUR = 11
-const EVENING_HOUR = 21
+const API_KEY = process.env.DARKSKY;
+const COORDS = process.env.COORDS_FOR_SUN;
+const API_URL = `https://api.darksky.net/forecast/`;
+const MORNING_HOUR = 11;
+const EVENING_HOUR = 21;
 
 const cache = new LRU({
-  maxAge: 1000 * 60 * 10
-})
+  maxAge: 1000 * 60 * 10,
+});
 
-const CACHE_ID = 'forecast'
+const CACHE_ID = 'forecast';
 // "time": 1568413521,
 //   "summary": "Сильная Облачность",
 //   "icon": "cloudy",
@@ -40,55 +40,59 @@ const ForecastType = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'ForecastTime',
         fields: {
-          unix: { type: GraphQLString },
-          text: { type: GraphQLString }
-        }
+          unix: {type: GraphQLString},
+          text: {type: GraphQLString},
+        },
       }),
-      resolve ({ time }) { return { unix: time * 1000, text: '' + new Date(time * 1000) } }
+      resolve({time}) {
+        return {unix: time * 1000, text: '' + new Date(time * 1000)};
+      },
     },
-    temperature: { type: GraphQLFloat },
-    windSpeed: { type: GraphQLFloat },
-    summary: { type: GraphQLString },
-    icon: { type: GraphQLString },
-    precipType: { type: GraphQLString },
-    precipProbability: { type: GraphQLFloat }
-  }
-})
+    temperature: {type: GraphQLFloat},
+    windSpeed: {type: GraphQLFloat},
+    summary: {type: GraphQLString},
+    icon: {type: GraphQLString},
+    precipType: {type: GraphQLString},
+    precipProbability: {type: GraphQLFloat},
+  },
+});
 
-export function filterHourlyForecast (forecast) {
+export function filterHourlyForecast(forecast) {
   // Оставляем только утро и вечер - примерное время возврата и отправки
-  const morning = forecast.find(({ time }) => (new Date(time * 1000)).getHours() === MORNING_HOUR)
-  const evening = forecast.find(({ time }) => (new Date(time * 1000)).getHours() === EVENING_HOUR)
+  const morning = forecast.find(({time}) => new Date(time * 1000).getHours() === MORNING_HOUR);
+  const evening = forecast.find(({time}) => new Date(time * 1000).getHours() === EVENING_HOUR);
 
-  return [morning, evening].filter(Boolean)
+  return [morning, evening].filter(Boolean);
 }
 
 export default {
   type: new GraphQLObjectType({
     name: 'weather',
     fields: {
-      currently: { type: ForecastType },
+      currently: {type: ForecastType},
       hourly: {
         type: new GraphQLList(ForecastType),
-        resolve ({ hourly }) { return filterHourlyForecast(hourly.data) }
-      }
-    }
+        resolve({hourly}) {
+          return filterHourlyForecast(hourly.data);
+        },
+      },
+    },
   }),
 
-  async resolve (unused1, unused2, context) {
-    const fromCache = cache.get(CACHE_ID)
+  async resolve(unused1, unused2, context) {
+    const fromCache = cache.get(CACHE_ID);
 
     if (fromCache) {
-      context.logger.trace('Forecast from cache')
-      return fromCache
+      context.logger.trace('Forecast from cache');
+      return fromCache;
     }
 
-    const forecastRaw = await rp.get(`${API_URL}${API_KEY}/${COORDS}?lang=ru&units=si`)
-    console.log('asads', forecastRaw)
-    const forecast = JSON.parse(forecastRaw)
+    const forecastRaw = await rp.get(`${API_URL}${API_KEY}/${COORDS}?lang=ru&units=si`);
+    console.log('asads', forecastRaw);
+    const forecast = JSON.parse(forecastRaw);
 
-    cache.set(CACHE_ID, forecast)
+    cache.set(CACHE_ID, forecast);
 
-    return forecast
-  }
-}
+    return forecast;
+  },
+};

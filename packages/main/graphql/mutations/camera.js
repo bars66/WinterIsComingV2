@@ -1,14 +1,14 @@
-import { GraphQLBoolean, GraphQLString, GraphQLNonNull } from 'graphql'
+import {GraphQLBoolean, GraphQLString, GraphQLNonNull} from 'graphql';
 
 export default {
   type: GraphQLBoolean,
   args: {
-    action: { type: new GraphQLNonNull(GraphQLString) } // ENUM бы сюда, но не сегодня
+    action: {type: new GraphQLNonNull(GraphQLString)}, // ENUM бы сюда, но не сегодня
   },
-  resolve: (unused, { action }, context) => {
+  resolve: (unused, {action}, context) => {
     if (!['stop', 'start'].includes(action)) return false;
-    context.controllers.Camera[action]()
+    context.controllers.Camera[action]();
 
-    return true
-  }
-}
+    return true;
+  },
+};

@@ -6,7 +6,7 @@
       register: json_reponse
 
     - get_url:
-        url: "{{ json_reponse.json.assets[0].browser_download_url }}"
+        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
         dest: ./build.zip
 
 - hosts: all
@@ -23,7 +23,7 @@
         dest: /opt/WinterIsComingV2/
 
     - name: Install packages
-      shell: yarn install --prod --frozen-lockfile
+      shell: yarn install --prod
       args:
         chdir: /opt/WinterIsComingV2/
 
@@ -48,8 +48,6 @@
         state: restarted
         daemon_reload: yes
         name: winterIsComingBridge.service
-
-
 
 - hosts: localhost
   tasks:

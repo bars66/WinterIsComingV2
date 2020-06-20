@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
-import CssBaseline from '@material-ui/common/CssBaseline'
-import LinearProgress from '@material-ui/common/LinearProgress'
-import { createMuiTheme, MuiThemeProvider} from '@material-ui/common';
+import * as React from 'react';
+import {connect} from 'react-redux';
+import CssBaseline from '@material-ui/common/CssBaseline';
+import LinearProgress from '@material-ui/common/LinearProgress';
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/common';
 
-import getSystemStatus from './actions/getSystemStatus'
-import Forecast from './forecast'
-import Vent from './vent'
+import getSystemStatus from './actions/getSystemStatus';
+import Forecast from './forecast';
+import Vent from './vent';
 
 const theme = createMuiTheme({
   palette: {
@@ -17,50 +17,60 @@ const theme = createMuiTheme({
 export class App extends React.Component {
   intervalId;
 
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.intervalId = setInterval(() => {
-      this.props.updateSystemStatus()
-    }, 1000)
+      this.props.updateSystemStatus();
+    }, 1000);
   }
 
-  componentWillUnmount () {
-    this.intervalId && clearInterval(this.timerId)
+  componentWillUnmount() {
+    this.intervalId && clearInterval(this.timerId);
   }
 
-  render () {
+  render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div style={{
-          maxWidth: '100%',
-          overflowX: 'hidden',
-          padding: '10px',
-        }}>
+        <div
+          style={{
+            maxWidth: '100%',
+            overflowX: 'hidden',
+            padding: '10px',
+          }}
+        >
           <CssBaseline />
-          {!this.props.isLoading
-            ? <React.Fragment>
+          {!this.props.isLoading ? (
+            <React.Fragment>
               <LinearProgress />
               <br />
-              <LinearProgress color='secondary' />
+              <LinearProgress color="secondary" />
             </React.Fragment>
-            : <React.Fragment>
+          ) : (
+            <React.Fragment>
               <Forecast />
-              <Vent small/>
+              <Vent small />
             </React.Fragment>
-          }
+          )}
         </div>
       </MuiThemeProvider>
-    )
+    );
   }
 }
 
-export default connect(({ isLoading }) => {
-  return { isLoading, sysStatus: !isLoading ? 'Fatal' : 'Stable', statusColor: !isLoading ? 'red' : 'green' }
-}, (dispatch) => ({
-  updateSystemStatus: () => {
-    dispatch(getSystemStatus())
-  }
-}))(App)
+export default connect(
+  ({isLoading}) => {
+    return {
+      isLoading,
+      sysStatus: !isLoading ? 'Fatal' : 'Stable',
+      statusColor: !isLoading ? 'red' : 'green',
+    };
+  },
+  (dispatch) => ({
+    updateSystemStatus: () => {
+      dispatch(getSystemStatus());
+    },
+  })
+)(App);

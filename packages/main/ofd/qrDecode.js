@@ -52,10 +52,10 @@ export function getQrCodeDataByBuffer(buff, width, height) {
       return resolve(value);
     };
     qr.decode(image.bitmap);
-  })
+  });
 }
 
-export async function getQrData (buff) {
+export async function getQrData(buff) {
   // Read the PDF file into a typed array so PDF.js can load it.
   const rawData = new Uint8Array(buff);
   const pdfDocument = await pdfjsLib.getDocument(rawData).promise;
@@ -65,7 +65,7 @@ export async function getQrData (buff) {
   for (let i = pdfDocument.numPages; i !== 0; --i) {
     const page = await pdfDocument.getPage(i);
     // Render the page on a Node canvas with 100% scale.
-    const viewport = page.getViewport({ scale: 1, });
+    const viewport = page.getViewport({scale: 1});
     const canvasFactory = new NodeCanvasFactory();
     const canvasAndContext = canvasFactory.create(viewport.width, viewport.height);
     const renderContext = {
@@ -78,10 +78,10 @@ export async function getQrData (buff) {
     const image = canvasAndContext.canvas.toBuffer();
     fs.writeFileSync(`${i}.png`, image);
 
-      canvasFactory.destroy(canvasAndContext);
+    canvasFactory.destroy(canvasAndContext);
 
     try {
-      console.log('UUU', i)
+      console.log('UUU', i);
       const decodedFromList = await getQrCodeDataByBuffer(image, viewport.width, viewport.height);
       console.log('decodedFromList', decodedFromList);
       if (decodedFromList && res) throw new Error('Два QR в документе');
@@ -93,5 +93,3 @@ export async function getQrData (buff) {
 
   return res ? res.result : undefined;
 }
-
-

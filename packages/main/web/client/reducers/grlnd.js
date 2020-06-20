@@ -1,10 +1,9 @@
-
-export default function grlndReducer (state = {}, action) {
+export default function grlndReducer(state = {}, action) {
   switch (action.type) {
     case '@@grlnd/UPDATE':
-      return action.payload
+      return action.payload;
 
     default:
-      return state
+      return state;
   }
 }

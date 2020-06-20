@@ -1,14 +1,14 @@
-require('dotenv').config()
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
 // const Twitter = require('twitter');
 
-const bot = new TelegramBot(process.env.TG_BOT, { polling: false })
+const bot = new TelegramBot(process.env.TG_BOT, {polling: false});
 
 const ffmpeg = require('fluent-ffmpeg');
-const RTSP = process.env.RTSP
-const CHAT_ID = process.env.TG_FLOWER_CHANNEL
+const RTSP = process.env.RTSP;
+const CHAT_ID = process.env.TG_FLOWER_CHANNEL;
 
 const _path = path.resolve(__dirname, './flowers.jpg');
 const _pathText = path.resolve(__dirname, './text.txt');
@@ -23,23 +23,19 @@ const defaultText = 'Сегодня ничего не выросло.';
 
 command = ffmpeg(RTSP)
   .frames(1)
-  .on('end', function() {
+  .on('end', function () {
     console.log('file has been converted succesfully');
     const file = fs.readFileSync(_path);
     let text = defaultText;
 
     try {
       text = fs.readFileSync(_pathText);
-    } catch (e) {
-
-    }
+    } catch (e) {}
     fs.writeFileSync(_pathText, defaultText);
 
-    bot.sendPhoto(CHAT_ID, file, {caption: text, disable_notification: true})
-        .then(function(data)
-        {
-          console.log(data);
-        });
+    bot.sendPhoto(CHAT_ID, file, {caption: text, disable_notification: true}).then(function (data) {
+      console.log(data);
+    });
 
     // client.post('media/upload', {media: file}, function(error, media, response) {
     //   if (!error) {
@@ -62,7 +58,7 @@ command = ffmpeg(RTSP)
     //   }
     // });
   })
-  .on('error', function(err) {
+  .on('error', function (err) {
     console.log('an error happened: ' + err.message);
   })
   // save to file

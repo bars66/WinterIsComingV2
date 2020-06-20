@@ -5,10 +5,10 @@ const logger = bunyan.createLogger({
   level: 'trace',
   streams: [
     {
-      stream: process.stdout
-    }
+      stream: process.stdout,
+    },
   ],
-  serializers: {error: bunyan.stdSerializers.err}
-})
+  serializers: {error: bunyan.stdSerializers.err},
+});
 
-export default logger
+export default logger;

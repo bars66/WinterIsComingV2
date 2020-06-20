@@ -1,4 +1,3 @@
-
 export default (type) => (req, res, next) => {
   res.send(`
 <html>
@@ -12,5 +11,5 @@ export default (type) => (req, res, next) => {
     <script>window._TYPE = '${type}'</script>
     <script src="dist/main.bundle.js"></script>
 </body>
-</html>`)
-}
+</html>`);
+};

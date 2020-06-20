@@ -1,10 +1,9 @@
-
-export default function loadingReducer (state = false, action) {
+export default function loadingReducer(state = false, action) {
   switch (action.type) {
     case '@@loading/COMPLETE':
-      return true
+      return true;
 
     default:
-      return state
+      return state;
   }
 }

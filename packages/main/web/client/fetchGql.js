@@ -1,19 +1,19 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
 
-export default async function fetchGql (query, variables) {
+export default async function fetchGql(query, variables) {
   const response = await fetch('/graphql', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       query,
-      variables
-    })
-  })
+      variables,
+    }),
+  });
 
-  const result = await response.json()
-  if (result.errors) return {}
+  const result = await response.json();
+  if (result.errors) return {};
 
-  return result.data
-};
+  return result.data;
+}

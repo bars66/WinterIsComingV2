@@ -1,19 +1,15 @@
-import {
-  GraphQLSchema,
-  GraphQLString,
-  GraphQLObjectType
-} from 'graphql'
+import {GraphQLSchema, GraphQLString, GraphQLObjectType} from 'graphql';
 
-import vent from './queries/vent'
-import co2 from './queries/co2'
-import temps from './queries/temps'
-import grlnd from './queries/grlnd'
+import vent from './queries/vent';
+import co2 from './queries/co2';
+import temps from './queries/temps';
+import grlnd from './queries/grlnd';
 
-import weather from './queries/weather'
-import camera from './mutations/camera'
-import setTemp from './mutations/setTemp'
-import manualHeater from './mutations/manualHeater'
-import setGrlnd from './mutations/grlnd'
+import weather from './queries/weather';
+import camera from './mutations/camera';
+import setTemp from './mutations/setTemp';
+import manualHeater from './mutations/manualHeater';
+import setGrlnd from './mutations/grlnd';
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -23,8 +19,8 @@ export default new GraphQLSchema({
       co2,
       temps,
       weather,
-      grlnd
-    }
+      grlnd,
+    },
   }),
   mutation: new GraphQLObjectType({
     name: 'SchemaMutations',
@@ -32,7 +28,7 @@ export default new GraphQLSchema({
       setTemp,
       manualHeater,
       camera,
-      setGrlnd
-    }
-  })
-})
+      setGrlnd,
+    },
+  }),
+});
