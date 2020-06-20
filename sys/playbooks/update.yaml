@@ -22,15 +22,35 @@
         src: ./build.zip
         dest: /opt/WinterIsComingV2/
 
-    - name: Unarchive project
-      unarchive:
-        src: ./build.zip
-        dest: /opt/WinterIsComingV2/
-
     - name: Install packages
-      shell: yarn install
+      shell: yarn install --prod --frozen-lockfile
+#     TODO: check  '[ "$(cat yarn.lock.hash)" != "$(md5 -q yarn.lock)" ]'
       args:
         chdir: /opt/WinterIsComingV2/
+
+    - name: Save hash
+      shell: md5sum yarn.lock > yarn.lock.hash
+      args:
+        chdir: /opt/WinterIsComingV2/
+
+- hosts: rs485
+  tasks:
+    - name: Create env file
+      become: true
+      template:
+        src: templates/bridge-env.conf
+        dest: /opt/WinterIsComingV2/packages/bridge/.env
+
+    - name: Copy systemd service file
+      shell: cp /opt/WinterIsComingV2/sys/systemd/winterIsComingBridge.service /etc/systemd/system/winterIsComingBridge.service
+
+    - name: restart service
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: winterIsComingBridge.service
+
+
 
 - hosts: localhost
   tasks:

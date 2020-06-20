@@ -1,6 +1,6 @@
 [Service]
 WorkingDirectory=/opt/WinterIsComingV2/packages/bridge
-ExecStart=/usr/bin/node build/index.jd
+ExecStart=/usr/bin/node build/index.js
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
