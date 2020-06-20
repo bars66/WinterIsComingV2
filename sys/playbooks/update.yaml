@@ -24,12 +24,11 @@
 
     - name: Install packages
       shell: yarn install --prod --frozen-lockfile
-#     TODO: check  '[ "$(cat yarn.lock.hash)" != "$(md5 -q yarn.lock)" ]'
       args:
         chdir: /opt/WinterIsComingV2/
 
     - name: Save hash
-      shell: md5sum yarn.lock > yarn.lock.hash
+      shell: '[ "$(cat yarn.lock.hash)" != "$(md5sum yarn.lock)" ] && echo success || echo error'
       args:
         chdir: /opt/WinterIsComingV2/
 
