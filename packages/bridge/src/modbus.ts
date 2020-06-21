@@ -13,12 +13,14 @@ const ALLOWED_COMMANDS = [
   'writeRegisters',
 ];
 
+const MAX_RETRIES = 10;
+
 export class ModbusClient {
   static instance: ModbusClient;
-  port: string;
-  speed: number;
-  client?: ModbusRTU;
-  logger: Logger;
+  private port: string;
+  private speed: number;
+  private client?: ModbusRTU;
+  private logger: Logger;
 
   constructor(port: string, speed: number, logger: Logger) {
     this.port = port;
@@ -36,7 +38,7 @@ export class ModbusClient {
     return client;
   }
 
-  async init() {
+  private async init() {
     try {
       const client = new ModbusRTU();
       await client.connectRTUBuffered(this.port, {baudRate: this.speed});
@@ -59,8 +61,9 @@ export class ModbusClient {
     client.setID(command.clientId);
     let retryCount = command.retry;
     if (retryCount === -1) {
-      retryCount = 100;
+      retryCount = MAX_RETRIES;
     }
+    retryCount = Math.min(retryCount, MAX_RETRIES);
 
     let lastError;
 

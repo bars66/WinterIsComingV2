@@ -17,7 +17,7 @@ async function main() {
       command: {
         cmd: 'writeRegisters',
         dataAddress: 0,
-        values: [-1 * cmd + (1 << 15), cmd + (1 << 15), cmd + (1 << 15)],
+        values: [-1 * -3520 + (1 << 15), -3520 + (1 << 15), -3520 + (1 << 15)],
       },
     })
   );

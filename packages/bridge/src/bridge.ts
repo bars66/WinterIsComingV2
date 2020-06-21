@@ -6,17 +6,17 @@ import type {Connection, Channel} from 'amqplib';
 import type {ModbusCMD} from './types';
 
 export class Bridge {
-  id: string;
-  connection?: Connection;
-  logger: Logger;
-  modbusClient?: ModbusClient;
+  private id: string;
+  private connection?: Connection;
+  private logger: Logger;
+  private modbusClient?: ModbusClient;
 
-  intervalId?: NodeJS.Timeout;
-  watchChannel?: Channel;
+  private intervalId?: NodeJS.Timeout;
+  private watchChannel?: Channel;
 
   constructor(id: string, logger: Logger) {
     this.id = id;
-    this.logger = logger;
+    this.logger = logger.child({bridge: {id}});
   }
 
   static async init(conf: {
@@ -28,19 +28,19 @@ export class Bridge {
   }) {
     const bridge = new Bridge(conf.id, conf.logger);
     bridge.connection = await amqplib.connect(conf.rabbitHost);
-    bridge.modbusClient = await ModbusClient.getClient(conf.port, conf.speed, conf.logger);
-    conf.logger.info('Bridge init');
+    bridge.modbusClient = await ModbusClient.getClient(conf.port, conf.speed, bridge.logger);
+    bridge.logger.info('Bridge init');
 
     await bridge.watch();
-    conf.logger.info('Bridge watcher start');
+    bridge.logger.info('Bridge watcher start');
 
     await bridge.bridgeStatusSender();
-    conf.logger.info('Bridge status sender start');
+    bridge.logger.info('Bridge status sender start');
 
     return bridge;
   }
 
-  async bridgeStatusSender() {
+  private async bridgeStatusSender() {
     if (!this.connection) throw new Error('Connection must be exists');
     const channel = await this.connection.createChannel();
     await channel.assertExchange(BRIDGES_STATUS_EXCHANGE, 'direct', {
@@ -54,7 +54,7 @@ export class Bridge {
         Buffer.from(
           JSON.stringify({
             status: 'ok',
-            time: new Date(),
+            date: new Date(),
           })
         ),
         {expiration: 2000}
@@ -62,7 +62,7 @@ export class Bridge {
     }, 1000);
   }
 
-  async watch() {
+  private async watch() {
     if (!this.connection) throw new Error('Connection must be exists');
     const modbusClient = this.modbusClient;
     if (!modbusClient) throw new Error('Modbus client must be exists');

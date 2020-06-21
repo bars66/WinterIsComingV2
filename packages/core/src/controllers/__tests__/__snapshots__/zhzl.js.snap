@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Привод управления жаллюзи setPositions Отправит новые значения 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "clientId": 10,
+        "command": Object {
+          "cmd": "writeRegisters",
+          "dataAddress": 0,
+          "values": Array [
+            35268,
+            29868,
+            0,
+            32068,
+          ],
+        },
+        "retry": -1,
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": Promise {},
+    },
+  ],
+}
+`;
+
+exports[`Привод управления жаллюзи setPositions Отправит новые значения 2`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "currentPosition": Array [
+          3500,
+          3400,
+          300,
+          300,
+        ],
+        "inverted": Array [
+          false,
+          true,
+          false,
+        ],
+        "maxPosition": Array [
+          3500,
+          3400,
+          3100,
+          3200,
+        ],
+        "minPosition": Array [
+          0,
+          0,
+          0,
+          0,
+        ],
+      },
+      undefined,
+      true,
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": Promise {},
+    },
+  ],
+}
+`;
+
+exports[`Привод управления жаллюзи setPositions Ошибка от устройства - не будем менять настройки 1`] = `
+Object {
+  "error": [MockFunction] {
+    "calls": Array [
+      Array [
+        Object {
+          "error": [Error: Bridge error],
+          "newPositions": Array [
+            Infinity,
+            Infinity,
+            undefined,
+            300,
+          ],
+          "settings": Object {
+            "settings": Object {
+              "currentPosition": Array [
+                1000,
+                500,
+                300,
+                1000,
+              ],
+              "inverted": Array [
+                false,
+                true,
+                false,
+              ],
+              "maxPosition": Array [
+                3500,
+                3400,
+                3100,
+                3200,
+              ],
+              "minPosition": Array [
+                0,
+                0,
+                0,
+                0,
+              ],
+            },
+          },
+        },
+        "Can't change position",
+      ],
+    ],
+    "results": Array [
+      Object {
+        "type": "return",
+        "value": undefined,
+      },
+    ],
+  },
+  "fatal": [MockFunction],
+}
+`;
+
+exports[`Привод управления жаллюзи setPositions Ошибка при записи в базу 1`] = `
+Object {
+  "error": [MockFunction],
+  "fatal": [MockFunction] {
+    "calls": Array [
+      Array [
+        Object {
+          "error": [Error: Write error],
+          "newPositions": Array [
+            Infinity,
+            Infinity,
+            undefined,
+            300,
+          ],
+          "settings": Object {
+            "settings": Object {
+              "currentPosition": Array [
+                3500,
+                3400,
+                300,
+                300,
+              ],
+              "inverted": Array [
+                false,
+                true,
+                false,
+              ],
+              "maxPosition": Array [
+                3500,
+                3400,
+                3100,
+                3200,
+              ],
+              "minPosition": Array [
+                0,
+                0,
+                0,
+                0,
+              ],
+            },
+          },
+        },
+        "Can't change settings",
+      ],
+    ],
+    "results": Array [
+      Object {
+        "type": "return",
+        "value": undefined,
+      },
+    ],
+  },
+}
+`;

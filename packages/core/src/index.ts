@@ -3,11 +3,19 @@ import {closeSources, createContext} from './context';
 import type {Connection} from 'amqplib';
 import type {Logger} from 'winteriscomingv2-common';
 import type {Context} from './context';
+import {Bridge} from './bridges/bridge';
+import {Zhlz} from './controllers/zhlz';
 
 let context: Context;
 
 export async function main() {
   context = await createContext();
+
+  const bridge = await Bridge.start(context, '1');
+
+  const zhlz = new Zhlz('main', context, bridge, 10);
+  await zhlz.waitForInitDone();
+  await zhlz.close();
 }
 
 main().catch((e) => logger.fatal({error: e}, 'Error on main fn'));
