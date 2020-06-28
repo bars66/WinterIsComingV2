@@ -26,3 +26,5 @@ jobs:
             --platform linux/arm/v7 \
             --output "type=image,push=false" \
             --file ./sys/docker/bridge.dockerfile ./
+            -t docker.pkg.github.com/bars66/WinterIsComingV2/bridge:latest
+            --push
