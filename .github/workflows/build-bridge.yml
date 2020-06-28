@@ -32,4 +32,7 @@ jobs:
             -t docker.pkg.github.com/bars66/winteriscomingv2/bridge:latest \
             --output "type=image,push=false" \
             --file ./sys/docker/bridge.dockerfile ./ \
-            --push
+            --load
+
+      - name: push
+        run: docker push docker.pkg.github.com/bars66/winteriscomingv2/bridge:latest
