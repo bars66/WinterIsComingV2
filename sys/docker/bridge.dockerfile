@@ -3,4 +3,5 @@ ADD ./ /app
 WORKDIR /app
 RUN apk add --no-cache make gcc g++ python linux-headers udev
 RUN yarn install --prod --frozen-lockfile
-CMD node /app/packages/bridge/build/index.js
+RUN yarn babel
+CMD NODE_ENV=production node /app/packages/bridge/build/index.js

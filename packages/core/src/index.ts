@@ -15,6 +15,9 @@ export async function main() {
 
   const zhlz = new Zhlz('main', context, bridge, 10);
   await zhlz.waitForInitDone();
+
+  context.timer.run();
+
   await zhlz.close();
 }
 
