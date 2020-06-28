@@ -24,7 +24,7 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm/v7 \
+            -t docker.pkg.github.com/bars66/winteriscomingv2/bridge:latest \
             --output "type=image,push=false" \
-            --file ./sys/docker/bridge.dockerfile ./
-            -t docker.pkg.github.com/bars66/WinterIsComingV2/bridge:latest
+            --file ./sys/docker/bridge.dockerfile ./ \
             --push
