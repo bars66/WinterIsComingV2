@@ -49,13 +49,17 @@ for (const o of Object.values(packagesJsons)) {
 
   execSync('rm -rf ' + o.path);
   fs.mkdirSync(o.path);
+  const oldScripts = o.file.scripts;
   o.file = {
     ...o.file,
     dependencies: {},
     devDependencies: {},
-    scripts: {
-      babel: `echo skipped ${o.file.name}`,
-    },
+    scripts: {},
   };
+
+  for (const script of Object.keys(oldScripts)) {
+    o.file.scripts[script] = `echo skipped ${script} ${o.file.name}`;
+  }
+
   fs.writeFileSync(o.path + '/package.json', JSON.stringify(o.file, null, 2));
 }
