@@ -25,6 +25,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update version
+        run: sed "s/1.0-1/1.0-$GITHUB_RUN_ID/g" sys/wic-bridge/DEBIAN/control
+
       - name: Run Buildx
         run: |
           docker buildx build \

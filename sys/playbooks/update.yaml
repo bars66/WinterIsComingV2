@@ -1,9 +1,6 @@
 #- hosts: localhost
 #  tasks:
-#    - uri:
-#        url: https://api.github.com/repos/bars66/WinterIsComingV2/releases/latest
-#        return_content: true
-#      register: json_reponse
+
 #
 #    - get_url:
 #        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
@@ -11,6 +8,11 @@
 
 - hosts: rs485
   tasks:
+    - uri:
+        url: https://api.github.com/repos/bars66/WinterIsComingV2/releases/latest
+        return_content: true
+      register: json_reponse
+
     - name: Copy package
       copy:
         src: ../../out/wic-bridge.deb
@@ -18,7 +20,7 @@
 
     - name: install package
       apt:
-        deb: ~/wic-bridge.deb
+        deb: '{{ json_reponse.json.assets[0].browser_download_url }}'
 
     - name: Create env file
       become: true
