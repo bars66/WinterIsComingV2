@@ -1,5 +1,5 @@
 [Service]
-WorkingDirectory=/opt/WinterIsComingV2/packages/bridge
+WorkingDirectory=/opt/wic-bridge/packages/bridge
 ExecStart=/usr/bin/node build/index.js
 Restart=always
 StandardOutput=syslog

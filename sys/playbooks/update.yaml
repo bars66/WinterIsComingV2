@@ -1,63 +1,36 @@
-- hosts: localhost
-  tasks:
-    - uri:
-        url: https://api.github.com/repos/bars66/WinterIsComingV2/releases/latest
-        return_content: true
-      register: json_reponse
-
-    - get_url:
-        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
-        dest: ./build.zip
-
-- hosts: all
-  tasks:
-    - name: Create project dir
-      file:
-        path: /opt/WinterIsComingV2/
-        state: directory
-        mode: '0755'
-
-    - name: Unarchive project
-      unarchive:
-        src: ./build.zip
-        dest: /opt/WinterIsComingV2/
-
-    # Костыль, но иначе Pi'шка охереет от количества модулей и сдохнет. Не хочется, что бы yarn работал по часу
-    - name: Удаляем core модуль
-      file:
-        path: /opt/WinterIsComingV2/packages/core/
-        state: absent
-
-#    - name: Install packages
-#      shell: yarn install --prod
-#      args:
-#        chdir: /opt/WinterIsComingV2/
+#- hosts: localhost
+#  tasks:
+#    - uri:
+#        url: https://api.github.com/repos/bars66/WinterIsComingV2/releases/latest
+#        return_content: true
+#      register: json_reponse
 #
-#    - name: Save hash
-#      shell: '[ "$(cat yarn.lock.hash)" != "$(md5sum yarn.lock)" ] && echo success || echo error'
-#      args:
-#        chdir: /opt/WinterIsComingV2/
+#    - get_url:
+#        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
+#        dest: ./build.zip
 
 - hosts: rs485
   tasks:
-#    - name: Create env file
-#      become: true
-#      template:
-#        src: templates/bridge-env.conf
-#        dest: /opt/WinterIsComingV2/packages/bridge/.env
-#
-#    - name: Copy systemd service file
-#      shell: cp /opt/WinterIsComingV2/sys/systemd/winterIsComingBridge.service /etc/systemd/system/winterIsComingBridge.service
-#
-#    - name: restart service
-#      systemd:
-#        state: restarted
-#        daemon_reload: yes
-#        name: winterIsComingBridge.service
+    - name: Copy package
+      copy:
+        src: ../../out/wic-bridge.deb
+        dest: ~/wic-bridge.deb
 
-- hosts: localhost
-  tasks:
-    - name: Remove build
-      file:
-        path: ./build.zip
-        state: absent
+    - name: install package
+      apt:
+        deb: ~/wic-bridge.deb
+
+    - name: Create env file
+      become: true
+      template:
+        src: templates/bridge-env.conf
+        dest: /opt/wic-bridge/packages/bridge/.env
+    #
+    - name: Copy systemd service file
+      shell: cp /opt/wic-bridge/sys/systemd/wic-bridge.service /etc/systemd/system/wic-bridge.service
+
+    - name: restart service
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: wic-bridge.service

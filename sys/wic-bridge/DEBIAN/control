@@ -1,0 +1,11 @@
+Package: wic-bridge
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: armhf
+Depends: nodejs (>= 10.20.0)
+Build-Depends: debhelper (>=9.0.0),
+               dh-systemd (>= 1.5)
+Maintainer: bars66 <wic@bars66.com>
+Description: modbus to rabbit bridge
+
