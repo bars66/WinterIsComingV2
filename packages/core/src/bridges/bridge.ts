@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {BRIDGES_COMMAND_EXCHANGE, BRIDGES_STATUS_EXCHANGE, Logger} from 'winteriscomingv2-common';
 
 import type {Context} from '../context';
@@ -103,7 +103,7 @@ export class Bridge {
         autoDelete: true,
       });
 
-      const correlationId = uuid.v4();
+      const correlationId = uuidv4();
 
       await channel.consume(
         q.queue,
