@@ -4,7 +4,7 @@
 #
 #    - get_url:
 #        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
-#        dest: ./build.zip
+#        dest: ./build.yml.zip
 
 - hosts: rs485
   tasks:
@@ -29,7 +29,7 @@
         dest: /opt/wic-bridge/packages/bridge/.env
     #
     - name: Copy systemd service file
-      shell: cp /opt/wic-bridge/sys/systemd/wic-bridge.service /etc/systemd/system/wic-bridge.service
+      shell: cp /opt/wic-bridge/systemd/wic-bridge.service /etc/systemd/system/wic-bridge.service
 
     - name: restart service
       systemd:

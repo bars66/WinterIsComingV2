@@ -124,13 +124,27 @@ export class Zhlz extends AbstractController {
     }
   }
 
-  async close(): Promise<void> {
+  private async close(): Promise<void> {
     const settings = await this.settings.getSettings();
     await this.setPositions(settings.settings.currentPosition.map((_) => -Infinity));
   }
 
-  async open(): Promise<void> {
+  private async open(): Promise<void> {
     const settings = await this.settings.getSettings();
     await this.setPositions(settings.settings.currentPosition.map((_) => +Infinity));
+  }
+
+  public executeAction(action: string): Promise<void> {
+    switch (action) {
+      case 'open': {
+        return this.open();
+      }
+
+      case 'close': {
+        return this.close();
+      }
+    }
+
+    throw new Error('Unknown action ' + action);
   }
 }

@@ -4,3 +4,5 @@ firmware/
 db
 docs
 firmware
+.env
+out

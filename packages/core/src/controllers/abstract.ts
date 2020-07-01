@@ -35,6 +35,10 @@ export class AbstractController extends EventEmitter {
     }
   }
 
+  public getId(): string {
+    return `${this.name}_${this.id}`;
+  }
+
   private async checkStatus() {
     let status;
     try {

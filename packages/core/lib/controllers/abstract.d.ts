@@ -17,6 +17,7 @@ export declare class AbstractController extends EventEmitter {
   private status;
   protected initWaitTimeout: number;
   constructor(id: string, context: Context, name: string);
+  getId(): string;
   private checkStatus;
   protected setStatus(status: string): void;
   protected changed(): void;

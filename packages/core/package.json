@@ -8,11 +8,14 @@
   "author": "Nikolay Pavlushin <i@bars66.com>",
   "license": "MIT",
   "dependencies": {
+    "uuid": "^8.2.0",
+    "cron": "^1.8.2",
     "mysql2": "^2.1.0",
     "winteriscomingv2-common": "^1.0.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.5.13",
+    "@types/cron": "^1.7.2",
     "@types/mysql2": "types/mysql2",
     "@types/uuid": "^8.0.0",
     "babel-jest": "^26.0.1",

@@ -3,8 +3,12 @@ import {closeSources, createContext} from './context';
 import type {Connection} from 'amqplib';
 import type {Logger} from 'winteriscomingv2-common';
 import type {Context} from './context';
+
 import {Bridge} from './bridges/bridge';
 import {Zhlz} from './controllers/zhlz';
+import {AbstractController} from './controllers/abstract';
+import {ZhzlTimerAction} from './actions/zhzlTimer';
+import {AbstractAction} from './actions/abstract';
 
 let context: Context;
 
@@ -13,12 +17,40 @@ export async function main() {
 
   const bridge = await Bridge.start(context, '1');
 
-  const zhlz = new Zhlz('main', context, bridge, 10);
-  await zhlz.waitForInitDone();
+  const controllers = {
+    zhzlMainRoom: new Zhlz('main', context, bridge, 10),
+  };
 
-  context.timer.run();
+  const actions = {
+    zhzlMainRoomTimer: new ZhzlTimerAction({
+      name: 'zhzlMainRoomTimerAction',
+      controller: controllers.zhzlMainRoom,
+      context,
+    }),
+  };
 
-  await zhlz.close();
+  await init(controllers, actions, context);
+}
+
+type ControllersMap = {[key: string]: AbstractController};
+type ActionsMap = {[key: string]: AbstractAction};
+
+async function init(controllers: ControllersMap, actions: ActionsMap, context: Context) {
+  const controllersAsArray = Object.values(controllers);
+
+  logger.info('Begin controllers init');
+
+  await Promise.all(
+    controllersAsArray.map(async (c: AbstractController) => {
+      await c.waitForInitDone();
+      logger.info({id: c.getId()}, 'Init done');
+    })
+  );
+
+  const actionsAsArray = Object.values(actions);
+  actionsAsArray.forEach((action: AbstractAction) => {
+    action.start();
+  });
 }
 
 main().catch((e) => logger.fatal({error: e}, 'Error on main fn'));

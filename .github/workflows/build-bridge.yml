@@ -1,4 +1,4 @@
-name: bridge docker image build
+name: bridge docker image build.yml
 
 on:
   pull_request:

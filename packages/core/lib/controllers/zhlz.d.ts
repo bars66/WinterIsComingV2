@@ -22,6 +22,7 @@ export declare class Zhlz extends AbstractController {
     currentPositions: Array<number>;
   };
   setPositions(newPositions: Array<number>): Promise<void>;
-  close(): Promise<void>;
-  open(): Promise<void>;
+  private close;
+  private open;
+  executeAction(action: string): Promise<void>;
 }
