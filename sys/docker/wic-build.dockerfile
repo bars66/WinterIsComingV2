@@ -7,4 +7,4 @@ FROM mhart/alpine-node:slim-10
 WORKDIR /app
 COPY --from=builder /app/node_modules/ /app/node_modules/
 COPY --from=builder /app/packages/ /app/packages/
-CMD NODE_ENV=production node packages/$PROJECTNAME/build/index.js
+CMD cd packages/$PROJECTNAME/ && NODE_ENV=production node build/index.js
