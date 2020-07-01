@@ -14,11 +14,11 @@ export class ZhzlTimerAction extends AbstractAction {
   // TODO: Вынести в мускуль
   settings = [
     {
-      time: '00 43 01 * * *',
+      time: '00 50 01 * * *',
       action: 'open',
     },
     {
-      time: '00 44 01 * * *',
+      time: '00 51 01 * * *',
       action: 'close',
     },
   ];
