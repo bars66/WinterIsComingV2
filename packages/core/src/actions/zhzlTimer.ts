@@ -18,7 +18,7 @@ export class ZhzlTimerAction extends AbstractAction {
       action: 'open',
     },
     {
-      time: '00 55 01 * * *',
+      time: '30 55 01 * * *',
       action: 'close',
     },
   ];
