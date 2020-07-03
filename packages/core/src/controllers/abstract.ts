@@ -68,8 +68,14 @@ export class AbstractController extends EventEmitter {
     throw new Error('not implemented');
   }
 
-  public executeAction(action: string, params?: string): Promise<void> {
+  protected _executeAction(action: string, params?: string): Promise<void> {
     throw new Error('not implemented');
+  }
+
+  public async executeAction(action: string, params?: string): Promise<void> {
+    const t0 = Date.now();
+    await this._executeAction(action, params);
+    this.logger.info({duration: Date.now() - t0, action, params}, 'Execute action');
   }
 
   public waitForInitDone(): Promise<void> {

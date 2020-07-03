@@ -129,7 +129,7 @@ export class Zhlz extends AbstractController {
     await this.setPositions(settings.settings.currentPosition.map((_) => newValue));
   }
 
-  public executeAction(action: string, params?: string): Promise<void> {
+  protected _executeAction(action: string, params?: string): Promise<void> {
     switch (action) {
       case 'open': {
         return this.changeAllPosition(+Infinity);

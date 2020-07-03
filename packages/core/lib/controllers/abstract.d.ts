@@ -22,6 +22,7 @@ export declare class AbstractController extends EventEmitter {
   protected setStatus(status: string): void;
   protected changed(): void;
   protected fetchStatus(): Promise<string>;
+  protected _executeAction(action: string, params?: string): Promise<void>;
   executeAction(action: string, params?: string): Promise<void>;
   waitForInitDone(): Promise<void>;
 }

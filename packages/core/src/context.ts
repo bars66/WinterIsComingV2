@@ -2,6 +2,7 @@ import {getEnv, logger, Logger} from 'winteriscomingv2-common';
 import amqplib, {Connection} from 'amqplib';
 import mysql, {Pool} from 'mysql2/promise';
 import {Timer} from './utilities/timer';
+import {ActionsMap, ControllersMap} from './utilities/init';
 
 const RABBIT_HOST = getEnv('RABBIT_HOST');
 const SQL_HOST = getEnv('SQL_HOST');
@@ -17,6 +18,8 @@ export type Context = {
   sources: Sources;
   logger: Logger;
   timer: Timer;
+  controllers?: ControllersMap;
+  actions?: ActionsMap;
 };
 
 export async function createContext(): Promise<Context> {

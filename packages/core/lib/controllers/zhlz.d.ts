@@ -23,5 +23,5 @@ export declare class Zhlz extends AbstractController {
   };
   setPositions(newPositions: Array<number>): Promise<void>;
   private changeAllPosition;
-  executeAction(action: string, params?: string): Promise<void>;
+  protected _executeAction(action: string, params?: string): Promise<void>;
 }

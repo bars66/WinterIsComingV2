@@ -1,16 +1,22 @@
 import {logger} from 'winteriscomingv2-common';
 import {closeSources, createContext} from './context';
+
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+
+import {Bridge} from './bridges/bridge';
+import {Zhlz} from './controllers/zhlz';
+import {TimerAction} from './actions/timer';
+import {init} from './utilities/init';
+import Schema from './graphql/schema';
+
 import type {Connection} from 'amqplib';
 import type {Logger} from 'winteriscomingv2-common';
 import type {Context} from './context';
 
-import {Bridge} from './bridges/bridge';
-import {Zhlz} from './controllers/zhlz';
-import {AbstractController} from './controllers/abstract';
-import {TimerAction} from './actions/timer';
-import {AbstractAction} from './actions/abstract';
-
 let context: Context;
+
+const PORT = 4000;
 
 export async function main() {
   context = await createContext();
@@ -30,30 +36,20 @@ export async function main() {
   };
 
   await init(controllers, actions, context);
-}
 
-type ControllersMap = {[key: string]: AbstractController};
-type ActionsMap = {[key: string]: AbstractAction};
+  const app = express();
 
-async function init(controllers: ControllersMap, actions: ActionsMap, context: Context) {
-  const controllersAsArray = Object.values(controllers);
-
-  logger.info('Begin controllers init');
-
-  await Promise.all(
-    controllersAsArray.map(async (c: AbstractController) => {
-      await c.waitForInitDone();
-      logger.info({id: c.getId()}, 'Init done');
+  app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema: Schema,
+      graphiql: true,
+      context,
     })
   );
 
-  const actionsAsArray = Object.values(actions);
-  await Promise.all(
-    actionsAsArray.map(async (action: AbstractAction) => {
-      await action.init();
-      action.start();
-    })
-  );
+  app.listen(PORT);
+  logger.info({port: PORT}, 'Graphql server start');
 }
 
 main().catch((e) => logger.fatal({error: e}, 'Error on main fn'));
