@@ -6,7 +6,7 @@
   "author": "Nikolay Pavlushin <i@bars66.com>",
   "main": "build/index.js",
   "types": "./lib/index.d.ts",
-  "license": "MIT",
+  "license": "WTFPL",
   "dependencies": {
     "bunyan": "2.0.1",
     "dotenv": "^8.2.0",

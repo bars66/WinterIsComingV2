@@ -5,7 +5,7 @@
   "main": "packages/bridge/src/index.ts",
   "repository": "git@github.com:bars66/WinterIsComingV2.git",
   "author": "Nikolay Pavlushin <i@bars66.com>",
-  "license": "MIT",
+  "license": "WTFPL",
   "workspaces": [
     "packages/*"
   ],

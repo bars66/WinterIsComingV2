@@ -6,7 +6,7 @@
   "types": "./lib/index.d.ts",
   "repository": "git@github.com:bars66/WinterIsComingV2.git",
   "author": "Nikolay Pavlushin <i@bars66.com>",
-  "license": "MIT",
+  "license": "WTFPL",
   "dependencies": {
     "uuid": "^8.2.0",
     "cron": "^1.8.2",

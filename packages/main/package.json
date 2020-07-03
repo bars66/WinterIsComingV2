@@ -6,7 +6,7 @@
   "types": "./lib/index.d.ts",
   "repository": "git@github.com:bars66/WinterIsComingV2.git",
   "author": "Nikolay Pavlushin <i@bars66.com>",
-  "license": "MIT",
+  "license": "WTFPL",
   "dependencies": {},
   "scripts": {
     "babel": "rm -rf build && mkdir -p lib && babel lib --extensions \".js,.jsx,.ts,.tsx\" --out-dir build src && echo 'Full babel compilation finished'",
