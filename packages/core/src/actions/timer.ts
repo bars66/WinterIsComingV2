@@ -3,29 +3,28 @@ import {CronJob} from 'cron';
 
 import type {Zhlz} from '../controllers/zhlz';
 import type {Context} from '../context';
+import type {AbstractController} from '../controllers/abstract';
+
+type Settings = {
+  time: string;
+  action: string;
+};
 
 // TODO: Писать в базу о выполненном экшене. Или хотя бы в кибану. Но лучше в базу. Для истории...
-// TODO: Сделать просто универсальный TimerAction
-// Или Вообще универсальный action
-// Пока кажется нужен только TimerAction
-export class ZhzlTimerAction extends AbstractAction {
-  private controller: Zhlz;
-
-  // TODO: Вынести в мускуль
-  settings = [
-    {
-      time: '00 00 10 * * *',
-      action: 'open',
-    },
-    {
-      time: '00 00 00 * * *',
-      action: 'close',
-    },
-  ];
+export class TimerAction extends AbstractAction<Settings> {
+  private controller: AbstractController;
 
   jobs: Array<CronJob>;
 
-  constructor({controller, context, name}: {controller: Zhlz; context: Context; name: string}) {
+  constructor({
+    controller,
+    context,
+    name,
+  }: {
+    controller: AbstractController;
+    context: Context;
+    name: string;
+  }) {
     super({name, context});
 
     this.controller = controller;
@@ -52,18 +51,18 @@ export class ZhzlTimerAction extends AbstractAction {
   }
 
   private setActions() {
-    this.stop();
+    this._stop();
     this.settings.forEach((setting) => {
       this.setJob(setting);
     });
   }
 
-  public start() {
+  protected _start() {
     this.setActions();
     this.jobs.forEach((job) => job.start());
   }
 
-  public stop() {
+  protected _stop() {
     this.jobs.forEach((job) => job.stop());
     this.jobs = [];
   }

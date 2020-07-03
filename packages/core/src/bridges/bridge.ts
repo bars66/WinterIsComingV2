@@ -93,6 +93,7 @@ export class Bridge {
     }
 
     return new Promise(async (resolve, reject) => {
+      const t0 = Date.now();
       const channel = await this.context.sources.rabbit.createChannel();
       await channel.assertExchange(BRIDGES_COMMAND_EXCHANGE, 'direct', {
         durable: false,
@@ -117,6 +118,7 @@ export class Bridge {
           if (msg.properties.correlationId === correlationId) {
             await channel.close();
             resolve(JSON.parse(msg.content.toString()));
+            this.logger.trace({time: Date.now() - t0}, 'Command execution time');
           }
         },
         {noAck: true}

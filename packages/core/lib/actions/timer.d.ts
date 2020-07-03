@@ -2,12 +2,12 @@ import {AbstractAction} from './abstract';
 import {CronJob} from 'cron';
 import type {Context} from '../context';
 import type {AbstractController} from '../controllers/abstract';
-export declare class TimerAction extends AbstractAction {
+declare type Settings = {
+  time: string;
+  action: string;
+};
+export declare class TimerAction extends AbstractAction<Settings> {
   private controller;
-  settings: {
-    time: string;
-    action: string;
-  }[];
   jobs: Array<CronJob>;
   constructor({
     controller,
@@ -20,6 +20,7 @@ export declare class TimerAction extends AbstractAction {
   });
   private setJob;
   private setActions;
-  start(): void;
-  stop(): void;
+  protected _start(): void;
+  protected _stop(): void;
 }
+export {};

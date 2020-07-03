@@ -68,7 +68,11 @@ export class AbstractController extends EventEmitter {
     throw new Error('not implemented');
   }
 
-  waitForInitDone(): Promise<void> {
+  public executeAction(action: string, params?: string): Promise<void> {
+    throw new Error('not implemented');
+  }
+
+  public waitForInitDone(): Promise<void> {
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject(new Error('Init timeout'));

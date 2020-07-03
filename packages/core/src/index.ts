@@ -7,7 +7,7 @@ import type {Context} from './context';
 import {Bridge} from './bridges/bridge';
 import {Zhlz} from './controllers/zhlz';
 import {AbstractController} from './controllers/abstract';
-import {ZhzlTimerAction} from './actions/zhzlTimer';
+import {TimerAction} from './actions/timer';
 import {AbstractAction} from './actions/abstract';
 
 let context: Context;
@@ -22,7 +22,7 @@ export async function main() {
   };
 
   const actions = {
-    zhzlMainRoomTimer: new ZhzlTimerAction({
+    zhzlMainRoomTimer: new TimerAction({
       name: 'zhzlMainRoomTimerAction',
       controller: controllers.zhzlMainRoom,
       context,
@@ -48,9 +48,12 @@ async function init(controllers: ControllersMap, actions: ActionsMap, context: C
   );
 
   const actionsAsArray = Object.values(actions);
-  actionsAsArray.forEach((action: AbstractAction) => {
-    action.start();
-  });
+  await Promise.all(
+    actionsAsArray.map(async (action: AbstractAction) => {
+      await action.init();
+      action.start();
+    })
+  );
 }
 
 main().catch((e) => logger.fatal({error: e}, 'Error on main fn'));
