@@ -77,6 +77,8 @@ typings/
 .pioenvs
 .piolibdeps
 
+.pio
+
 
 # devices envs
 env.h

@@ -2,7 +2,9 @@
   "presets": ["@babel/preset-react", "@babel/typescript"],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-modules-commonjs",
+    ["@babel/plugin-transform-modules-commonjs", {
+      "lazy": true
+    }],
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-proposal-optional-chaining"
   ],

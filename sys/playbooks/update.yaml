@@ -1,22 +1,9 @@
-#- hosts: localhost
-#  tasks:
-
-#
-#    - get_url:
-#        url: '{{ json_reponse.json.assets[0].browser_download_url }}'
-#        dest: ./build.yml.zip
-
 - hosts: rs485
   tasks:
     - uri:
         url: https://api.github.com/repos/bars66/WinterIsComingV2/releases/latest
         return_content: true
       register: json_reponse
-
-    - name: Copy package
-      copy:
-        src: ../../out/wic-bridge.deb
-        dest: ~/wic-bridge.deb
 
     - name: install package
       apt:
@@ -36,3 +23,26 @@
         state: restarted
         daemon_reload: yes
         name: wic-bridge.service
+
+- hosts: core
+  tasks:
+    - name: Ensures /opt/wic/ dir exists
+      file: path=/opt/wic/ state=directory
+
+    - name: Create env file
+      become: true
+      template:
+        src: templates/core-env.conf
+        dest: /opt/wic/.core-env
+
+    - name: Re-create container
+      docker_container:
+        name: wic-core
+        image: docker.pkg.github.com/bars66/winteriscomingv2/wic:latest
+        state: started
+        pull: yes
+        recreate: yes
+        ports:
+          - '4000:4000'
+        restart_policy: always
+        env_file: /opt/wic/.core-env

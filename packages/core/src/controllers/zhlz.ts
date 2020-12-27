@@ -3,6 +3,7 @@ import type {Context} from '../context';
 import type {Bridge} from '../bridges/bridge';
 import {SqlSettings} from '../utilities/sqlSettings';
 import {retry} from '../utilities/retry';
+import type {Action} from './abstract';
 
 export class Zhlz extends AbstractController {
   static STATUS_DEVICE_ERROR = 'device_error';
@@ -13,9 +14,21 @@ export class Zhlz extends AbstractController {
     inverted: [true, false, false],
   };
 
+  private motorsStatus: Array<number> = [];
   private bridge: Bridge;
   private clientId: number;
   private settings: SqlSettings<typeof Zhlz.DEFAULT_SETTINGS>;
+
+  protected actions: Array<Action> = [
+    {
+      type: 'button',
+      action: 'close',
+    },
+    {
+      type: 'button',
+      action: 'open',
+    },
+  ];
 
   constructor(id: string, context: Context, bridge: Bridge, clientId: number) {
     super(id, context, 'Zhlz controller');
@@ -50,13 +63,17 @@ export class Zhlz extends AbstractController {
     }
 
     if (!!answer.answer) {
+      if (answer.answer.cmd === 'readHoldingRegisters') {
+        this.motorsStatus = answer.answer.data;
+      }
+
       return Zhlz.STATUS_AVAILABLE;
     }
 
     return Zhlz.STATUS_UNAVAILABLE;
   }
 
-  getCmdValue(
+  private getCmdValue(
     settings: typeof Zhlz.DEFAULT_SETTINGS,
     newPositions: Array<number>
   ): {cmd: Array<number>; currentPositions: Array<number>} {
@@ -129,6 +146,17 @@ export class Zhlz extends AbstractController {
     await this.setPositions(settings.settings.currentPosition.map((_) => newValue));
   }
 
+  private async moveAllByPercent(value: number): Promise<void> {
+    const settings = await this.settings.getSettings();
+
+    const newValues = settings.settings.maxPosition.map((_, i) => {
+      return Math.round(
+        ((settings.settings.maxPosition[i] - settings.settings.minPosition[i]) / 100) * value
+      );
+    });
+    await this.setPositions(newValues);
+  }
+
   protected _executeAction(action: string, params?: string): Promise<void> {
     switch (action) {
       case 'open': {
@@ -138,8 +166,33 @@ export class Zhlz extends AbstractController {
       case 'close': {
         return this.changeAllPosition(-Infinity);
       }
+
+      case 'moveAll': {
+        return this.moveAllByPercent(Math.max(Math.min(+(params || 0), 100), 0));
+      }
     }
 
     throw new Error('Unknown action ' + action);
+  }
+
+  public async getPosition(): Promise<Array<number>> {
+    return (await this.settings.getSettings()).settings.currentPosition;
+  }
+
+  public getMotorsStatus(): Array<string> {
+    return this.motorsStatus.map((value) => {
+      switch (value) {
+        case 0:
+          return 'idle';
+        case 1:
+          return 'prepared';
+        case 2:
+          return 'run';
+        case 3:
+          return 'wait_for_finish';
+      }
+
+      return 'unknown';
+    });
   }
 }

@@ -6,6 +6,7 @@ import graphqlHTTP from 'express-graphql';
 
 import {Bridge} from './bridges/bridge';
 import {Zhlz} from './controllers/zhlz';
+import {Flower} from './controllers/flower';
 import {TimerAction} from './actions/timer';
 import {init} from './utilities/init';
 import Schema from './graphql/schema';
@@ -24,15 +25,16 @@ export async function main() {
   const bridge = await Bridge.start(context, '1');
 
   const controllers = {
-    zhzlMainRoom: new Zhlz('main', context, bridge, 10),
+    flower: new Flower('kitchen-1', context, bridge, 11),
+    // zhzlMainRoom: new Zhlz('main', context, bridge, 10),
   };
 
   const actions = {
-    zhzlMainRoomTimer: new TimerAction({
-      name: 'zhzlMainRoomTimerAction',
-      controller: controllers.zhzlMainRoom,
-      context,
-    }),
+    // zhzlMainRoomTimer: new TimerAction({
+    //   name: 'zhzlMainRoomTimerAction',
+    //   controller: controllers.flower,
+    //   context,
+    // }),
   };
 
   await init(controllers, actions, context);

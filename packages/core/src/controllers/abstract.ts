@@ -3,6 +3,11 @@ import type {Context} from '../context';
 import type {Logger} from 'winteriscomingv2-common';
 import {logger} from 'winteriscomingv2-common';
 
+export type Action = {
+  type: 'button';
+  action: string;
+};
+
 export class AbstractController extends EventEmitter {
   static CHANGE_STATUS_EVENT = 'changeStatus';
   static CHANGE_EVENT = 'changeStatus';
@@ -18,6 +23,7 @@ export class AbstractController extends EventEmitter {
   private statusIntervalId?: NodeJS.Timeout;
   private status: string;
   protected initWaitTimeout: number = 5000;
+  protected actions: Array<Action> = [];
 
   constructor(id: string, context: Context, name: string) {
     super();
@@ -94,5 +100,9 @@ export class AbstractController extends EventEmitter {
 
       this.on(AbstractController.CHANGE_STATUS_EVENT, changeListenerFn);
     });
+  }
+
+  public getActions(): Array<Action> {
+    return this.actions;
   }
 }

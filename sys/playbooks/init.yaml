@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: rs485
   tasks:
     - name: add nodejs repo
       shell: curl -sL https://deb.nodesource.com/setup_10.x
@@ -14,3 +14,10 @@
 
     - name: Apply settings
       reboot:
+
+- hosts: core
+  tasks:
+    - name: Install python docker
+      apt:
+        name: python-setuptools, python-pip, python-docker
+        update_cache: yes
