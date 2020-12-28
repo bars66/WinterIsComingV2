@@ -65,6 +65,7 @@ export class Flower extends AbstractController {
 
     if (!!answer.answer) {
       if (answer.answer.cmd === 'readHoldingRegisters') {
+        this.logger.info({statuses: {...this.statuses.slice(0, 7)}}, 'Flower statuses');
         this.statuses = answer.answer.data;
       }
 
